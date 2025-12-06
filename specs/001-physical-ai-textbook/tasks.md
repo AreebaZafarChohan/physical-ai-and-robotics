@@ -17,22 +17,22 @@
 
 ### Implementation for User Story 1 & 2
 
-- [ ] T003 [P] [US1] Create chapter file `docs/01-module-ros/01-intro-to-ros2.md` with full content.
-- [ ] T004 [P] [US1] Create chapter file `docs/01-module-ros/02-nodes-topics-services.md` with full content.
-- [ ] T005 [P] [US1] Create chapter file `docs/01-module-ros/03-rclpy-integration.md` with full content.
-- [ ] T006 [P] [US1] Create chapter file `docs/01-module-ros/04-urdf-for-humanoids.md` with full content.
-- [ ] T007 [P] [US1] Create chapter file `docs/02-module-digital-twin/01-gazebo-setup.md` with full content.
-- [ ] T008 [P] [US1] Create chapter file `docs/02-module-digital-twin/02-physics-simulation.md` with full content.
-- [ ] T009 [P] [US1] Create chapter file `docs/02-module-digital-twin/03-sensor-simulation.md` with full content.
-- [ ] T010 [P] [US1] Create chapter file `docs/02-module-digital-twin/04-unity-rendering.md` with full content.
-- [ ] T011 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/01-isaac-sim-intro.md` with full content.
-- [ ] T012 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/02-isaac-ros-vslam.md` with full content.
-- [ ] T013 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/03-nav2-path-planning.md` with full content.
-- [ ] T014 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/04-reinforcement-learning.md` with full content.
-- [ ] T015 [P] [US1] Create chapter file `docs/04-module-vla/01-voice-to-action.md` with full content.
-- [ ] T016 [P] [US1] Create chapter file `docs/04-module-vla/02-cognitive-planning-llms.md` with full content.
-- [ ] T017 [P] [US1] Create chapter file `docs/04-module-vla/03-gpt-integration.md` with full content.
-- [ ] T018 [P] [US1] Create chapter file `docs/05-capstone-project/01-autonomous-humanoid.md` with full content.
+- [x] T003 [P] [US1] Create chapter file `docs/01-module-ros/01-intro-to-ros2.md` with full content.
+- [x] T004 [P] [US1] Create chapter file `docs/01-module-ros/02-nodes-topics-services.md` with full content.
+- [x] T005 [P] [US1] Create chapter file `docs/01-module-ros/03-rclpy-integration.md` with full content.
+- [x] T006 [P] [US1] Create chapter file `docs/01-module-ros/04-urdf-for-humanoids.md` with full content.
+- [x] T007 [P] [US1] Create chapter file `docs/02-module-digital-twin/01-gazebo-setup.md` with full content.
+- [x] T008 [P] [US1] Create chapter file `docs/02-module-digital-twin/02-physics-simulation.md` with full content.
+- [x] T009 [P] [US1] Create chapter file `docs/02-module-digital-twin/03-sensor-simulation.md` with full content.
+- [x] T010 [P] [US1] Create chapter file `docs/02-module-digital-twin/04-unity-rendering.md` with full content.
+- [x] T011 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/01-isaac-sim-intro.md` with full content.
+- [x] T012 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/02-isaac-ros-vslam.md` with full content.
+- [x] T013 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/03-nav2-path-planning.md` with full content.
+- [x] T014 [P] [US1] Create chapter file `docs/03-module-nvidia-isaac/04-reinforcement-learning.md` with full content.
+- [x] T015 [P] [US1] Create chapter file `docs/04-module-vla/01-voice-to-action.md` with full content.
+- [x] T016 [P] [US1] Create chapter file `docs/04-module-vla/02-cognitive-planning-llms.md` with full content.
+- [x] T017 [P] [US1] Create chapter file `docs/04-module-vla/03-gpt-integration.md` with full content.
+- [x] T018 [P] [US1] Create chapter file `docs/05-capstone-project/01-autonomous-humanoid.md` with full content.
 - [x] T019 [P] [US2] Create `quizzes/` and `try-with-ai/` subdirectories in `docs/01-module-ros/`.
 - [x] T020 [P] [US2] Create `quizzes/` and `try-with-ai/` subdirectories in `docs/02-module-digital-twin/`.
 - [x] T021 [P] [US2] Create `quizzes/` and `try-with-ai/` subdirectories in `docs/03-module-nvidia-isaac/`.
