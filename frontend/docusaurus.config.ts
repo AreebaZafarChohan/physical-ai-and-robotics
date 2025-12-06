@@ -32,7 +32,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'ur', 'ar'], // Added 'ur' and 'ar'
   },
 
   presets: [
@@ -91,6 +91,10 @@ const config: Config = {
         {
           href: 'https://github.com/AreebaZafarChohan/physical-ai-and-robotics',
           label: 'GitHub',
+          position: 'right',
+        },
+        { // New Locale dropdown
+          type: 'localeDropdown',
           position: 'right',
         },
       ],

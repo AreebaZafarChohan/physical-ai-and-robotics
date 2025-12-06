@@ -1,0 +1,154 @@
+/* Basic styles for the chatbot widget */
+
+.chatbotContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chatToggleButton {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatWindow {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 350px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.chatHeader {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  padding: 10px 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatHeader h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.chatMessages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.botMessage {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  align-self: flex-start;
+}
+
+.chatInput {
+  display: flex;
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+}
+
+.chatInput input {
+  flex-grow: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-right: 10px;
+}
+
+.chatInput button {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+.userMessage {
+  background-color: #dcf8c6; /* Light green for user messages */
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  align-self: flex-end;
+  margin-left: auto; /* Push to the right */
+}
+.typingIndicator {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  align-self: flex-start;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+.botMessageContainer, .userMessageContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.citations {
+  font-size: 0.8em;
+  color: #555;
+  margin-top: 5px;
+  padding-left: 10px;
+  border-left: 2px solid #eee;
+}
+
+.citationLink {
+  display: block;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  margin-top: 2px;
+}
+
+.citationLink:hover {
+  text-decoration: underline;
+}
+.modeToggle {
+  display: flex;
+  gap: 5px;
+}
+
+.modeButton {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.modeButton.activeMode {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}

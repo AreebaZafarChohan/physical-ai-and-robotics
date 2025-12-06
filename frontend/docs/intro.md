@@ -1,28 +1,36 @@
 ---
 sidebar_position: 1
-title: Introduction to Physical AI & Humanoid Robotics
 ---
 
-# Welcome to Physical AI & Humanoid Robotics
+# Introduction
 
-This textbook is your comprehensive guide to the fascinating and rapidly evolving fields of Physical AI and Humanoid Robotics. As artificial intelligence moves beyond the digital realm and into the physical world, understanding how intelligent systems interact with their environment becomes paramount. This book is designed to provide students, researchers, and enthusiasts with the foundational knowledge and practical insights needed to navigate this exciting landscape.
+Welcome to the Physical AI & Humanoid Robotics platform. This documentation will guide you through the core concepts, implementation details, and applications of physical AI in humanoid robotics.
 
 ## What is Physical AI?
 
-Physical AI refers to the integration of artificial intelligence into physical systems, enabling them to perceive, reason, act, and learn within real-world environments. This goes beyond traditional robotics, which often relies on pre-programmed movements, by incorporating advanced AI techniques such as machine learning, computer vision, and natural language processing to create more adaptive, autonomous, and intelligent robots.
+Physical AI refers to the field of artificial intelligence that focuses on embodied cognition - intelligence that is shaped by physical form and environmental interaction. Unlike traditional AI that operates in digital spaces, physical AI systems interact with the real world through sensors, actuators, and complex control systems.
 
-## Why Humanoid Robotics?
+## The AI Spectrum
 
-Humanoid robots, designed to mimic the human form, represent a unique challenge and opportunity in Physical AI. Their human-like structure allows them to interact with environments built for humans, perform complex tasks, and potentially serve in various roles, from healthcare and assistance to exploration and dangerous industrial applications. This textbook delves into the complexities of designing, controlling, and programming these sophisticated machines.
+We categorize AI systems based on their level of autonomy:
 
-## What You Will Learn
+- **AI Assisted**: Human-guided systems where AI enhances human capabilities
+- **AI Driven**: Semi-autonomous systems that operate with minimal human intervention
+- **AI Native**: Fully autonomous systems that function independently
 
-Throughout this textbook, you will explore key topics including:
+## Key Concepts
 
--   **The Robotic Nervous System (ROS 2)**: Understanding the Robot Operating System 2 as the foundational middleware for building complex robotic applications.
--   **The Digital Twin (Gazebo & Unity)**: Learning to simulate robotic environments and interactions using powerful simulation platforms for design, testing, and training.
--   **The AI-Robot Brain (NVIDIA Isaac)**: Discovering how NVIDIA's platform accelerates AI development for robotics, covering perception, navigation, and manipulation.
--   **Vision-Language-Action (VLA)**: Exploring the cutting-edge intersection of computer vision, natural language understanding, and robotic action, enabling robots to comprehend and execute human commands.
--   **Capstone Project**: Applying all learned concepts to a comprehensive humanoid robotics project, from design to autonomous control.
+This platform covers essential topics in humanoid robotics:
 
-This journey will equip you with the theoretical knowledge and practical skills to contribute to the next generation of intelligent physical systems. Let's begin!
+1. Embodied Cognition
+2. Locomotion Systems
+3. Perception & Sensing
+4. Human-Robot Interaction
+5. Learning & Adaptation
+6. Safety Protocols
+7. Ethical Frameworks
+8. Open Research
+
+## Getting Started
+
+Start with our curriculum covering the fundamentals of physical AI and progressively advancing to complex robotic systems and applications.

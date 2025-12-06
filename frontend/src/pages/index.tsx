@@ -1,44 +1,32 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import Heading from '@theme/Heading';
+import React from 'react';
+import Head from '@docusaurus/Head';
+import Navbar from '../components/core/Navbar';
+import Footer from '../components/core/Footer';
+import HeroSection from '../components/sections/HeroSection';
+import AISpectrumSection from '../components/sections/AISpectrumSection';
+import FeatureGridSection from '../components/sections/FeatureGridSection';
+import CTAFooterSection from '../components/sections/CTAFooterSection';
 
-import styles from './index.module.css';
-
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+const Home: React.FC = () => {
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+    <div className="min-h-screen bg-dark-bg text-light-text">
+      <Head>
+        <title>Physical AI & Humanoid Robotics Platform</title>
+        <meta name="description" content="Explore the future of artificial intelligence embodied in physical form. Learn how humanoid robots are reshaping our world through cutting-edge research and applications." />
+      </Head>
 
-export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
+      <Navbar />
+      
       <main>
-        <HomepageFeatures />
+        <HeroSection />
+        <AISpectrumSection />
+        <FeatureGridSection />
+        <CTAFooterSection />
       </main>
-    </Layout>
+      
+      <Footer />
+    </div>
   );
-}
+};
+
+export default Home;
