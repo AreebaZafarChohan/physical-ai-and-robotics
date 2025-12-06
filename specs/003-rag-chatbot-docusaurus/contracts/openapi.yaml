@@ -1,0 +1,264 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+  description: API for the RAG Chatbot integrated with Docusaurus Book Website.
+
+servers:
+  - url: /api/v1
+    description: Production server
+
+paths:
+  /embed:
+    post:
+      summary: Ingest and embed new or updated book/course content.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+                - chapter
+                - source_link
+                - paragraph_id
+              properties:
+                text:
+                  type: string
+                  description: The text content to embed.
+                chapter:
+                  type: string
+                  description: The chapter title or identifier.
+                source_link:
+                  type: string
+                  description: The URL or path to the original markdown file/section.
+                paragraph_id:
+                  type: string
+                  description: A unique identifier for the text chunk within its source document.
+      responses:
+        '200':
+          description: Successful embedding.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  vector_id:
+                    type: string
+                    description: Unique ID of the created vector in Qdrant.
+        '401':
+          description: Unauthorized - Admin/ingestion specific JWT required.
+
+  /query:
+    post:
+      summary: Perform semantic search on the vector database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+                - mode
+              properties:
+                query:
+                  type: string
+                  description: The user's question.
+                mode:
+                  type: string
+                  enum: [book, course]
+                  description: Search mode (book content only or broader course materials).
+                user_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Optional user ID for personalization or logging.
+      responses:
+        '200':
+          description: Successful query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  relevant_chunks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+                        metadata:
+                          type: object # Placeholder, actual metadata structure might be more detailed
+                  citation_links:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          description: Unauthorized - Optional JWT.
+
+  /ask:
+    post:
+      summary: Generate a comprehensive answer based on retrieved context.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+                - context
+                - chat_history
+                - language
+                - mode
+              properties:
+                query:
+                  type: string
+                  description: The user's question.
+                context:
+                  type: array
+                  items:
+                    type: string
+                  description: List of retrieved text chunks from the vector DB.
+                chat_history:
+                  type: array
+                  items:
+                    type: object # Placeholder for ChatKit message structure
+                  description: Previous messages in the conversation for context.
+                user_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Optional user ID.
+                language:
+                  type: string
+                  enum: [en, ur, ar]
+                  description: Desired response language.
+                mode:
+                  type: string
+                  enum: [book, course]
+                  description: Chatbot operational mode.
+      responses:
+        '200':
+          description: Streaming text response.
+          content:
+            application/json: # This might be text/event-stream for actual streaming
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: The generated answer.
+                  citation_links:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          description: Unauthorized - Optional JWT.
+
+  /selected_text:
+    post:
+      summary: Handle queries based on user-highlighted text.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+                - selected_text
+                - language
+              properties:
+                query:
+                  type: string
+                  description: The user's question.
+                selected_text:
+                  type: string
+                  description: The text highlighted by the user on the page.
+                user_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Optional user ID.
+                language:
+                  type: string
+                  enum: [en, ur, ar]
+                  description: Desired response language.
+      responses:
+        '200':
+          description: Streaming text response generated exclusively from selected text.
+          content:
+            application/json: # This might be text/event-stream for actual streaming
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: The generated answer from selected text.
+        '401':
+          description: Unauthorized - Optional JWT.
+
+  /log:
+    post:
+      summary: Log chat interactions and feedback.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - session_id
+                - message_type
+                - content
+                - mode
+              properties:
+                session_id:
+                  type: string
+                  format: uuid
+                  description: ID of the chat session.
+                user_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Optional user ID.
+                message_type:
+                  type: string
+                  enum: [user, bot]
+                  description: Type of message (user input or bot response).
+                content:
+                  type: string
+                  description: The content of the message or feedback.
+                mode:
+                  type: string
+                  enum: [book, course, selected_text]
+                  description: The mode of interaction for the log entry.
+                feedback:
+                  type: string
+                  enum: [positive, negative, comment]
+                  nullable: true
+                  description: Optional feedback type if applicable.
+      responses:
+        '200':
+          description: Log entry successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: logged
+                  entry_id:
+                    type: string
+                    format: uuid
+                    description: Unique ID of the log entry.
+        '401':
+          description: Unauthorized - Optional JWT.
