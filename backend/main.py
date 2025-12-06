@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI  # type: ignore
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from backend.app.api import embed, query, ask, selected_text, log
 from backend.app.utils.error_handlers import add_exception_handlers # Added import
 
@@ -29,3 +29,4 @@ app.include_router(log.router, prefix="/api/v1", tags=["Log"])
 @app.get("/")
 async def root():
     return {"message": "FastAPI Backend is running!"}
+ # type: ignore
