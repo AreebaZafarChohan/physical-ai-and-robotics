@@ -27,8 +27,11 @@
     "@docusaurus/types": "^3.9.2",
     "@headlessui/react": "^2.2.9",
     "@headlessui/tailwindcss": "^0.2.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
     "axe-core": "^4.11.0",
-    "framer-motion": "^12.23.25"
+    "framer-motion": "^12.23.25",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",
