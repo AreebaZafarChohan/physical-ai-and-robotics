@@ -1,3 +1,5 @@
 !.gemini/
 GEMINI.md
 firebase-debug.log
+
+*.settings.json
