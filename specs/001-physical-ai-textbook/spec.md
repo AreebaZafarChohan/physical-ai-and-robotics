@@ -29,16 +29,16 @@ As a student, I want to access and read the textbook content for each chapter, s
 
 ### User Story 2 - Interactive Learning (Priority: P2)
 
-As a student, I want to interact with placeholder elements like Q&A chatbots and exercises, so that I can reinforce my learning and test my knowledge.
+As a student, I want to interact with quizzes and AI prompts related to each chapter, so that I can reinforce my learning, test my knowledge, and get AI assistance.
 
-**Why this priority**: Interactive elements enhance the learning experience and improve knowledge retention.
+**Why this priority**: Interactive elements enhance the learning experience, improve knowledge retention, and provide immediate support.
 
-**Independent Test**: A user can identify and see the placeholders for interactive elements within a chapter.
+**Independent Test**: A user can access quizzes and AI prompts for any given chapter.
 
 **Acceptance Scenarios**:
 
-1.  **Given** a student is viewing "Chapter 2.2: Sensor simulation", **When** they look for help, **Then** they find a non-functional UI button labeled "Ask the Chatbot".
-2.  **Given** a student completes a chapter, **When** they want to practice, **Then** they find a placeholder section for `[Exercises & Capstone Checkpoints]`.
+1.  **Given** a student is viewing "Module 1: The Robotic Nervous System (ROS 2)", **When** they look for a quiz, **Then** they can find a dedicated "Quiz" section with interactive questions.
+2.  **Given** a student is struggling with a concept, **When** they want AI assistance, **Then** they can find a "Try with AI" section that provides prompts for an AI model to explain or elaborate on the content.
 
 ---
 
@@ -74,18 +74,22 @@ As a student, I want to see options for content personalization and translation,
     -   Module 3: The AI-Robot Brain (NVIDIA Isaac)
     -   Module 4: Vision-Language-Action (VLA)
     -   Capstone Project
--   **FR-003**: Each chapter MUST contain placeholders for `[RAG Chatbot]`, `[Personalization]`, `[Urdu Translation]`, `[Exercises & Capstone Checkpoints]`, and `[Hardware Requirements & Lab Notes]`.
--   **FR-004**: The output MUST use Markdown headings (`#`, `##`, `###`) and bullet points for structure.
--   **FR-005**: The content presentation MUST be suitable for intermediate-level students in AI and robotics.
--   **FR-006**: The integration placeholders (`[RAG Chatbot]`, `[Personalization]`, `[Urdu Translation]`) MUST be rendered as non-functional UI buttons in the initial version.
--   **FR-007**: Clicking a non-functional UI button MUST display an informative "coming soon" message.
+-   **FR-003**: Each module directory MUST contain a `quizzes/` subdirectory with quiz files for its chapters.
+-   **FR-004**: Each module directory MUST contain a `try-with-ai/` subdirectory with AI prompt files for its chapters.
+-   **FR-005**: Each chapter file MUST contain comprehensive educational content relevant to its topic.
+-   **FR-006**: The `intro.md` file MUST contain a detailed introduction to "Physical AI & Humanoid Robotics".
+-   **FR-007**: The output MUST use Markdown headings (`#`, `##`, `###`) and bullet points for structure.
+-   **FR-008**: The content presentation MUST be suitable for intermediate-level students in AI and robotics.
 
 ### Key Entities *(include if feature involves data)*
 
 -   **Book**: Represents the entire textbook, containing metadata and a collection of modules.
--   **Module**: A top-level section of the book, containing a collection of chapters.
+-   **Module**: A top-level section of the book, containing a collection of chapters, quizzes, and AI prompts.
 -   **Chapter**: An individual learning unit within a module, containing sections and various content blocks.
+-   **Quiz**: A set of questions related to a chapter or module.
+-   **AI Prompt**: Curated prompts designed to interact with an AI model for deeper understanding.
 -   **Content Block**: A piece of content within a chapter, such as a paragraph of text, a code snippet, a diagram, or an exercise placeholder.
+
 
 ## Success Criteria *(mandatory)*
 
