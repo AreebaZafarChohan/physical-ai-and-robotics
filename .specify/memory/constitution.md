@@ -1,8 +1,13 @@
 <!--
 Sync Impact Report:
-- Version change: 0.0.0 → 1.0.0
-- List of modified principles: Initial creation.
-- Added sections: All sections created from scratch.
+- Version change: 1.0.0 → 1.1.0
+- List of modified principles: None.
+- Added sections:
+  - Implementation Stack
+    - Programming / Markup Languages
+    - Frameworks / Platforms
+    - Chatbot Integration Stack (Future)
+    - AI-native Features
 - Removed sections: None.
 - Templates requiring updates:
   - ✅ .specify/templates/plan-template.md (No changes needed)
@@ -14,7 +19,7 @@ Sync Impact Report:
 
 # Constitution of Physical AI & Humanoid Robotics
 
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Ratification Date**: 2025-12-06
 - **Last Amended Date**: 2025-12-06
 - **Author**: [Your Name]
@@ -33,6 +38,38 @@ Amendments require a pull request and approval from the project lead. Versioning
 
 ### Compliance
 All contributions must be reviewed against this constitution for consistency and quality.
+
+---
+
+## Implementation Stack
+
+This section defines the core technologies used to build, generate, and deploy the textbook.
+
+### Programming / Markup Languages
+- **Markdown**: The primary language for all book content.
+- **Python**: Used for all ROS 2 nodes, NVIDIA Isaac scripts, and AI agent code.
+- **YAML**: Used for ROS 2 launch files and configuration.
+- **C# (Optional)**: For advanced scripting within the Unity engine, if used.
+
+### Frameworks / Platforms
+- **Spec-Kit Plus**: For structuring AI-native content and managing the development workflow.
+- **Docusaurus**: The static site generator for hosting the book content.
+- **Claude Code**: The primary AI agent for content generation and task execution.
+- **GitHub Pages / Vercel**: The deployment platforms for the final web-based textbook.
+
+### Chatbot Integration Stack (Future)
+This stack is planned for a future version of the textbook to enable full interactivity.
+- **Backend**: RAG Chatbot with a FastAPI backend.
+- **Database**: Neon Serverless Postgres for storing user data and session information.
+- **Vector Store**: Qdrant Cloud for semantic search on textbook content.
+- **Agent SDK**: OpenAI Agents / ChatKit SDK for building agent skills.
+- **Features**: The integrated chatbot will answer user queries, personalize content, and manage the language toggle (English/Urdu).
+
+### AI-native Features
+- **Personalization Button**: A placeholder at the start of each chapter for tailoring content.
+- **Urdu Translation Button**: A placeholder for toggling language.
+- **Code Placeholders**: For ROS 2, Isaac Sim, and AI agent code snippets.
+- **Diagram Placeholders**: For URDF models, Digital Twin environments, and sensor data visualizations.
 
 ---
 
