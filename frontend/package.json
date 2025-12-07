@@ -26,13 +26,16 @@
   },
   "homepage": "https://github.com/AreebaZafarChohan/physical-ai-and-robotics#readme",
   "dependencies": {
+    "@babel/core": "^7.28.5",
     "@docusaurus/core": "^3.9.2",
+    "@docusaurus/cssnano-preset": "^3.9.2",
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
     "@headlessui/react": "^2.2.9",
     "@headlessui/tailwindcss": "^0.2.2",
     "axe-core": "^4.11.0",
+    "babel-loader": "^9.2.1",
     "framer-motion": "^12.23.25",
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2"
