@@ -1,5 +1,5 @@
 ---
-title: Capstone Project: Autonomous Humanoid Robot
+title: "Capstone Project: Autonomous Humanoid Robot"
 ---
 
 # Capstone Project: Autonomous Humanoid Robot

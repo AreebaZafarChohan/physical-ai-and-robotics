@@ -1,5 +1,5 @@
 ---
-title: NVIDIA Isaac ROS: Visual SLAM (Vslam)
+title: "NVIDIA Isaac ROS: Visual SLAM (Vslam)"
 ---
 
 # NVIDIA Isaac ROS: Visual SLAM (Vslam)

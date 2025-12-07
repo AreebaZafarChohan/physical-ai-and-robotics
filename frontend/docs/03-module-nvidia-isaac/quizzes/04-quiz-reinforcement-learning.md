@@ -1,5 +1,5 @@
 ---
-title: Quiz: Reinforcement Learning with NVIDIA Isaac Sim
+title: 'Quiz: "Reinforcement Learning with NVIDIA Isaac Sim"'
 ---
 
 # Quiz: Reinforcement Learning with NVIDIA Isaac Sim

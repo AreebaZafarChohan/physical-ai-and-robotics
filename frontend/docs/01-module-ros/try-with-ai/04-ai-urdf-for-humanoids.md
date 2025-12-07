@@ -1,5 +1,5 @@
 ---
-title: Try with AI: URDF for Humanoids
+title: 'Try with AI: "URDF for Humanoids"'
 ---
 
 # Try with AI: URDF for Humanoids in ROS 2
@@ -38,4 +38,3 @@ Explain the purpose of each tag and attribute you include."
 
 **AI Prompt**:
 "Compare and contrast URDF (Unified Robot Description Format) and SDF (Simulation Description Format). Explain their origins, primary purposes, and key differences in capabilities. Provide specific scenarios in ROS 2 robotics where URDF would be the preferred choice, and other scenarios where SDF would be more advantageous (e.g., for simulation in Gazebo). Discuss how these two formats often complement each other in a complete robotics project."
-```

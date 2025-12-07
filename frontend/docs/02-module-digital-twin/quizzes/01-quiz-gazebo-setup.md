@@ -1,5 +1,5 @@
 ---
-title: Quiz: Gazebo Setup for Digital Twin
+title: 'Quiz: "Gazebo Setup for Digital Twin"'
 ---
 
 # Quiz: Gazebo Setup for Digital Twin

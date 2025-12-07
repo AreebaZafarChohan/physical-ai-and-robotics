@@ -1,5 +1,5 @@
 ---
-title: Quiz: GPT Integration for Robot Control
+title: 'Quiz: "GPT Integration for Robot Control"'
 ---
 
 # Quiz: GPT Integration for Robot Control

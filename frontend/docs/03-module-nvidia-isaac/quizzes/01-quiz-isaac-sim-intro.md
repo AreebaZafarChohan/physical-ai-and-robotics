@@ -1,5 +1,5 @@
 ---
-title: Quiz: Introduction to NVIDIA Isaac Sim
+title: 'Quiz: "Introduction to NVIDIA Isaac Sim"'
 ---
 
 # Quiz: Introduction to NVIDIA Isaac Sim

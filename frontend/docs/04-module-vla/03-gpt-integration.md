@@ -1,5 +1,5 @@
 ---
-title: GPT Integration for Robot Control
+title: "GPT Integration for Robot Control"
 ---
 
 # GPT Integration for Robot Control
@@ -44,10 +44,18 @@ The quality of GPT's output for robot control heavily depends on **prompt engine
           {"function": "speak", "arguments": {"message": "Here is your water."}}
         ]
         ```
+
+
+
+
 5.  **Contextual Information**: Provide the current state of the robot and its environment (e.g., sensor readings, object locations). This helps GPT generate grounded plans.
-    *   *Example*: "Current visible objects: {'red_cup': (x,y,z), 'blue_box': (x,y,z)}. Current robot location: 'kitchen'."
+    * *Example*: *Example*:
+
+```text
+Current visible objects: {'red_cup': (x,y,z), 'blue_box': (x,y,z)}. Current 'robot location': 'kitchen'.
+```
 6.  **Safety Constraints**: Explicitly state any safety rules or forbidden actions.
-    *   *Example*: "Do not move if a human is in the robot's immediate path."
+    * *Example*: "Do not move if a human is in the robot's immediate path."
 
 ## Communication with ROS 2
 

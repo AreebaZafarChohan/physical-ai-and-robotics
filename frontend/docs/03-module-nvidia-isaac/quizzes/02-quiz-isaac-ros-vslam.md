@@ -1,5 +1,5 @@
 ---
-title: Quiz: NVIDIA Isaac ROS - Visual SLAM (Vslam)
+title: 'Quiz: "NVIDIA Isaac ROS - Visual SLAM (Vslam)"'
 ---
 
 # Quiz: NVIDIA Isaac ROS: Visual SLAM (Vslam)

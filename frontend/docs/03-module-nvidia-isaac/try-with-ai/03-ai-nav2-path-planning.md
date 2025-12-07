@@ -1,5 +1,5 @@
 ---
-title: Try with AI: NVIDIA Isaac ROS - Nav2 Path Planning
+title: 'Try with AI: "NVIDIA Isaac ROS - Nav2 Path Planning"'
 ---
 
 # Try with AI: NVIDIA Isaac ROS: Nav2 Path Planning

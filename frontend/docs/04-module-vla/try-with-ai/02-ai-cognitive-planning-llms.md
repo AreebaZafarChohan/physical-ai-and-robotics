@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Cognitive Planning with Large Language Models (LLMs)
+title: 'Try with AI: "Cognitive Planning with Large Language Models (LLMs)"'
 ---
 
 # Try with AI: Cognitive Planning with Large Language Models (LLMs)

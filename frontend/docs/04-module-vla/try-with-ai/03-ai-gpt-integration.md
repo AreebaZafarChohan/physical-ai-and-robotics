@@ -1,5 +1,5 @@
 ---
-title: Try with AI: GPT Integration for Robot Control
+title: 'Try with AI: "GPT Integration for Robot Control"'
 ---
 
 # Try with AI: GPT Integration for Robot Control

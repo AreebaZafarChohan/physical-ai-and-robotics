@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Introduction to ROS 2
+title: 'Try with AI: "Introduction to ROS 2"'
 ---
 
 # Try with AI: Introduction to ROS 2

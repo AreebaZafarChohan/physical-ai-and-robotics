@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Physics Simulation in Gazebo
+title: 'Try with AI: "Physics Simulation in Gazebo"'
 ---
 
 # Try with AI: Physics Simulation in Gazebo
