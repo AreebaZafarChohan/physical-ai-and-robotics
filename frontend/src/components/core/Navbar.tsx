@@ -28,19 +28,18 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => {
-              if (item.type === 'docSidebar') {
-                return (
-                  <Link
-                    key={index}
-                    to={useBaseUrl(`/docs/${item.sidebarId ? item.sidebarId.replace('tutorialSidebar', 'intro') : ''}`)}
-                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
-                  >
-                    {item.label}
-                  </Link>
-                );
-              } else if (item.type === 'localeDropdown') {
-                // Skipping locale dropdown for now as it causes type issues
+                          {navItems.map((item, index) => {
+                            if (item.type === 'docSidebar') {
+                              return (
+                                <Link
+                                  key={index}
+                                  to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
+                                  className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                                >
+                                  {item.label}
+                                </Link>
+                              );
+                            } else if (item.type === 'localeDropdown') {                // Skipping locale dropdown for now as it causes type issues
                 return null;
               } else if (item.href) {
                 return (
@@ -111,7 +110,7 @@ const Navbar: React.FC = () => {
                   return (
                     <Link
                       key={index}
-                      to={useBaseUrl(`/docs/${item.sidebarId ? item.sidebarId.replace('tutorialSidebar', 'intro') : ''}`)}
+                      to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
                       className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
                       onClick={() => setIsMenuOpen(false)}
                     >

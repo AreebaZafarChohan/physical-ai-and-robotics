@@ -43,7 +43,7 @@ const HeroSection: React.FC = () => {
                   Start Learning
                 </Button>
               </Link>
-              <Link to="/docs/category/module-ros">
+              <Link to="/docs/intro">
                 <Button variant="outline" size="lg">
                   View Curriculum
                 </Button>

@@ -13,7 +13,7 @@ const sidebars: SidebarsConfig = {
         'module-ros/urdf-for-humanoids',
         {
           type: 'category',
-          label: 'Quizzes',
+          label: 'Module 1 Quizzes',
           items: [
             'module-ros/quizzes/quiz-intro-to-ros2',
             'module-ros/quizzes/quiz-nodes-topics-services',
@@ -23,7 +23,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Try with AI',
+          label: 'Module 1 Try with AI',
           items: [
             'module-ros/try-with-ai/ai-intro-to-ros2',
             'module-ros/try-with-ai/ai-nodes-topics-services',
@@ -43,7 +43,7 @@ const sidebars: SidebarsConfig = {
         'module-digital-twin/unity-rendering',
         {
           type: 'category',
-          label: 'Quizzes',
+          label: 'Module 2 Quizzes',
           items: [
             'module-digital-twin/quizzes/quiz-gazebo-setup',
             'module-digital-twin/quizzes/quiz-physics-simulation',
@@ -53,7 +53,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Try with AI',
+          label: 'Module 2 Try with AI',
           items: [
             'module-digital-twin/try-with-ai/ai-gazebo-setup',
             'module-digital-twin/try-with-ai/ai-physics-simulation',
@@ -73,7 +73,7 @@ const sidebars: SidebarsConfig = {
         'module-nvidia-isaac/reinforcement-learning',
         {
           type: 'category',
-          label: 'Quizzes',
+          label: 'Module 3 Quizzes',
           items: [
             'module-nvidia-isaac/quizzes/quiz-isaac-sim-intro',
             'module-nvidia-isaac/quizzes/quiz-isaac-ros-vslam',
@@ -83,7 +83,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Try with AI',
+          label: 'Module 3 Try with AI',
           items: [
             'module-nvidia-isaac/try-with-ai/ai-isaac-sim-intro',
             'module-nvidia-isaac/try-with-ai/ai-isaac-ros-vslam',
@@ -102,7 +102,7 @@ const sidebars: SidebarsConfig = {
         'module-vla/gpt-integration',
         {
           type: 'category',
-          label: 'Quizzes',
+          label: 'Module 4 Quizzes',
           items: [
             'module-vla/quizzes/quiz-voice-to-action',
             'module-vla/quizzes/quiz-cognitive-planning-llms',
@@ -111,7 +111,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Try with AI',
+          label: 'Module 4 Try with AI',
           items: [
             'module-vla/try-with-ai/ai-voice-to-action',
             'module-vla/try-with-ai/ai-cognitive-planning-llms',
@@ -127,14 +127,14 @@ const sidebars: SidebarsConfig = {
         'capstone-project/autonomous-humanoid',
         {
           type: 'category',
-          label: 'Quizzes',
+          label: 'Capstone Project Quizzes',
           items: [
             'capstone-project/quizzes/quiz-autonomous-humanoid',
           ],
         },
         {
           type: 'category',
-          label: 'Try with AI',
+          label: 'Capstone Project Try with AI',
           items: [
             'capstone-project/try-with-ai/ai-autonomous-humanoid',
           ],
