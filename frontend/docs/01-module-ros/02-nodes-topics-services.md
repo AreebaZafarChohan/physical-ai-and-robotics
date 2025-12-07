@@ -1,5 +1,5 @@
 ---
-title: Nodes, Topics, and Services in ROS 2
+title: "Nodes, Topics, and Services in ROS 2"
 ---
 
 # Nodes, Topics, and Services in ROS 2

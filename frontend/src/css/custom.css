@@ -4,6 +4,19 @@
  * work well for content-centric websites.
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply base text colors based on theme */
+body {
+  @apply text-light-text;
+}
+
+[data-theme='dark'] body {
+  @apply text-dark-text;
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #2e8555;

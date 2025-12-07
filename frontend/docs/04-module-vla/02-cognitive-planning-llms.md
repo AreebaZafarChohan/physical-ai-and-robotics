@@ -1,5 +1,5 @@
 ---
-title: Cognitive Planning with Large Language Models (LLMs)
+title: "Cognitive Planning with Large Language Models (LLMs)"
 ---
 
 # Cognitive Planning with Large Language Models (LLMs)

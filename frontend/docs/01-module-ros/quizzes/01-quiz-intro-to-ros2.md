@@ -1,5 +1,5 @@
 ---
-title: Quiz: Introduction to ROS 2
+title: 'Quiz: "Introduction to ROS 2"'
 ---
 
 # Quiz: Introduction to ROS 2

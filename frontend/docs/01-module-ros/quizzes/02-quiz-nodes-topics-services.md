@@ -1,5 +1,5 @@
 ---
-title: Quiz: Nodes, Topics, and Services in ROS 2
+title: 'Quiz: "Nodes, Topics, and Services in ROS 2"'
 ---
 
 # Quiz: Nodes, Topics, and Services in ROS 2

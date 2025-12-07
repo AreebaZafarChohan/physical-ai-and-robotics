@@ -1,5 +1,5 @@
 ---
-title: Quiz: Unity Rendering
+title: 'Quiz: "Unity Rendering"'
 ---
 
 # Quiz: Unity Rendering for Advanced Digital Twin Visualization

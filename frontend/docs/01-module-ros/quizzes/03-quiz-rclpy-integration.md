@@ -1,5 +1,5 @@
 ---
-title: Quiz: RCLPY Integration
+title: 'Quiz: "RCLPY Integration"'
 ---
 
 # Quiz: RCLPY Integration: Python Client Library for ROS 2

@@ -72,7 +72,7 @@ const ChatbotWidget: React.FC = () => {
           if (lastMessage && lastMessage.sender === 'bot') {
             return [...prevMessages.slice(0, -1), { ...lastMessage, text: currentBotResponse, citations }];
           }
-          return [...prevMessages, { sender: 'bot', text: currentBotResponse, citations }];
+          return [...prevMessages, { sender: 'bot' as 'user' | 'bot', text: currentBotResponse, citations: citations }];
         });
         i++;
       } else {
@@ -85,7 +85,7 @@ const ChatbotWidget: React.FC = () => {
   const handleSendMessage = async (queryText: string, useSelectedText: boolean = false) => {
     if (!queryText.trim()) return;
 
-    const newUserMessage = { sender: 'user', text: queryText };
+    const newUserMessage: { sender: 'user' | 'bot'; text: string; citations?: string[] } = { sender: 'user', text: queryText };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
     setMessageInput('');
     setIsBotTyping(true);
@@ -132,9 +132,10 @@ const ChatbotWidget: React.FC = () => {
       const data = await response.json();
       simulateStreamingResponse(data.answer, data.citation_links);
 
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error sending message to backend:', error);
-      simulateStreamingResponse(`Error: ${error.message || 'Something went wrong.'}`);
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong.';
+      simulateStreamingResponse(`Error: ${errorMessage}`);
     } finally {
       setIsBotTyping(false);
     }
@@ -238,7 +239,7 @@ const ChatbotWidget: React.FC = () => {
                 onKeyPress={handleKeyPress}
                 disabled={isBotTyping}
               />
-              <button onClick={handleSendMessage} disabled={isBotTyping}>Send</button>
+              <button onClick={() => handleSendMessage(messageInput)} disabled={isBotTyping}>Send</button>
             </div>
           </div>
         )}

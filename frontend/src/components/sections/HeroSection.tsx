@@ -1,3 +1,4 @@
+import Link from '@docusaurus/Link';
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from '../layout/SectionWrapper';
@@ -21,10 +22,10 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-light-text mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Physical AI & <span className="text-neon-purple-400">Humanoid Robotics</span>
             </h1>
-            <p className="text-xl text-light-text/80 mb-8 max-w-lg">
+            <p className="text-xl text-white mb-8 max-w-lg">
               Explore the future of artificial intelligence embodied in physical form. 
               Learn how humanoid robots are reshaping our world through cutting-edge research and applications.
             </p>
@@ -37,12 +38,16 @@ const HeroSection: React.FC = () => {
             </div>
             
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" size="lg">
-                Start Learning
-              </Button>
-              <Button variant="outline" size="lg">
-                View Curriculum
-              </Button>
+              <Link to="/docs/intro">
+                <Button variant="primary" size="lg">
+                  Start Learning
+                </Button>
+              </Link>
+              <Link to="/docs/category/module-ros">
+                <Button variant="outline" size="lg">
+                  View Curriculum
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -61,11 +66,11 @@ const HeroSection: React.FC = () => {
                   <div className="w-16 h-16 bg-gradient-to-br from-neon-purple-500 to-neon-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">🤖</span>
                   </div>
-                  <h3 className="text-xl font-bold text-light-text">Physical AI & Robotics</h3>
-                  <p className="text-light-text/70 text-sm">Embodied Intelligence</p>
+                  <h3 className="text-xl font-bold text-white">Physical AI & Robotics</h3>
+                  <p className="text-white text-sm">Embodied Intelligence</p>
                 </div>
                 
-                <div className="text-light-text/80 text-sm mt-auto">
+                <div className="text-white text-sm mt-auto">
                   <p>"Exploring the intersection of artificial intelligence and physical form"</p>
                 </div>
                 

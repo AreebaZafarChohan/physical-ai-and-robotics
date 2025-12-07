@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Voice-to-Action
+title: 'Try with AI: "Voice-to-Action"'
 ---
 
 # Try with AI: Voice-to-Action: Enabling Conversational Robotics

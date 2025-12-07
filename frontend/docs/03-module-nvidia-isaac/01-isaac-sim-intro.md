@@ -1,5 +1,5 @@
 ---
-title: Introduction to NVIDIA Isaac Sim
+title: "Introduction to NVIDIA Isaac Sim"
 ---
 
 # Introduction to NVIDIA Isaac Sim

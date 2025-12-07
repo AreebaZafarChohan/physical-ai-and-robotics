@@ -1,5 +1,5 @@
 ---
-title: Quiz: Capstone Project - Autonomous Humanoid Robot
+title: 'Quiz: "Capstone Project - Autonomous Humanoid Robot"'
 ---
 
 # Quiz: Capstone Project: Autonomous Humanoid Robot

@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Gazebo Setup for Digital Twin
+title: 'Try with AI: "Gazebo Setup for Digital Twin"'
 ---
 
 # Try with AI: Gazebo Setup for Digital Twin

@@ -1,5 +1,5 @@
 ---
-title: Physics Simulation in Gazebo
+title: "Physics Simulation in Gazebo"
 ---
 
 # Physics Simulation in Gazebo

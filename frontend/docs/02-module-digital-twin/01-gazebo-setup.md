@@ -1,5 +1,5 @@
 ---
-title: Gazebo Setup for Digital Twin
+title: "Gazebo Setup for Digital Twin"
 ---
 
 # Gazebo Setup for Digital Twin

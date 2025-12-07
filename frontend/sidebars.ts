@@ -5,68 +5,140 @@ const sidebars: SidebarsConfig = {
     'intro',
     {
       type: 'category',
-      label: 'Tutorial - Basics',
-      items: [
-        'tutorial-basics/congratulations',
-        'tutorial-basics/create-a-blog-post',
-        'tutorial-basics/create-a-document',
-        'tutorial-basics/create-a-page',
-        'tutorial-basics/deploy-your-site',
-        'tutorial-basics/markdown-features',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Tutorial - Extras',
-      items: [
-        'tutorial-extras/manage-docs-versions',
-        'tutorial-extras/translate-your-site',
-      ],
-    },
-    {
-      type: 'category',
       label: 'Module 1: The Robotic Nervous System (ROS 2)',
       items: [
-        '01-module-ros/01-intro-to-ros2',
-        '01-module-ros/02-nodes-topics-services',
-        '01-module-ros/03-rclpy-integration',
-        '01-module-ros/04-urdf-for-humanoids',
+        'module-ros/intro-to-ros2',
+        'module-ros/nodes-topics-services',
+        'module-ros/rclpy-integration',
+        'module-ros/urdf-for-humanoids',
+        {
+          type: 'category',
+          label: 'Quizzes',
+          items: [
+            'module-ros/quizzes/quiz-intro-to-ros2',
+            'module-ros/quizzes/quiz-nodes-topics-services',
+            'module-ros/quizzes/quiz-rclpy-integration',
+            'module-ros/quizzes/quiz-urdf-for-humanoids',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Try with AI',
+          items: [
+            'module-ros/try-with-ai/ai-intro-to-ros2',
+            'module-ros/try-with-ai/ai-nodes-topics-services',
+            'module-ros/try-with-ai/ai-rclpy-integration',
+            'module-ros/try-with-ai/ai-urdf-for-humanoids',
+          ],
+        },
       ],
     },
     {
       type: 'category',
       label: 'Module 2: The Digital Twin (Gazebo & Unity)',
       items: [
-        '02-module-digital-twin/01-gazebo-setup',
-        '02-module-digital-twin/02-physics-simulation',
-        '02-module-digital-twin/03-sensor-simulation',
-        '02-module-digital-twin/04-unity-rendering',
+        'module-digital-twin/gazebo-setup',
+        'module-digital-twin/physics-simulation',
+        'module-digital-twin/sensor-simulation',
+        'module-digital-twin/unity-rendering',
+        {
+          type: 'category',
+          label: 'Quizzes',
+          items: [
+            'module-digital-twin/quizzes/quiz-gazebo-setup',
+            'module-digital-twin/quizzes/quiz-physics-simulation',
+            'module-digital-twin/quizzes/quiz-sensor-simulation',
+            'module-digital-twin/quizzes/quiz-unity-rendering',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Try with AI',
+          items: [
+            'module-digital-twin/try-with-ai/ai-gazebo-setup',
+            'module-digital-twin/try-with-ai/ai-physics-simulation',
+            'module-digital-twin/try-with-ai/ai-sensor-simulation',
+            'module-digital-twin/try-with-ai/ai-unity-rendering',
+          ],
+        },
       ],
     },
     {
       type: 'category',
       label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac)',
       items: [
-        '03-module-nvidia-isaac/01-isaac-sim-intro',
-        '03-module-nvidia-isaac/02-isaac-ros-vslam',
-        '03-module-nvidia-isaac/03-nav2-path-planning',
-        '03-module-nvidia-isaac/04-reinforcement-learning',
+        'module-nvidia-isaac/isaac-sim-intro',
+        'module-nvidia-isaac/isaac-ros-vslam',
+        'module-nvidia-isaac/nav2-path-planning',
+        'module-nvidia-isaac/reinforcement-learning',
+        {
+          type: 'category',
+          label: 'Quizzes',
+          items: [
+            'module-nvidia-isaac/quizzes/quiz-isaac-sim-intro',
+            'module-nvidia-isaac/quizzes/quiz-isaac-ros-vslam',
+            'module-nvidia-isaac/quizzes/quiz-nav2-path-planning',
+            'module-nvidia-isaac/quizzes/quiz-reinforcement-learning',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Try with AI',
+          items: [
+            'module-nvidia-isaac/try-with-ai/ai-isaac-sim-intro',
+            'module-nvidia-isaac/try-with-ai/ai-isaac-ros-vslam',
+            'module-nvidia-isaac/try-with-ai/ai-nav2-path-planning',
+            'module-nvidia-isaac/try-with-ai/ai-reinforcement-learning',
+          ],
+        },
       ],
     },
     {
       type: 'category',
       label: 'Module 4: Vision-Language-Action (VLA)',
       items: [
-        '04-module-vla/01-voice-to-action',
-        '04-module-vla/02-cognitive-planning-llms',
-        '04-module-vla/03-gpt-integration',
+        'module-vla/voice-to-action',
+        'module-vla/cognitive-planning-llms',
+        'module-vla/gpt-integration',
+        {
+          type: 'category',
+          label: 'Quizzes',
+          items: [
+            'module-vla/quizzes/quiz-voice-to-action',
+            'module-vla/quizzes/quiz-cognitive-planning-llms',
+            'module-vla/quizzes/quiz-gpt-integration',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Try with AI',
+          items: [
+            'module-vla/try-with-ai/ai-voice-to-action',
+            'module-vla/try-with-ai/ai-cognitive-planning-llms',
+            'module-vla/try-with-ai/ai-gpt-integration',
+          ],
+        },
       ],
     },
     {
       type: 'category',
       label: 'Capstone Project',
       items: [
-        '05-capstone-project/01-autonomous-humanoid',
+        'capstone-project/autonomous-humanoid',
+        {
+          type: 'category',
+          label: 'Quizzes',
+          items: [
+            'capstone-project/quizzes/quiz-autonomous-humanoid',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Try with AI',
+          items: [
+            'capstone-project/try-with-ai/ai-autonomous-humanoid',
+          ],
+        },
       ],
     },
   ],

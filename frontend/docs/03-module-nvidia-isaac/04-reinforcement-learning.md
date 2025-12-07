@@ -1,5 +1,5 @@
 ---
-title: Reinforcement Learning with NVIDIA Isaac Sim
+title: "Reinforcement Learning with NVIDIA Isaac Sim"
 ---
 
 # Reinforcement Learning with NVIDIA Isaac Sim

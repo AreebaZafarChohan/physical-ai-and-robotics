@@ -1,5 +1,5 @@
 ---
-title: Quiz: NVIDIA Isaac ROS - Nav2 Path Planning
+title: 'Quiz: "NVIDIA Isaac ROS - Nav2 Path Planning"'
 ---
 
 # Quiz: NVIDIA Isaac ROS: Nav2 Path Planning

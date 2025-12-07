@@ -1,5 +1,5 @@
 ---
-title: Voice-to-Action: Enabling Conversational Robotics
+title: "Voice-to-Action: Enabling Conversational Robotics"
 ---
 
 # Voice-to-Action: Enabling Conversational Robotics

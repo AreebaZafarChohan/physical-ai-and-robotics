@@ -1,5 +1,5 @@
 ---
-title: Try with AI: RCLPY Integration
+title: 'Try with AI: "RCLPY Integration"'
 ---
 
 # Try with AI: RCLPY Integration: Python Client Library for ROS 2

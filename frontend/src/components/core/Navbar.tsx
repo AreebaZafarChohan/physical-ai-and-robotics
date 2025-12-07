@@ -1,46 +1,79 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navItems = [
-    { name: 'Home', href: '#' },
-    { name: 'Chapters', href: '#' },
-    { name: 'Lessons', href: '#' },
-    { name: 'Exercises', href: '#' },
-    { name: 'Resources', href: '#' },
-  ];
+  const { siteConfig } = useDocusaurusContext();
+  const themeConfig: any = siteConfig.themeConfig;
+  const navbar: { items: any[] } = themeConfig.navbar;
+  const navItems = navbar.items;
 
   return (
     <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card">
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-neon-purple-500 to-neon-pink-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">AI</span>
             </div>
-            <span className="text-xl font-bold text-light-text">Physical AI & Robotics</span>
+            <Link to={useBaseUrl('/')} className="text-xl font-bold text-light-text no-underline hover:no-underline">
+              {(siteConfig.themeConfig as any).navbar.title}
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item, index) => {
+              if (item.type === 'docSidebar') {
+                return (
+                  <Link
+                    key={index}
+                    to={useBaseUrl(`/docs/${item.sidebarId ? item.sidebarId.replace('tutorialSidebar', 'intro') : ''}`)}
+                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              } else if (item.type === 'localeDropdown') {
+                // Skipping locale dropdown for now as it causes type issues
+                return null;
+              } else if (item.href) {
+                return (
+                  <a
+                    key={index}
+                    href={item.href}
+                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                    target="_blank" // Open external links in new tab
+                    rel="noopener noreferrer"
+                  >
+                    {item.label || item.name}
+                  </a>
+                );
+              } else if (item.to) {
+                return (
+                  <Link
+                    key={index}
+                    to={useBaseUrl(item.to)}
+                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                  >
+                    {item.label || item.name}
+                  </Link>
+                );
+              }
+              return null;
+            })}
           </div>
 
           {/* CTA Button - Hidden on mobile until menu opens */}
           <div className="hidden md:block">
-            <Button variant="primary">Get Started</Button>
+            <Link to="/docs/intro">
+              <Button variant="primary">Get Started</Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -73,18 +106,52 @@ const Navbar: React.FC = () => {
             className="md:hidden mt-4 pb-4"
           >
             <div className="flex flex-col space-y-4">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item, index) => {
+                if (item.type === 'docSidebar') {
+                  return (
+                    <Link
+                      key={index}
+                      to={useBaseUrl(`/docs/${item.sidebarId ? item.sidebarId.replace('tutorialSidebar', 'intro') : ''}`)}
+                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                } else if (item.type === 'localeDropdown') {
+                  // Skipping locale dropdown for now as it causes type issues
+                  return null;
+                } else if (item.href) {
+                  return (
+                    <a
+                      key={index}
+                      href={item.href}
+                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label || item.name}
+                    </a>
+                  );
+                } else if (item.to) {
+                  return (
+                    <Link
+                      key={index}
+                      to={useBaseUrl(item.to)}
+                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label || item.name}
+                    </Link>
+                  );
+                }
+                return null;
+              })}
               <div className="pt-4">
-                <Button variant="primary" fullWidth>Get Started</Button>
+                <Link to="/docs/intro">
+                  <Button variant="primary" fullWidth>Get Started</Button>
+                </Link>
               </div>
             </div>
           </motion.div>

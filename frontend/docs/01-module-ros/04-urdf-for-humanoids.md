@@ -1,5 +1,5 @@
 ---
-title: URDF for Humanoids in ROS 2
+title: "URDF for Humanoids in ROS 2"
 ---
 
 # URDF for Humanoids in ROS 2
