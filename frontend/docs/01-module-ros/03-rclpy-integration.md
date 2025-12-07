@@ -1,5 +1,5 @@
 ---
-title: RCLPY Integration: Python Client Library for ROS 2
+title: "RCLPY Integration: Python Client Library for ROS 2"
 ---
 
 # RCLPY Integration: Python Client Library for ROS 2

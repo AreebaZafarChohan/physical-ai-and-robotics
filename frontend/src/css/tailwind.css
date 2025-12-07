@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Physical AI & Humanoid Robotics platform */
+:root {
+  --neon-purple: #6565ff;
+  --neon-pink: #ff377d;
+  --dark-bg: #0a0a1a;
+  --dark-card: #1a1a2a;
+  --dark-text: #e6e6ff;
+  --light-bg: #f8f8ff;
+  --light-card: #ffffff;
+  --light-text: #0a0a1a;
+}
+
+/* Apply base styles */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  @apply antialiased;
+  transition: background-color, color 0.3s ease;
+}
+
+/* Custom component classes */
+.btn {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out;
+}
+
+.btn-primary {
+  @apply bg-[var(--neon-purple)] text-white hover:bg-[var(--neon-pink)] hover:shadow-neon-pink active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-[var(--dark-card)] text-[var(--dark-text)] border border-[var(--neon-purple)] hover:bg-[var(--neon-purple)] hover:text-white active:scale-95;
+}
+
+.btn-outline {
+  @apply bg-transparent text-[var(--neon-purple)] border border-[var(--neon-purple)] hover:bg-[var(--neon-purple)] hover:text-white active:scale-95;
+}
+
+.card {
+  @apply rounded-xl p-6 shadow-lg transition-all duration-300;
+}
+
+.gradient-border {
+  @apply border border-transparent;
+  border-image: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+  border-image-slice: 1;
+}
+
+/* Animations */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(101, 101, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(101, 101, 255, 0.8);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    @apply px-4;
+  }
+}

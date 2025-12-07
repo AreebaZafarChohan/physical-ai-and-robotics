@@ -44,10 +44,10 @@ The chatbot's API is powered by a FastAPI backend.
     ```
 3.  Install Python dependencies:
     ```bash
-    pip install -r requirements.txt # You will need to create this file
+    pip install -r requirements.txt # This file should now exist
     ```
 4.  Configure Environment Variables:
-    Create a `.env` file in the `backend/` directory and add the following (replace placeholders with your actual keys/URLs):
+    Create a `.env` file in the `backend/` directory and add the following (replace placeholders with your actual keys/URLs). This file was automatically generated.
     ```
     OPENAI_API_KEY="your_openai_api_key"
     NEON_DB_URL="your_neon_postgres_connection_string"
@@ -66,10 +66,12 @@ The chatbot's API is powered by a FastAPI backend.
 1.  **Neon Postgres**:
     *   Ensure your Neon Postgres database is provisioned and accessible via the `NEON_DB_URL` configured above.
     *   Run any database migrations to set up the `users`, `chat_sessions`, `messages`, `feedback`, and `book_metadata` tables. (Migration scripts will be developed as part of the implementation).
+    *   **Action**: To create tables initially, you might run a script like `python -c "from backend.app.database import create_db_and_tables; create_db_and_tables()"` (once `create_db_and_tables` is fully implemented).
 2.  **Qdrant Cloud**:
     *   Ensure your Qdrant Cloud instance is accessible via the `QDRANT_API_KEY` and `QDRANT_CLUSTER_URL`.
     *   The `book_chapters` collection will be created automatically upon the first embedding ingestion, or can be created manually.
     *   Ingest initial book and course content using the `/embed` API endpoint (details for this process will be provided in the Data Pipeline documentation).
+    *   **Action**: To create the Qdrant collections initially, you can make a call to the `/embed` endpoint or manually create them if needed.
 
 ## 5. Access the Chatbot
 
