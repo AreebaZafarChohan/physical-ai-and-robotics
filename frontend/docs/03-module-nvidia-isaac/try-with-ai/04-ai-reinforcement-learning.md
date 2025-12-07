@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Reinforcement Learning with NVIDIA Isaac Sim
+title: 'Try with AI: "Reinforcement Learning with NVIDIA Isaac Sim"'
 ---
 
 # Try with AI: Reinforcement Learning with NVIDIA Isaac Sim

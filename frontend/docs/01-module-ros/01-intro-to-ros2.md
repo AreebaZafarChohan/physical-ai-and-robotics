@@ -1,5 +1,5 @@
 ---
-title: Introduction to ROS 2
+title: "Introduction to ROS 2"
 ---
 
 # Introduction to ROS 2

@@ -1,5 +1,5 @@
 ---
-title: NVIDIA Isaac ROS: Nav2 Path Planning
+title: "NVIDIA Isaac ROS: Nav2 Path Planning"
 ---
 
 # NVIDIA Isaac ROS: Nav2 Path Planning

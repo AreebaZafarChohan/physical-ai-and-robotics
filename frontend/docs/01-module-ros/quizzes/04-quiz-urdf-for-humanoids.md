@@ -1,5 +1,5 @@
 ---
-title: Quiz: URDF for Humanoids
+title: 'Quiz: "URDF for Humanoids"'
 ---
 
 # Quiz: URDF for Humanoids in ROS 2

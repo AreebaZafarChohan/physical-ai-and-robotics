@@ -1,5 +1,5 @@
 ---
-title: Quiz: Cognitive Planning with LLMs
+title: 'Quiz: "Cognitive Planning with LLMs"'
 ---
 
 # Quiz: Cognitive Planning with Large Language Models (LLMs)

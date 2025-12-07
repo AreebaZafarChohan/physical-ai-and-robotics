@@ -1,5 +1,5 @@
 ---
-title: Sensor Simulation for Digital Twins
+title: "Sensor Simulation for Digital Twins"
 ---
 
 # Sensor Simulation for Digital Twins

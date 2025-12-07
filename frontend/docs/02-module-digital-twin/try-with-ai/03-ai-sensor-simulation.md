@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Sensor Simulation for Digital Twins
+title: 'Try with AI: "Sensor Simulation for Digital Twins"'
 ---
 
 # Try with AI: Sensor Simulation for Digital Twins

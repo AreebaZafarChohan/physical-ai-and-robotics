@@ -1,5 +1,5 @@
 ---
-title: Try with AI: NVIDIA Isaac ROS - Visual SLAM (Vslam)
+title: 'Try with AI: "NVIDIA Isaac ROS - Visual SLAM (Vslam)"'
 ---
 
 # Try with AI: NVIDIA Isaac ROS: Visual SLAM (Vslam)

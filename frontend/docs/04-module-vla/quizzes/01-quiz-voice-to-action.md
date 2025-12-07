@@ -1,5 +1,5 @@
 ---
-title: Quiz: Voice-to-Action
+title: 'Quiz: "Voice-to-Action"'
 ---
 
 # Quiz: Voice-to-Action: Enabling Conversational Robotics

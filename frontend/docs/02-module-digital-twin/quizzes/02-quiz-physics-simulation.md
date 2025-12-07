@@ -1,5 +1,5 @@
 ---
-title: Quiz: Physics Simulation in Gazebo
+title: 'Quiz: "Physics Simulation in Gazebo"'
 ---
 
 # Quiz: Physics Simulation in Gazebo

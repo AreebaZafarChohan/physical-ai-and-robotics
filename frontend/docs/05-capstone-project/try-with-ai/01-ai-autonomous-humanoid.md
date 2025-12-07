@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Capstone Project - Autonomous Humanoid Robot
+title: 'Try with AI: "Capstone Project - Autonomous Humanoid Robot"'
 ---
 
 # Try with AI: Capstone Project: Autonomous Humanoid Robot

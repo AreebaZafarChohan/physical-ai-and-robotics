@@ -4,8 +4,8 @@ export function getSelectedText(): string {
   let text = "";
   if (window.getSelection) {
     text = window.getSelection()!.toString();
-  } else if (document.selection && document.selection.type != "Control") {
-    text = (document.selection as any).createRange().text;
+  } else if ((document as any).selection && (document as any).selection.type != "Control") {
+    text = (document as any).selection.createRange().text;
   }
   return text.trim();
 }

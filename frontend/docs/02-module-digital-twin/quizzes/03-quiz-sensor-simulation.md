@@ -1,5 +1,5 @@
 ---
-title: Quiz: Sensor Simulation for Digital Twins
+title: 'Quiz: "Sensor Simulation for Digital Twins"'
 ---
 
 # Quiz: Sensor Simulation for Digital Twins

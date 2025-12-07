@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Unity Rendering for Advanced Digital Twin Visualization
+title: 'Try with AI: "Unity Rendering for Advanced Digital Twin Visualization"'
 ---
 
 # Try with AI: Unity Rendering for Advanced Digital Twin Visualization

@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Nodes, Topics, and Services in ROS 2
+title: 'Try with AI: "Nodes, Topics, and Services in ROS 2"'
 ---
 
 # Try with AI: Nodes, Topics, and Services in ROS 2

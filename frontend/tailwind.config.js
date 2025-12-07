@@ -3,8 +3,10 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./docs/**/*.mdx",
+    "./docs/**/*.{md,mdx}",
     "./src/pages/**/*.{js,jsx,ts,tsx}",
     "./src/components/**/*.{js,jsx,ts,tsx}",
+    "./docusaurus.config.js",
   ],
   theme: {
     extend: {

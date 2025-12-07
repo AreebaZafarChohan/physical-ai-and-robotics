@@ -1,5 +1,5 @@
 ---
-title: Try with AI: Introduction to NVIDIA Isaac Sim
+title: 'Try with AI: "Introduction to NVIDIA Isaac Sim"'
 ---
 
 # Try with AI: Introduction to NVIDIA Isaac Sim
