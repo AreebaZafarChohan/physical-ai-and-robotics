@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlmodel
+qdrant-client
+python-jose
+fastapi-limiter
+redis
+httpx
+markdown-it-py
+python-frontmatter
+openai

@@ -25,8 +25,8 @@ Tasks marked with `[P]` can be executed in parallel by different developers or t
 
 **Goal**: Initialize project structures and basic configurations for frontend and backend.
 
-- [ ] T001 Create Docusaurus project (if not already existing) in `frontend/`
-- [ ] T002 Configure Docusaurus `package.json` with necessary dependencies in `frontend/package.json`
+- [x] T001 Create Docusaurus project (if not already existing) in `frontend/`
+- [x] T002 Configure Docusaurus `package.json` with necessary dependencies in `frontend/package.json`
 - [ ] T003 Initialize FastAPI project in `backend/`
 - [ ] T004 Create Python virtual environment and `requirements.txt` in `backend/`
 - [ ] T005 Define and configure environment variables for OpenAI, Neon, Qdrant, JWT in `backend/.env`

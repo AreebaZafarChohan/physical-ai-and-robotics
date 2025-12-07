@@ -10,63 +10,126 @@ Test your knowledge on Visual SLAM and its acceleration with NVIDIA Isaac ROS.
 
 ## Question 1
 
-What fundamental questions does SLAM (Simultaneous Localization and Mapping) aim to answer for an autonomous robot?
+Which of the following is NOT a primary component of Visual SLAM (VSLAM)?
 
-a) "What is the fastest path?" and "How much energy is left?"
-b) "Where am I?" and "What does my surroundings look like?"
-c) "Who built me?" and "What is my purpose?"
-d) "How much data can I process?" and "What is my maximum speed?"
+A) Visual Odometry
+B) Mapping
+C) Path Planning
+D) Loop Closure
 
-**Answer**: b) "Where am I?" and "What does my surroundings look like?"
+[Comment]: # (Correct Answer: C) Path Planning - while related, path planning is a separate component typically built on top of SLAM output)
 
 ---
 
 ## Question 2
 
-What does "Visual SLAM" (Vslam) specifically rely on for localization and mapping?
+What is the main computational benefit of using NVIDIA Isaac ROS for VSLAM compared to traditional CPU-based implementations?
 
-a) GPS signals
-b) Laser range finders
-c) Visual information from cameras
-d) Ultrasonic sensors
+A) Lower memory requirements
+B) GPU acceleration for computationally intensive tasks
+C) Simpler robot hardware requirements
+D) Reduced need for sensors
 
-**Answer**: c) Visual information from cameras
+[Comment]: # (Correct Answer: B) GPU acceleration - Isaac ROS leverages NVIDIA GPUs to accelerate computationally heavy VSLAM tasks)
 
 ---
 
 ## Question 3
 
-How does NVIDIA Isaac ROS primarily accelerate VSLAM capabilities?
+Which Isaac ROS component is specifically responsible for estimating a robot's egomotion by analyzing successive camera images?
 
-a) By using more efficient data compression algorithms.
-b) By relying on traditional CPU-only processing.
-c) By leveraging GPU-optimized algorithms for computationally heavy tasks.
-d) By reducing the resolution of sensor data.
+A) Mapping module
+B) Loop Closure module
+C) Visual Odometry (VO)
+D) Relocalization module
 
-**Answer**: c) By leveraging GPU-optimized algorithms for computationally heavy tasks.
+[Comment]: # (Correct Answer: C) Visual Odometry - it estimates change in position and orientation from camera images)
 
 ---
 
 ## Question 4
 
-Which of the following is a critical component of robust SLAM that corrects accumulated errors in the map and trajectory when the robot revisits a previously seen location?
+What problem does \"Loop Closure\" address in Visual SLAM?
 
-a) Visual Odometry
-b) Sensor Fusion
-c) Loop Closure
-d) Feature Extraction
+A) Initial robot pose estimation
+B) Detection of previously visited locations to correct accumulated errors
+C) Sensor calibration
+D) Map visualization
 
-**Answer**: c) Loop Closure
+[Comment]: # (Correct Answer: B) Detection of previously visited locations - prevents drift by correcting accumulated errors)
 
 ---
 
 ## Question 5
 
-For humanoid robots, why is robust VSLAM particularly important?
+For humanoid robots in human-centric environments, VSLAM is particularly important for:
 
-a) It simplifies the robot's physical design.
-b) It allows them to navigate and interact safely in complex, dynamic, human-centric environments.
-c) It reduces the need for external power sources.
-d) It primarily enhances the robot's speech recognition capabilities.
+A) Battery management
+B) Precise self-localization and environmental understanding
+C) Audio processing
+D) Motor control
 
-**Answer**: b) It allows them to navigate and interact safely in complex, dynamic, human-centric environments.
+[Comment]: # (Correct Answer: B) Precise self-localization - especially important for complex locomotion and interaction in dynamic environments)
+
+---
+
+## Question 6
+
+True/False: Isaac ROS VSLAM modules expect standard ROS 2 sensor message types like `sensor_msgs/Image` and `sensor_msgs/CameraInfo`.
+
+A) True
+B) False
+
+[Comment]: # (Correct Answer: A) True - Isaac ROS VSLAM nodes integrate with standard ROS 2 messages)
+
+---
+
+## Question 7
+
+Which sensor setup is commonly used with Isaac ROS VSLAM?
+
+A) Monocular camera only
+B) Stereo camera setup
+C) RGB-D camera
+D) All of the above
+
+[Comment]: # (Correct Answer: D) All of the above - Isaac ROS VSLAM can work with various visual sensor setups)
+
+---
+
+## Question 8
+
+What can be a challenge for traditional VSLAM algorithms in the context of humanoid robots?
+
+A) Computational intensity
+B) Need for high-resolution camera feeds
+C) Complex environmental mapping
+D) All of the above
+
+[Comment]: # (Correct Answer: D) All of the above - all factors are computational challenges, especially for real-time humanoid applications)
+
+---
+
+## Question 9
+
+\"Relocalization\" in the context of VSLAM refers to:
+
+A) The initial mapping process
+B) The robot's ability to recover its pose after getting lost
+C) Sensor recalibration
+D) Map saving procedures
+
+[Comment]: # (Correct Answer: B) The robot's ability to recover its pose after getting lost - crucial for robust operation)
+
+---
+
+## Question 10
+
+How does GPU acceleration benefit humanoid robots using VSLAM for navigation?
+
+A) Enables real-time processing of high-resolution camera feeds
+B) Allows for more sophisticated environmental mapping
+C) Supports complex locomotion requiring precise spatial awareness
+D) All of the above
+
+[Comment]: # (Correct Answer: D) All of the above - GPU acceleration addresses multiple challenges simultaneously)
