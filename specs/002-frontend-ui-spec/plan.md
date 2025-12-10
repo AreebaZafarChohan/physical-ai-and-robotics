@@ -1,6 +1,6 @@
 # Implementation Plan: Frontend UI for Physical AI & Humanoid Robotics Platform
 
-**Feature Branch**: `001-frontend-ui-spec`
+**Feature Branch**: `002-frontend-ui-spec`
 **Created**: Saturday, December 6, 2025
 **Status**: Draft
 

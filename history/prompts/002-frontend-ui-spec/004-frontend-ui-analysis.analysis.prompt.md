@@ -6,22 +6,22 @@ date: 2025-12-06
 surface: agent
 model: claude-3-5-sonnet-20241022
 feature: frontend-ui-spec
-branch: 001-frontend-ui-spec
+branch: 002-frontend-ui-spec
 user: qwen
 command: /sp.analyze
 labels: [frontend, ui, analysis, consistency, quality]
 links:
-  spec: ../specs/001-frontend-ui-spec/spec.md
-  plan: ../specs/001-frontend-ui-spec/plan.md
-  tasks: ../specs/001-frontend-ui-spec/tasks.md
+  spec: ../specs/002-frontend-ui-spec/spec.md
+  plan: ../specs/002-frontend-ui-spec/plan.md
+  tasks: ../specs/002-frontend-ui-spec/tasks.md
   constitution: ../../.specify/memory/constitution.md
   ticket: null
   adr: null
   pr: null
 files:
-  - specs/001-frontend-ui-spec/spec.md
-  - specs/001-frontend-ui-spec/plan.md
-  - specs/001-frontend-ui-spec/tasks.md
+  - specs/002-frontend-ui-spec/spec.md
+  - specs/002-frontend-ui-spec/plan.md
+  - specs/002-frontend-ui-spec/tasks.md
 tests:
   - cross-artifact consistency check
   - requirement coverage analysis

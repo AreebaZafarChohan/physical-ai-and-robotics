@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: Saturday, December 6, 2025
-**Feature**: [Link to spec.md](../001-frontend-ui-spec/spec.md)
+**Feature**: [Link to spec.md](../002-frontend-ui-spec/spec.md)
 
 ## Content Quality
 

@@ -4,7 +4,7 @@ description: "Task list for frontend UI of Physical AI & Humanoid Robotics platf
 
 # Tasks: Frontend UI for Physical AI & Humanoid Robotics Platform
 
-**Input**: Design documents from `/specs/001-frontend-ui-spec/`
+**Input**: Design documents from `/specs/002-frontend-ui-spec/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, quickstart.md
 
 **Tests**: Tasks are included per the testing strategy outlined in the plan.
