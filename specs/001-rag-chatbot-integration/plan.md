@@ -223,11 +223,11 @@ The RAG Chatbot System will be a Docusaurus-embedded chatbot powered by the Open
 ## Retrieval Logic
 
 -   **Embedding model**: `text-embedding-004`
--   **Vector size**: Dependent on the `text-embedding-004` model's output dimension, typically 768 or 1536. (Needs to be confirmed with model documentation)
+-   **Vector size**: 768 (Confirmed for `text-embedding-004` model)
 -   **top_k retrieval**: Default to 5 relevant chunks for RAG mode. Configurable via API parameter.
 -   **Metadata filters**: Potential future enhancement for filtering by chapter, module, etc., if metadata is stored in Qdrant.
 -   **How citations are mapped back to chunk IDs**: Qdrant results will include original chunk IDs which will be returned in the FastAPI response. Frontend will display these.
--   **Selected-text bypass logic**: Handled by `selected_text_tool` which directly injects the provided text into the prompt, bypassing Qdrant search entirely.
+-   **Selected-text bypass logic**: Handled by `selected_text_tool` which directly injects the provided text into the prompt, bypassing Qdrant search entirely. If selected text exceeds a predefined token limit (e.g., 2000 tokens), it will be truncated from the middle to preserve context from both ends.
 
 ## Neon Personalization Logic
 
@@ -268,7 +268,7 @@ The RAG Chatbot System will be a Docusaurus-embedded chatbot powered by the Open
 -   **How to switch between the two modes**:
     -   Default mode is Normal RAG.
     -   Selected-Text RAG mode is triggered specifically by the "Ask AI about this" interaction.
-    -   The ChatKit UI could potentially have a toggle or button to explicitly switch between "Full Book Context" and "Selected Text Context" if a general query is entered after highlighting.
+    -   The ChatKit UI will default to Normal RAG. Selected-Text RAG is activated by highlight-to-chat. A clear indication of the active mode will be displayed. Explicit manual switching for general queries after highlighting is deferred to future iterations.
 
 ## DevOps & Deployment
 
@@ -296,10 +296,11 @@ The RAG Chatbot System will be a Docusaurus-embedded chatbot powered by the Open
     ```
     /
     ├───.env.example
-    ├───backend/
-    │   ├───main.py
-    │   ├───agents/
-    │   │   └───gemini_agent.py
+            ├───backend/
+        │   ├───main.py
+        │   ├───tests/
+        │   ├───schemas/
+        │   ├───agents/    │   │   └───gemini_agent.py
     │   ├───tools/
     │   │   ├───qdrant_tool.py
     │   │   ├───selected_text_tool.py
