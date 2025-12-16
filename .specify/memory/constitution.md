@@ -54,8 +54,7 @@ This section defines the core technologies used to build, generate, and deploy t
 ### Frameworks / Platforms
 - **Spec-Kit Plus**: For structuring AI-native content and managing the development workflow.
 - **Docusaurus**: The static site generator for hosting the book content.
-- **Claude Code**: The primary AI agent for content generation and task execution.
-- **GitHub Pages / Vercel**: The deployment platforms for the final web-based textbook.
+        - **OpenAI Agents SDK**: For building agent skills and orchestrating Gemini models.- **GitHub Pages / Vercel**: The deployment platforms for the final web-based textbook.
 
 ### Chatbot Integration Stack (Future)
 This stack is planned for a future version of the textbook to enable full interactivity.

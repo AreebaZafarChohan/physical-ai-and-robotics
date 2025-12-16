@@ -1,0 +1,4 @@
+qdrant-client
+cohere
+python-dotenv
+fastapi

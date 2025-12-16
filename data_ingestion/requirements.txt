@@ -1,0 +1,5 @@
+requests
+cohere
+python-dotenv
+qdrant-client
+trafilatura

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+*.log
+.env*
+.docusaurus/
+docusaurus-debug/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/

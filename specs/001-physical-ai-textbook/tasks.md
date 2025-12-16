@@ -105,7 +105,7 @@
 
 - [x] T021 Configure the sidebar in `sidebars.js` to reflect the module and chapter structure.
 - [x] T022 Update `docusaurus.config.js` with the book's title, description, and author.
-- [ ] T075 [P] Review the generated site for any broken links or layout issues. (Renumbered from T023)
+- [x] T075 [P] Review the generated site for any broken links or layout issues. (Renumbered from T023)
 
 ---
 

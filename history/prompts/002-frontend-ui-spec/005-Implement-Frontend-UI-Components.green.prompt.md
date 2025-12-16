@@ -8,7 +8,7 @@ model: GPT-4
 feature: frontend-ui-spec
 branch: master
 user: areeba_zafar
-command: /sp.implement 001-frontend-ui-spec
+command: /sp.implement 002-frontend-ui-spec
 labels: [frontend,ui,implementation,components,docusaurus,tailwind]
 links:
   spec: null

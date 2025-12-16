@@ -6,20 +6,20 @@ date: 2025-12-06
 surface: agent
 model: claude-3-5-sonnet-20241022
 feature: frontend-ui-spec
-branch: 001-frontend-ui-spec
+branch: 002-frontend-ui-spec
 user: qwen
 command: /sp.specify
 labels: [frontend, ui, spec, design-system]
 links:
-  spec: ../specs/001-frontend-ui-spec/spec.md
+  spec: ../specs/002-frontend-ui-spec/spec.md
   ticket: null
   adr: null
   pr: null
 files:
-  - specs/001-frontend-ui-spec/spec.md
-  - specs/001-frontend-ui-spec/checklists/requirements.md
+  - specs/002-frontend-ui-spec/spec.md
+  - specs/002-frontend-ui-spec/checklists/requirements.md
 tests:
-  - specs/001-frontend-ui-spec/spec.md validation
+  - specs/002-frontend-ui-spec/spec.md validation
   - checklists/requirements.md completeness
 ---
 
@@ -33,7 +33,7 @@ We are creating the full frontend UI specification for the "Physical AI & Humano
 
 # Feature Specification: Frontend UI for Physical AI & Humanoid Robotics Platform
 
-**Feature Branch**: `001-frontend-ui-spec`
+**Feature Branch**: `002-frontend-ui-spec`
 **Created**: Saturday, December 6, 2025
 **Status**: Draft
 **Input**: User description: "We are creating the full frontend UI specification for the “Physical AI & Humanoid Robotics” platform using: - Docusaurus - React components - Tailwind CSS (extended theme) - Framer Motion (for animations) Use the reference screenshots (homepage design) as the design direction. Generate a complete, detailed FRONTEND SPECIFICATION that includes: # 1. Global Design System - Color palette (neon/cyber purple theme, gradients) - Typography scale (heading sizes, body, captions) - Border radius system - Spacing scale - Shadows (soft + neon) - Container width and breakpoints - Icon style rules (line icons) - Illustration guidelines (robotic neon look) # 2. Theme Tokens (Tailwind Config) - Custom colors - Custom gradients - Font families - Box shadows - Animations - Z-index scale - Component radiuses - Semantic color tokens (primary, secondary, background, surface, card) # 3. UI Components Specification Define each component with: - Purpose - Props - Layout rules - Responsive behavior - Variants - States (hover, active, disabled) - Example JSX structure Components to include: ### Core Components - Navbar - Footer - HeroSection - BookCard - FeatureCard - SpectrumCard (AI Assisted / Driven / Native) - SectionWrapper - Button (Primary, Secondary, Outline) - IconBubble - MetricBadge (7 chapters, 39 lessons, 100+ exercises) ### Layout Components - GridWrapper - PageContainer - ContentSection - CTASection # 4. Page-Level Specification For the Homepage, define all sections in detail: 1. **Hero Section** - Title layout - Left text block - Right book illustration block - CTA buttons - Metrics bar 2. **AI Spectrum Section** - Three cards (Assisted, Driven, Native) - Icons - Text layout - Mobile behavior 3. **Feature Grid Section** - 8 cards - 4-per-row → 2-per-row mobile → 1-per-row small screens 4. **Robotics Stack Section** - Short description - Feature cards 5. **CTA Footer Section** - Gradient background - Centered text - Call-to-action buttons # 5. Interaction & Motion Spec - Hover animation rules per component - Page enter animations - Scroll reveal - Gradient shimmer rules - Button press animation # 6. Docusaurus Integration Spec - Tailwind setup - Theme injection - How components will live inside `/src/components` - How pages will call components - Markdown + React hybrid examples - Multi-language (English + Urdu) # 7. Final Deliverables - Full frontend spec document - Component definitions - Layout definitions - Tailwind config - Animation guidelines - Example code blocks for key components"
@@ -172,7 +172,7 @@ As an educator, I want to find resources to teach AI and robotics concepts using
 
 - ✅ Impact: Created comprehensive frontend UI specification for the Physical AI & Humanoid Robotics platform, including design system, component specs, and implementation guidelines
 - 🧪 Tests: Specification validated against quality checklist with all requirements met
-- 📁 Files: Created spec.md and requirements checklist in specs/001-frontend-ui-spec/
+- 📁 Files: Created spec.md and requirements checklist in specs/002-frontend-ui-spec/
 - 🔁 Next prompts: Ready for /sp.plan to create implementation plan
 - 🧠 Reflection: Successfully transformed detailed feature requirements into a comprehensive specification following the required template structure
 

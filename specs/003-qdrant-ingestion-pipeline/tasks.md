@@ -12,35 +12,35 @@ This document breaks down the implementation of the Qdrant ingestion pipeline in
 
 ### Phase 1: Setup & Environment
 
-- [ ] T001 Define project structure and create `ingest_book.py`.
-- [ ] T002 Implement environment variable loading using `dotenv`.
-- [ ] T003 Add logging configuration to the script.
+- [x] T001 Define project structure and create `ingest_book.py`.
+- [x] T002 Implement environment variable loading using `dotenv`.
+- [x] T003 Add logging configuration to the script.
 
 ### Phase 2: Foundational Modules
 
-- [ ] T004 Implement `fetch_sitemap_urls` function in `ingest_book.py`.
-- [ ] T005 Implement `extract_text_from_url` function with retry logic in `ingest_book.py`.
-- [ ] T006 Implement `chunk_text` function in `ingest_book.py`.
-- [ ] T007 Implement `get_embedding` function with retry logic in `ingest_book.py`.
+- [x] T004 Implement `fetch_sitemap_urls` function in `ingest_book.py`.
+- [x] T005 Implement `extract_text_from_url` function with retry logic in `ingest_book.py`.
+- [x] T006 Implement `chunk_text` function in `ingest_book.py`.
+- [x] T007 Implement `get_embedding` function with retry logic in `ingest_book.py`.
 
 ### Phase 3: Qdrant Integration [US1]
 
-- [ ] T008 [US1] Implement Qdrant client initialization in `ingest_book.py`.
-- [ ] T009 [US1] Implement collection existence check and user confirmation for recreation in `ingest_book.py`.
-- [ ] T010 [US1] Implement the main processing loop to iterate through URLs and chunks in `ingest_book.py`.
-- [ ] T011 [US1] Implement point preparation and batch upsert logic to Qdrant in `ingest_book.py`.
+- [x] T008 [US1] Implement Qdrant client initialization in `ingest_book.py`.
+- [x] T009 [US1] Implement collection existence check and user confirmation for recreation in `ingest_book.py`.
+- [x] T010 [US1] Implement the main processing loop to iterate through URLs and chunks in `ingest_book.py`.
+- [x] T011 [US1] Implement point preparation and batch upsert logic to Qdrant in `ingest_book.py`.
 
 ### Phase 4: Script Assembly & Validation
 
-- [ ] T012 Create the `main` function to orchestrate the pipeline in `ingest_book.py`.
-- [ ] T013 Add `if __name__ == "__main__"` block to call `main()` in `ingest_book.py`.
-- [ ] T014 Implement the final validation query to Qdrant to verify the number of points in `ingest_book.py`.
+- [x] T012 Create the `main` function to orchestrate the pipeline in `ingest_book.py`.
+- [x] T013 Add `if __name__ == "__main__"` block to call `main()` in `ingest_book.py`.
+- [x] T014 Implement the final validation query to Qdrant to verify the number of points in `ingest_book.py`.
 
 ### Phase 5: Polish & Cross-Cutting Concerns
 
-- [ ] T015 Review and enhance all logging messages for clarity and consistency in `ingest_book.py`.
-- [ ] T016 Add docstrings to all functions in `ingest_book.py`.
-- [ ] T017 Finalize the `README.md` with instructions from `quickstart.md`.
+- [x] T015 Review and enhance all logging messages for clarity and consistency in `ingest_book.py`.
+- [x] T016 Add docstrings to all functions in `ingest_book.py`.
+- [x] T017 Finalize the `README.md` with instructions from `quickstart.md`.
 
 ## 2. Dependencies
 

@@ -6,19 +6,19 @@ date: 2025-12-06
 surface: agent
 model: claude-3-5-sonnet-20241022
 feature: frontend-ui-spec
-branch: 001-frontend-ui-spec
+branch: 002-frontend-ui-spec
 user: qwen
 command: /sp.tasks
 labels: [frontend, ui, tasks, docusaurus, react, tailwind]
 links:
-  spec: ../specs/001-frontend-ui-spec/spec.md
-  plan: ../specs/001-frontend-ui-spec/plan.md
-  tasks: ../specs/001-frontend-ui-spec/tasks.md
+  spec: ../specs/002-frontend-ui-spec/spec.md
+  plan: ../specs/002-frontend-ui-spec/plan.md
+  tasks: ../specs/002-frontend-ui-spec/tasks.md
   ticket: null
   adr: null
   pr: null
 files:
-  - specs/001-frontend-ui-spec/tasks.md
+  - specs/002-frontend-ui-spec/tasks.md
 tests:
   - tasks.md completeness
   - task dependencies validation
@@ -35,7 +35,7 @@ Context for task generation: You are generating the full TASK-LIST for building 
 
 # Tasks: Frontend UI for Physical AI & Humanoid Robotics Platform
 
-**Input**: Design documents from `/specs/001-frontend-ui-spec/`
+**Input**: Design documents from `/specs/002-frontend-ui-spec/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, quickstart.md
 
 **Tests**: Tasks are included per the testing strategy outlined in the plan.
