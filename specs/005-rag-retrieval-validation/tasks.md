@@ -13,9 +13,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 [P] Create a new directory `backend/src/retrieval` for the validation tool.
-- [ ] T002 [P] Add `qdrant-client` and `cohere` to `backend/requirements.txt`.
-- [ ] T003 [P] Create a configuration file `backend/src/retrieval/config.py` to load environment variables (API keys, Qdrant URL).
+- [X] T001 [P] Create a new directory `backend/src/retrieval` for the validation tool.
+- [X] T002 [P] Add `qdrant-client` and `cohere` to `backend/requirements.txt`.
+- [X] T003 [P] Create a configuration file `backend/src/retrieval/config.py` to load environment variables (API keys, Qdrant URL).
 
 ---
 
@@ -23,9 +23,9 @@
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T004 Create the data models in `backend/src/retrieval/models.py` based on `data-model.md`.
-- [ ] T005 Implement a service in `backend/src/retrieval/services.py` for interacting with the Cohere API.
-- [ ] T006 Implement a service in `backend/src/retrieval/services.py` for interacting with the Qdrant database.
+- [X] T004 Create the data models in `backend/src/retrieval/models.py` based on `data-model.md`.
+- [X] T005 Implement a service in `backend/src/retrieval/services.py` for interacting with the Cohere API.
+- [X] T006 Implement a service in `backend/src/retrieval/services.py` for interacting with the Qdrant database.
 
 ---
 
@@ -37,9 +37,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Implement the main retrieval logic in `backend/src/retrieval/main.py` that takes a query and returns retrieved chunks.
-- [ ] T008 [US1] Integrate the Cohere and Qdrant services into the main retrieval logic.
-- [ ] T009 [P] [US1] Create a test script `backend/tests/test_retrieval.py` with a basic test case for retrieval accuracy.
+- [X] T007 [US1] Implement the main retrieval logic in `backend/src/retrieval/main.py` that takes a query and returns retrieved chunks.
+- [X] T008 [US1] Integrate the Cohere and Qdrant services into the main retrieval logic.
+- [X] T009 [P] [US1] Create a test script `backend/tests/test_retrieval.py` with a basic test case for retrieval accuracy.
 
 ---
 
@@ -51,8 +51,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Extend the main retrieval logic in `backend/src/retrieval/main.py` to ensure all metadata fields are present in the output.
-- [ ] T011 [P] [US2] Add a test case to `backend/tests/test_retrieval.py` to validate the integrity of the metadata.
+- [X] T010 [US2] Extend the main retrieval logic in `backend/src/retrieval/main.py` to ensure all metadata fields are present in the output.
+- [X] T011 [P] [US2] Add a test case to `backend/tests/test_retrieval.py` to validate the integrity of the metadata.
 
 ---
 
@@ -64,8 +64,8 @@
 
 ### Implementation for User Story 3
 
-- [ ] T012 [US3] Create a FastAPI endpoint in `backend/src/api/retrieval_api.py` that exposes the retrieval functionality.
-- [ ] T013 [P] [US3] Create a load testing script `tests/performance/test_retrieval_performance.py` to measure latency and throughput.
+- [X] T012 [US3] Create a FastAPI endpoint in `backend/src/api/retrieval_api.py` that exposes the retrieval functionality.
+- [X] T013 [P] [US3] Create a load testing script `tests/performance/test_retrieval_performance.py` to measure latency and throughput.
 
 ---
 
@@ -73,10 +73,10 @@
 
 **Purpose**: Improvements that affect multiple user stories.
 
-- [ ] T014 [P] Add comprehensive logging to `backend/src/retrieval/main.py`.
-- [ ] T015 [P] Implement the exponential backoff retry policy in the `backend/src/retrieval/services.py`.
-- [ ] T016 [P] Add API key authentication to the FastAPI endpoint in `backend/src/api/retrieval_api.py`.
-- [ ] T017 Create a `README.md` for the retrieval validation tool.
+- [X] T014 [P] Add comprehensive logging to `backend/src/retrieval/main.py`.
+- [X] T015 [P] Implement the exponential backoff retry policy in the `backend/src/retrieval/services.py`.
+- [X] T016 [P] Add API key authentication to the FastAPI endpoint in `backend/src/api/retrieval_api.py`.
+- [X] T017 Create a `README.md` for the retrieval validation tool.
 
 ---
 
