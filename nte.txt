@@ -1,0 +1,1 @@
+│ ⊶  Shell backend/venv/bin/pip install FastAPI uvicorn python-dotenv psycopg2-binary qdrant-… (ctrl+f to focus) │

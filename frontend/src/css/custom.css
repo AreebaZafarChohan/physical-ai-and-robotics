@@ -14,7 +14,7 @@ body {
 }
 
 [data-theme='dark'] body {
-  @apply text-dark-text;
+  @apply text-light-text;
 }
 
 /* You can override the default Infima variables here. */

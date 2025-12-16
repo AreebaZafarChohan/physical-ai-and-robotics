@@ -45,6 +45,9 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/AreebaZafarChohan/physical-ai-and-robotics/tree/main/frontend/',
+          // Add the path to look for docs
+          path: './docs',
+          include: ['**/*.md', '**/*.mdx'],
         },
         theme: {
           customCss: './src/css/custom.css',

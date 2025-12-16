@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
+import Chatbot from '@site/src/components/Chatbot';
+
 # Introduction
 
 Welcome to the Physical AI & Humanoid Robotics platform. This documentation will guide you through the core concepts, implementation details, and applications of physical AI in humanoid robotics.
@@ -34,3 +36,5 @@ This platform covers essential topics in humanoid robotics:
 ## Getting Started
 
 Start with our curriculum covering the fundamentals of physical AI and progressively advancing to complex robotic systems and applications.
+
+<Chatbot />
