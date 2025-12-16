@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-import Chatbot from '@site/src/components/Chatbot';
+
 
 # Introduction
 
@@ -36,5 +36,3 @@ This platform covers essential topics in humanoid robotics:
 ## Getting Started
 
 Start with our curriculum covering the fundamentals of physical AI and progressively advancing to complex robotic systems and applications.
-
-<Chatbot />
