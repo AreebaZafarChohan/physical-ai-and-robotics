@@ -1,4 +1,5 @@
 import logging
+import json
 from dotenv import load_dotenv
 load_dotenv()
 from fastapi.responses import JSONResponse
@@ -52,7 +53,7 @@ async def chat_endpoint(
     """
     logger.info(f"Received /chat request with query: '{request.query}' and selected_text: '{request.selected_text}'")
     answer = await agent_service.get_response(request.query, request.selected_text)
-    return ChatResponse(answer=answer)
+    return ChatResponse(response=answer)
 
 # Add WebSocket endpoint for real-time communication
 @app.websocket("/ws")
@@ -78,10 +79,11 @@ async def websocket_endpoint(websocket: WebSocket):
             response = await agent_service.get_response(query, selected_text)
 
             # Send response back to client
-            await websocket.send_text(json.dumps({
+            response_data = {
                 "response": response,
                 "query": query
-            }))
+            }
+            await websocket.send_text(json.dumps(response_data))
     except WebSocketDisconnect:
         logger.info("WebSocket connection closed")
     except Exception as e:

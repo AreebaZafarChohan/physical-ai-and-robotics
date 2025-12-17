@@ -13,14 +13,14 @@ class GeminiModel:
             raise ValueError(
                 "GEMINI_API_KEY and GEMINI_API_BASE_URL must be set"
             )
-            
+
         self.client = AsyncOpenAI(
             api_key=self.api_key,
             base_url=self.base_url,
-        )    
+        )
 
         self.chat_model = OpenAIChatCompletionsModel(
-            model="gemini-2.5-flash",      
+            model="gemini-2.5-flash",
             openai_client=self.client,
         )
 

@@ -16,7 +16,8 @@ export const sendMessage = async (user_query: string, selected_text?: string) =>
     }
 
     const data = await response.json();
-    return data.answer;
+    // The backend returns 'response' field, but handle both 'response' and 'answer' for compatibility
+    return data.response || data.answer;
   } catch (error) {
     console.error('Error sending message to chatbot API:', error);
     throw error;
