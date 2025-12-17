@@ -8,6 +8,11 @@ const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
+  const [showChatbot, setShowChatbot] = useState<boolean>(false); // State to control chatbot visibility
+
+  const toggleChatbot = () => {
+    setShowChatbot(!showChatbot);
+  };
 
   // Initialize WebSocket connection on component mount
   useEffect(() => {
@@ -86,33 +91,40 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div className="chatbot-container">
-      <h3>Chatbot</h3>
-      <div className="chat-history">
-        {messages.map((msg, index) => (
-          <p key={index} className={msg.sender === 'user' ? 'user-message' : 'bot-message'}>
-            {msg.sender === 'user' ? 'You: ' : 'Bot: '}
-            {msg.text}
-          </p>
-        ))}
-        {loading && <p className="bot-message">Bot: Typing...</p>}
-      </div>
-      <div className="chat-input-area">
-        <input
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          onKeyPress={(event) => {
-            if (event.key === 'Enter' && !loading) {
-              handleSendMessage();
-            }
-          }}
-          placeholder="Ask a question..."
-          disabled={loading}
-        />
-        <button onClick={handleSendMessage} disabled={loading}>Send</button>
-      </div>
-    </div>
+    <>
+      {showChatbot && (
+        <div className="chatbot-container">
+          <h3>Chatbot</h3>
+          <div className="chat-history">
+            {messages.map((msg, index) => (
+              <p key={index} className={msg.sender === 'user' ? 'user-message' : 'bot-message'}>
+                {msg.sender === 'user' ? 'You: ' : 'Bot: '}
+                {msg.text}
+              </p>
+            ))}
+            {loading && <p className="bot-message">Bot: Typing...</p>}
+          </div>
+          <div className="chat-input-area">
+            <input
+              type="text"
+              value={input}
+              onChange={handleInputChange}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter' && !loading) {
+                  handleSendMessage();
+                }
+              }}
+              placeholder="Ask a question..."
+              disabled={loading}
+            />
+            <button onClick={handleSendMessage} disabled={loading}>Send</button>
+          </div>
+        </div>
+      )}
+      <button className="chatbot-toggle-button" onClick={toggleChatbot}>
+        {showChatbot ? 'X' : '💬'} {/* Placeholder for icon */}
+      </button>
+    </>
   );
 };
 
