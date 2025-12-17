@@ -43,30 +43,30 @@ const BookCard: React.FC<BookCardProps> = ({
             </div>
           )}
           <div>
-            <h3 className="text-xl font-bold text-light-text">{title}</h3>
-            <p className="text-light-text/70 text-sm">by {author}</p>
+            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <p className="text-white/70 text-sm">by {author}</p>
           </div>
         </div>
-        <p className="text-light-text/80 text-sm mb-4">{description}</p>
+        <p className="text-white/80 text-sm mb-4">{description}</p>
         
         {/* Metrics section */}
         <div className="flex justify-between text-sm">
           {chapters !== undefined && (
             <div className="text-center">
               <div className="font-bold text-neon-purple-400">{chapters}</div>
-              <div className="text-light-text/60">Chapters</div>
+              <div className="text-white/60">Chapters</div>
             </div>
           )}
           {lessons !== undefined && (
             <div className="text-center">
               <div className="font-bold text-neon-purple-400">{lessons}</div>
-              <div className="text-light-text/60">Lessons</div>
+              <div className="text-white/60">Lessons</div>
             </div>
           )}
           {exercises !== undefined && (
             <div className="text-center">
               <div className="font-bold text-neon-purple-400">{exercises}</div>
-              <div className="text-light-text/60">Exercises</div>
+              <div className="text-white/60">Exercises</div>
             </div>
           )}
         </div>

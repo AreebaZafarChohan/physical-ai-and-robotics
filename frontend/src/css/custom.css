@@ -41,3 +41,78 @@ body {
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Chatbot Styles */
+.chatbot-container {
+  background-color: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-border-radius);
+  box-shadow: var(--ifm-shadow-md);
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 300px; /* Adjust as needed */
+}
+
+.chatbot-container h3 {
+  margin-top: 0;
+  color: var(--ifm-color-primary);
+}
+
+.chat-history {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  border: 1px solid var(--ifm-color-emphasis-100);
+  padding: 10px;
+  border-radius: var(--ifm-border-radius);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.chat-history p {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.chat-history p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-history .user-message {
+  text-align: right;
+  color: var(--ifm-color-info);
+}
+
+.chat-history .bot-message {
+  text-align: left;
+  color: var(--ifm-color-success);
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input-area input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+.chat-input-area button {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--ifm-border-radius);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.chat-input-area button:hover {
+  background-color: var(--ifm-color-primary-dark);
+}

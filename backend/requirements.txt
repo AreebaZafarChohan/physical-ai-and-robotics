@@ -2,3 +2,7 @@ qdrant-client
 cohere
 python-dotenv
 fastapi
+uvicorn
+async-openai
+openai-agents
+prometheus-client>=0.20.0

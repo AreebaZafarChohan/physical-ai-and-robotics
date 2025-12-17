@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   const navItems = navbar.items;
 
   return (
-    <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card">
+    <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card pt-4">
       <nav className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-neon-purple-500 to-neon-pink-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">AI</span>
             </div>
-            <Link to={useBaseUrl('/')} className="text-xl font-bold text-light-text no-underline hover:no-underline">
+            <Link to={useBaseUrl('/')} className="text-xl font-bold text-white no-underline hover:no-underline">
               {(siteConfig.themeConfig as any).navbar.title}
             </Link>
           </div>
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
                                 <Link
                                   key={index}
                                   to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
-                                  className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                                  className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300"
                                 >
                                   {item.label}
                                 </Link>
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
                   <a
                     key={index}
                     href={item.href}
-                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                    className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300"
                     target="_blank" // Open external links in new tab
                     rel="noopener noreferrer"
                   >
@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
                   <Link
                     key={index}
                     to={useBaseUrl(item.to)}
-                    className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300"
+                    className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300"
                   >
                     {item.label || item.name}
                   </Link>
@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-light-text focus:outline-none"
+            className="md:hidden text-white focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg 
@@ -111,7 +111,7 @@ const Navbar: React.FC = () => {
                     <Link
                       key={index}
                       to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
-                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
                     <a
                       key={index}
                       href={item.href}
-                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsMenuOpen(false)}
@@ -138,7 +138,7 @@ const Navbar: React.FC = () => {
                     <Link
                       key={index}
                       to={useBaseUrl(item.to)}
-                      className="text-light-text/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
+                      className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300 py-2 border-b border-dark-card/50"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label || item.name}

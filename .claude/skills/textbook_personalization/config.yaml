@@ -1,0 +1,61 @@
+# Textbook Personalization Skill Configuration
+
+skill_name: "textbook_personalization"
+description: "Personalizes textbook chapters based on user profiles"
+version: "1.0.0"
+author: "Claude Code"
+
+# Activation triggers
+triggers:
+  - "personalize this chapter"
+  - "adapt this content for me"
+  - "adjust this textbook content"
+  - "modify this chapter for my level"
+  - "customize this textbook"
+
+# Input parameters
+parameters:
+  markdown_content:
+    type: "string"
+    description: "Textbook chapter content in Markdown format"
+    required: true
+
+  user_profile:
+    type: "object"
+    description: "User profile information"
+    required: true
+    properties:
+      level:
+        type: "string"
+        enum: ["beginner", "intermediate", "advanced"]
+        description: "User's knowledge level"
+      hardware:
+        type: "string"
+        enum: ["simulation", "basic_hardware", "advanced_hardware", "mixed"]
+        description: "User's hardware capabilities"
+      background:
+        type: "string"
+        enum: ["computer_science", "engineering", "mathematics", "physics", "other"]
+        description: "User's academic background"
+      learning_style:
+        type: "string"
+        enum: ["theoretical", "practical", "balanced"]
+        description: "User's preferred learning style"
+      goals:
+        type: "array"
+        items:
+          type: "string"
+        description: "User's learning objectives"
+      constraints:
+        type: "object"
+        description: "Time or resource constraints"
+
+# Output format
+output:
+  type: "string"
+  description: "Personalized chapter content in Markdown format"
+
+# Implementation
+implementation:
+  file: "personalization_skill.py"
+  function: "personalize_textbook_chapter"

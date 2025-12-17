@@ -37,8 +37,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
             </span>
           )}
         </div>
-        <h3 className="text-xl font-bold text-light-text mb-2">{title}</h3>
-        <p className="text-light-text/80 mb-4 flex-grow">{description}</p>
+        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <p className="text-white/80 mb-4 flex-grow">{description}</p>
       </div>
     </div>
   );

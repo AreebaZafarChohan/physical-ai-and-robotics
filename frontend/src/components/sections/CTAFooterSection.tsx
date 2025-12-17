@@ -21,10 +21,10 @@ const CTAFooterSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-light-text mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 pt-4">
               Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple-400 to-neon-pink-400">Explore</span> the Future?
             </h2>
-            <p className="text-xl text-light-text/80 mb-10">
+            <p className="text-xl text-white/80 mb-10">
               Join thousands of students and researchers delving into the frontier of physical AI and humanoid robotics.
             </p>
           </motion.div>
@@ -50,19 +50,19 @@ const CTAFooterSection: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
           >
             <div className="flex flex-wrap justify-center items-center gap-8">
-              <div className="text-light-text/70">
+              <div className="text-white/70">
                 <p className="text-2xl font-bold text-neon-purple-400">7</p>
                 <p className="text-sm">Chapters</p>
               </div>
-              <div className="text-light-text/70">
+              <div className="text-white/70">
                 <p className="text-2xl font-bold text-neon-pink-400">39</p>
                 <p className="text-sm">Lessons</p>
               </div>
-              <div className="text-light-text/70">
+              <div className="text-white/70">
                 <p className="text-2xl font-bold text-neon-purple-400">100+</p>
                 <p className="text-sm">Exercises</p>
               </div>
-              <div className="text-light-text/70">
+              <div className="text-white/70">
                 <p className="text-2xl font-bold text-neon-pink-400">24/7</p>
                 <p className="text-sm">Support</p>
               </div>

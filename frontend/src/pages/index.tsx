@@ -9,7 +9,7 @@ import CTAFooterSection from '../components/sections/CTAFooterSection';
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-dark-bg text-light-text">
+    <div className="min-h-screen bg-dark-bg text-white">
       <Head>
         <title>Physical AI & Humanoid Robotics Platform</title>
         <meta name="description" content="Explore the future of artificial intelligence embodied in physical form. Learn how humanoid robots are reshaping our world through cutting-edge research and applications." />
