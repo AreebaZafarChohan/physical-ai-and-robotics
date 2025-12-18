@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import './chatbot.css';
+
 import { sendMessage } from '../../utils/chatbotApi'; // Import the API function
 import wsClient from '../../utils/websocketClient'; // Import WebSocket client
 import { getSelectedText } from '../../utils/textSelection'; // Import getSelectedText
@@ -9,13 +12,33 @@ const Chatbot: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
   const [showChatbot, setShowChatbot] = useState<boolean>(false); // State to control chatbot visibility
+  const chatHistoryRef = useRef<HTMLDivElement>(null);
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
   };
 
+  // Clear chat history
+  const clearChatHistory = () => {
+    setMessages([]);
+  };
+
+  // Scroll to bottom of chat history
+  useEffect(() => {
+    if (chatHistoryRef.current) {
+      chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
+    }
+  }, [messages, loading]);
+
   // Initialize WebSocket connection on component mount
   useEffect(() => {
+    // Only initialize WebSocket if it's available
+    if (!wsClient) {
+      console.log('WebSocket client is not available, using HTTP API only');
+      setUseWebSocket(false);
+      return;
+    }
+
     const initWebSocket = async () => {
       try {
         await wsClient.connect();
@@ -38,7 +61,7 @@ const Chatbot: React.FC = () => {
 
     // Cleanup WebSocket connection on unmount
     return () => {
-      if (wsClient.isConnected()) {
+      if (wsClient && wsClient.isConnected()) {
         wsClient.close();
       }
     };
@@ -56,7 +79,7 @@ const Chatbot: React.FC = () => {
       setInput('');
       setLoading(true);
 
-      if (useWebSocket && wsClient.isConnected()) {
+      if (useWebSocket && wsClient && wsClient.isConnected()) {
         // Use WebSocket for real-time communication
         // Set up a temporary message handler for this specific response
         const messageHandler = (data: any) => {
@@ -90,39 +113,83 @@ const Chatbot: React.FC = () => {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !loading) {
+      handleSendMessage();
+    }
+  };
+
   return (
     <>
       {showChatbot && (
-        <div className="chatbot-container">
-          <h3>Chatbot</h3>
-          <div className="chat-history">
-            {messages.map((msg, index) => (
-              <p key={index} className={msg.sender === 'user' ? 'user-message' : 'bot-message'}>
-                {msg.sender === 'user' ? 'You: ' : 'Bot: '}
-                {msg.text}
-              </p>
-            ))}
-            {loading && <p className="bot-message">Bot: Typing...</p>}
+        <motion.div
+          className="chatbot-container chatbot-wrapper"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="chat-header">
+            <h3 className="chat-title">Chatbot</h3>
+            <button className="clear-history-btn" onClick={clearChatHistory} title="Clear chat history">
+              🗑️
+            </button>
           </div>
+
+          <div className="chat-history" ref={chatHistoryRef}>
+            <AnimatePresence>
+              {messages.map((msg, index) => (
+                <motion.div
+                  key={index}
+                  className={`message ${msg.sender}-message`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  {msg.text}
+                </motion.div>
+              ))}
+
+              {loading && (
+                <motion.div
+                  className="typing-indicator"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <span>Bot: </span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <div className="chat-input-area">
             <input
               type="text"
               value={input}
               onChange={handleInputChange}
-              onKeyPress={(event) => {
-                if (event.key === 'Enter' && !loading) {
-                  handleSendMessage();
-                }
-              }}
+              onKeyPress={handleKeyPress}
+              className="chat-input"
               placeholder="Ask a question..."
               disabled={loading}
+              autoFocus
             />
-            <button onClick={handleSendMessage} disabled={loading}>Send</button>
+            <button
+              className="send-button"
+              onClick={handleSendMessage}
+              disabled={loading}
+              title="Send message"
+            >
+              ➤
+            </button>
           </div>
-        </div>
+        </motion.div>
       )}
       <button className="chatbot-toggle-button" onClick={toggleChatbot}>
-        {showChatbot ? 'X' : '💬'} {/* Placeholder for icon */}
+        {showChatbot ? '✕' : '💬'}
       </button>
     </>
   );

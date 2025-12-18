@@ -13,14 +13,12 @@ const Navbar: React.FC = () => {
   const navItems = navbar.items;
 
   return (
-    <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card pt-4">
-      <nav className="container mx-auto px-4 py-12">
+    <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card">
+      <nav className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-neon-purple-500 to-neon-pink-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">AI</span>
-            </div>
+            <img src={useBaseUrl('/img/logo.png')} alt="Logo" className="w-10 h-10" />
             <Link to={useBaseUrl('/')} className="text-xl font-bold text-white no-underline hover:no-underline">
               {(siteConfig.themeConfig as any).navbar.title}
             </Link>
@@ -28,18 +26,19 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-                          {navItems.map((item, index) => {
-                            if (item.type === 'docSidebar') {
-                              return (
-                                <Link
-                                  key={index}
-                                  to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
-                                  className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300"
-                                >
-                                  {item.label}
-                                </Link>
-                              );
-                            } else if (item.type === 'localeDropdown') {                // Skipping locale dropdown for now as it causes type issues
+            {navItems.map((item, index) => {
+              if (item.type === 'docSidebar') {
+                return (
+                  <Link
+                    key={index}
+                    to={useBaseUrl('/docs/intro')} // Link to intro for docSidebar
+                    className="text-white/80 hover:text-neon-purple-400 transition-colors duration-300"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              } else if (item.type === 'localeDropdown') {
+                // Skip the locale dropdown here since it's handled by the default Docusaurus navbar
                 return null;
               } else if (item.href) {
                 return (
@@ -68,23 +67,23 @@ const Navbar: React.FC = () => {
             })}
           </div>
 
-          {/* CTA Button - Hidden on mobile until menu opens */}
-          <div className="hidden md:block">
+          {/* CTA Button and Additional Controls - Hidden on mobile until menu opens */}
+          <div className="hidden md:flex items-center space-x-4">
             <Link to="/docs/intro">
               <Button variant="primary">Get Started</Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden text-white focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <svg 
-              className="w-6 h-6" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24" 
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               {isMenuOpen ? (
@@ -98,7 +97,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -118,7 +117,7 @@ const Navbar: React.FC = () => {
                     </Link>
                   );
                 } else if (item.type === 'localeDropdown') {
-                  // Skipping locale dropdown for now as it causes type issues
+                  // Skip the locale dropdown here since it's handled by the default Docusaurus navbar
                   return null;
                 } else if (item.href) {
                   return (

@@ -4,13 +4,13 @@ title: "Introduction to ROS 2"
 
 # Introduction to ROS 2
 
-The Robotic Operating System (ROS) has been the de facto standard for robotic software development for over a decade. ROS 2 is the latest iteration, re-engineered to address the limitations of ROS 1 and to support the evolving demands of modern robotics, including real-time performance, multi-robot systems, and embedded platforms.
+The **Robotic Operating System (ROS)** has been the de facto standard for robotic software development for over a decade. **ROS 2** is the latest iteration, re-engineered to address the limitations of ROS 1 and to support the evolving demands of modern robotics, including real-time performance, multi-robot systems, and embedded platforms.
 
 ## What is ROS 2?
 
 ROS 2 is a flexible framework for writing robot software. It's a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms. It provides a structured communication layer, a robust build system, and a rich ecosystem of development tools.
 
-Unlike a traditional operating system, ROS 2 is a *meta-operating system* that runs on top of a conventional OS (like Linux, Windows, or macOS). It facilitates communication between various components (nodes) of a robotic system, allowing for modular development and reusability of code.
+Unlike a traditional operating system, ROS 2 is a **meta-operating system** that runs on top of a conventional OS (like Linux, Windows, or macOS). It facilitates communication between various components (nodes) of a robotic system, allowing for modular development and reusability of code.
 
 ## Key Concepts in ROS 2
 
@@ -172,3 +172,16 @@ ros2 run my_ros2_pkg listener
 ```
 
 You should see the listener node printing the messages published by the talker node. This simple example demonstrates the fundamental publish/subscribe communication pattern in ROS 2.
+
+## Key Takeaways
+
+- ROS 2 provides a flexible framework for developing complex robotic applications
+- The publish/subscribe pattern enables loose coupling between components
+- Services and actions provide additional communication mechanisms for various use cases
+- The system is designed with security, real-time performance, and multi-robot systems in mind
+
+## Next Steps
+
+- [Module 2: Digital Twins for Robotics](/docs/02-module-digital-twin/intro)
+- [Module 3: NVIDIA Isaac for Humanoids](/docs/03-module-nvidia-isaac/intro)
+- [Module 4: Vision-Language-Action (VLA) Models](/docs/04-module-vla/intro)

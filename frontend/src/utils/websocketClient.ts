@@ -118,6 +118,6 @@ class WebSocketClient {
 // Create a singleton instance
 const wsClient = new WebSocketClient('ws://localhost:9000/ws');
 
-// export default wsClient;
+export default wsClient;
 // TEMPORARILY DISABLED – backend WS unstable
-export default null;
+// export default null;

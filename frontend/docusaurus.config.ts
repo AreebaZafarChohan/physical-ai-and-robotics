@@ -66,7 +66,7 @@ const config: Config = {
       title: 'Physical AI & Humanoid Robotics',
       logo: {
         alt: 'Physical AI & Humanoid Robotics Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -81,9 +81,14 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
-        { // New Locale dropdown
+        { // Locale dropdown
           type: 'localeDropdown',
           position: 'right',
+        },
+        { // Color mode toggle
+          type: 'theme',
+          position: 'right',
+          label: 'Switch to dark/light mode',
         },
       ],
     },
