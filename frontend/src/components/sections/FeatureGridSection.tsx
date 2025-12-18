@@ -68,7 +68,7 @@ const FeatureGridSection: React.FC = () => {
     <SectionWrapper background="dark" padding="lg">
       <div className="text-center mb-16">
         <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-light-text mb-4"
+          className="text-3xl md:text-4xl font-bold text-white mb-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -76,7 +76,7 @@ const FeatureGridSection: React.FC = () => {
           Key <span className="text-neon-purple-400">Concepts</span> in Physical AI
         </motion.h2>
         <motion.p 
-          className="text-xl text-light-text/80 max-w-2xl mx-auto"
+          className="text-xl text-white/80 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}

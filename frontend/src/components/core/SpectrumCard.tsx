@@ -60,8 +60,8 @@ const SpectrumCard: React.FC<SpectrumCardProps> = ({
         <div className="mb-4">
           {icon && <IconBubble icon={icon} size="md" color={styles.iconColor} animated={false} />}
         </div>
-        <h3 className="text-2xl font-bold text-light-text mb-3">{title}</h3>
-        <p className="text-light-text/80 mb-4 flex-grow">{description}</p>
+        <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
+        <p className="text-white/80 mb-4 flex-grow">{description}</p>
         <div className="mt-auto pt-4 border-t border-dark-card/50">
           <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${styles.textColor}`}>
             AI {type.charAt(0).toUpperCase() + type.slice(1)}

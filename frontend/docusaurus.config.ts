@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Physical AI & Humanoid Robotics: A Textbook',
+  title: 'RoboX',
   tagline: 'An open-source textbook covering ROS 2, Digital Twin, NVIDIA Isaac, and Vision-Language-Action (VLA) for humanoid robotics.',
   favicon: 'img/favicon.ico',
 
@@ -63,17 +63,17 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Physical AI & Humanoid Robotics',
+      title: 'RoboX',
       logo: {
-        alt: 'Physical AI & Humanoid Robotics Logo',
-        src: 'img/logo.svg',
+        alt: 'RoboX AI Robotics Logo',
+        src: 'img/logo.png',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Textbook',
+          label: 'Book',
         },
         {to: '/about', label: 'About', position: 'left'},
         {
@@ -81,7 +81,16 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
-        { // New Locale dropdown
+        {
+          type: 'dropdown',
+          label: 'Account',
+          position: 'right',
+          items: [
+            {label: 'Sign In', to: '/signin'},
+            {label: 'Sign Up', to: '/signup'},
+          ],
+        },
+        { // Locale dropdown
           type: 'localeDropdown',
           position: 'right',
         },

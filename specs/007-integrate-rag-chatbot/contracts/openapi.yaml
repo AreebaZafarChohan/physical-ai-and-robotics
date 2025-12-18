@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+  description: API for integrating a RAG chatbot with a Docusaurus frontend for contextual book content queries.
+servers:
+  - url: http://localhost:8000
+    description: Local FastAPI server
+paths:
+  /chat:
+    post:
+      summary: Get a chatbot response based on a user query and optional context.
+      operationId: getChatResponse
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_query
+              properties:
+                user_query:
+                  type: string
+                  description: The user's question about the book content.
+                  example: "What is ROS 2?"
+                selected_text:
+                  type: string
+                  nullable: true
+                  description: Optional selected text from the book to provide additional context.
+                  example: "ROS 2 is a set of software libraries and tools..."
+      responses:
+        '200':
+          description: Successful chatbot response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: The AI-generated answer to the user's query.
+                    example: "ROS 2 is the Robot Operating System, a flexible framework for writing robot software."
+        '400':
+          description: Bad Request - e.g., missing user_query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "User query is required."
+        '500':
+          description: Internal Server Error - e.g., backend API unreachable, RAG processing error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Sorry, something went wrong. Please try again later."

@@ -1,6 +1,6 @@
 # Book Metadata
 - Title: "Physical AI & Humanoid Robotics"
-- Author: "[Your Name]"
+- Author: "Areeba Zafar"
 - Description: "A practical guide to Physical AI, Humanoid Robotics, ROS 2, Gazebo, NVIDIA Isaac, and AI-agent integration in robotics."
 - Version: "1.0.0"
 
