@@ -5,7 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 function About() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout title="About" description="About the Physical AI & Humanoid Robotics textbook">
+    <Layout title="About RoboX" description="About the RoboX textbook">
       <main className="container margin-vert--lg">
         <div className="row">
           <div className="col col--8 col--offset-2">

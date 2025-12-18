@@ -1,7 +1,7 @@
 import React from 'react';
+import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
-import Navbar from '../components/core/Navbar';
-import Footer from '../components/core/Footer';
+
 import HeroSection from '../components/sections/HeroSection';
 import AISpectrumSection from '../components/sections/AISpectrumSection';
 import FeatureGridSection from '../components/sections/FeatureGridSection';
@@ -9,23 +9,24 @@ import CTAFooterSection from '../components/sections/CTAFooterSection';
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-dark-bg text-white">
+    <Layout
+      title="RoboX - Physical AI & Humanoid Robotics Platform"
+      description="Explore the future of artificial intelligence embodied in physical form."
+    >
       <Head>
-        <title>Physical AI & Humanoid Robotics Platform</title>
-        <meta name="description" content="Explore the future of artificial intelligence embodied in physical form. Learn how humanoid robots are reshaping our world through cutting-edge research and applications." />
+        <meta
+          name="description"
+          content="Explore the future of artificial intelligence embodied in physical form. Learn how humanoid robots are reshaping our world."
+        />
       </Head>
 
-      <Navbar />
-      
-      <main>
+      <main className="bg-dark-bg text-white">
         <HeroSection />
         <AISpectrumSection />
         <FeatureGridSection />
         <CTAFooterSection />
       </main>
-      
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

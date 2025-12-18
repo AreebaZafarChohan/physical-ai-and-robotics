@@ -13,8 +13,8 @@ const Navbar: React.FC = () => {
   const navItems = navbar.items;
 
   return (
-    <header className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-card">
-      <nav className="container mx-auto px-4 py-3">
+    <header className="sticky top-0 z-50 bg-white backdrop-blur-sm border-b h-14 border-dark-card">
+      <nav className="container mx-auto px-4 py-3 pt-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">

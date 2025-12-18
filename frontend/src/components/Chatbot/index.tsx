@@ -1,14 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import './chatbot.css';
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import "./chatbot.css";
 
-import { sendMessage } from '../../utils/chatbotApi'; // Import the API function
-import wsClient from '../../utils/websocketClient'; // Import WebSocket client
-import { getSelectedText } from '../../utils/textSelection'; // Import getSelectedText
+import { sendMessage } from "../../utils/chatbotApi"; // Import the API function
+import wsClient from "../../utils/websocketClient"; // Import WebSocket client
+import { getSelectedText } from "../../utils/textSelection"; // Import getSelectedText
+import { AiFillDelete } from "react-icons/ai";
+import { TbMessageChatbot } from "react-icons/tb";
+import { MdCancelPresentation } from "react-icons/md";
+import { FiSend } from "react-icons/fi";
 
 const Chatbot: React.FC = () => {
-  const [input, setInput] = useState<string>('');
-  const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
+  const [input, setInput] = useState<string>("");
+  const [messages, setMessages] = useState<
+    { text: string; sender: "user" | "bot" }[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
   const [showChatbot, setShowChatbot] = useState<boolean>(false); // State to control chatbot visibility
@@ -34,7 +40,7 @@ const Chatbot: React.FC = () => {
   useEffect(() => {
     // Only initialize WebSocket if it's available
     if (!wsClient) {
-      console.log('WebSocket client is not available, using HTTP API only');
+      console.log("WebSocket client is not available, using HTTP API only");
       setUseWebSocket(false);
       return;
     }
@@ -43,9 +49,12 @@ const Chatbot: React.FC = () => {
       try {
         await wsClient.connect();
         setUseWebSocket(true);
-        console.log('WebSocket connected successfully');
+        console.log("WebSocket connected successfully");
       } catch (error) {
-        console.log('WebSocket connection failed, falling back to HTTP API:', error);
+        console.log(
+          "WebSocket connection failed, falling back to HTTP API:",
+          error
+        );
         setUseWebSocket(false);
       }
     };
@@ -55,7 +64,7 @@ const Chatbot: React.FC = () => {
       initWebSocket().catch(() => {
         // If WebSocket connection fails, we still want to use HTTP API
         setUseWebSocket(false);
-        console.log('Continuing with HTTP API only');
+        console.log("Continuing with HTTP API only");
       });
     }, 1000); // Small delay to allow page to load first
 
@@ -75,8 +84,11 @@ const Chatbot: React.FC = () => {
     if (input.trim()) {
       const userMessage = input;
       const selectedText = getSelectedText(); // Get selected text
-      setMessages((prevMessages) => [...prevMessages, { text: userMessage, sender: 'user' }]);
-      setInput('');
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: userMessage, sender: "user" },
+      ]);
+      setInput("");
       setLoading(true);
 
       if (useWebSocket && wsClient && wsClient.isConnected()) {
@@ -84,7 +96,10 @@ const Chatbot: React.FC = () => {
         // Set up a temporary message handler for this specific response
         const messageHandler = (data: any) => {
           if (data.response) {
-            setMessages((prevMessages) => [...prevMessages, { text: data.response, sender: 'bot' }]);
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              { text: data.response, sender: "bot" },
+            ]);
             setLoading(false);
             // Remove this specific handler after receiving the response
             wsClient.removeMessageHandler(messageHandler);
@@ -97,15 +112,21 @@ const Chatbot: React.FC = () => {
         // Send the message via WebSocket
         wsClient.send({
           query: userMessage,
-          selected_text: selectedText
+          selected_text: selectedText,
         });
       } else {
         // Use HTTP API as fallback
         try {
           const botResponse = await sendMessage(userMessage, selectedText); // Pass selected text
-          setMessages((prevMessages) => [...prevMessages, { text: botResponse, sender: 'bot' }]);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: botResponse, sender: "bot" },
+          ]);
         } catch (error) {
-          setMessages((prevMessages) => [...prevMessages, { text: 'Error: Could not get a response.', sender: 'bot' }]);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: "Error: Could not get a response.", sender: "bot" },
+          ]);
         } finally {
           setLoading(false);
         }
@@ -114,7 +135,7 @@ const Chatbot: React.FC = () => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && !loading) {
+    if (event.key === "Enter" && !loading) {
       handleSendMessage();
     }
   };
@@ -131,8 +152,12 @@ const Chatbot: React.FC = () => {
         >
           <div className="chat-header">
             <h3 className="chat-title">Chatbot</h3>
-            <button className="clear-history-btn" onClick={clearChatHistory} title="Clear chat history">
-              🗑️
+            <button
+              className="clear-history-btn"
+              onClick={clearChatHistory}
+              title="Clear chat history"
+            >
+              <AiFillDelete />
             </button>
           </div>
 
@@ -183,13 +208,13 @@ const Chatbot: React.FC = () => {
               disabled={loading}
               title="Send message"
             >
-              ➤
+              <FiSend />
             </button>
           </div>
         </motion.div>
       )}
       <button className="chatbot-toggle-button" onClick={toggleChatbot}>
-        {showChatbot ? '✕' : '💬'}
+        {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
       </button>
     </>
   );
