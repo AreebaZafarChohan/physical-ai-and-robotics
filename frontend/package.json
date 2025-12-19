@@ -39,6 +39,7 @@
     "@splinetool/react-spline": "^4.1.0",
     "axe-core": "^4.11.0",
     "babel-loader": "^9.2.1",
+    "classnames": "^2.5.1",
     "framer-motion": "^12.23.25",
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",

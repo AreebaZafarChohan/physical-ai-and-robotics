@@ -456,6 +456,7 @@ body {
   }
 }
 
+
 @media (max-width: 768px) {
   .hero__title {
     font-size: 2rem;
@@ -494,4 +495,3 @@ body {
 }
 
 /* Chatbot Styles moved to separate file */
-
