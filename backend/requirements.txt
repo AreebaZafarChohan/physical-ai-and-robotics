@@ -8,3 +8,4 @@ openai-agents
 prometheus-client>=0.20.0
 websockets
 wsproto
+asyncpg

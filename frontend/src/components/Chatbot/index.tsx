@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./chatbot.css";
 
+import WelcomeScreen from '../WelcomeScreen'; // Import WelcomeScreen
 import { sendMessage } from "../../utils/chatbotApi"; // Import the API function
 import wsClient from "../../utils/websocketClient"; // Import WebSocket client
 import { getSelectedText } from "../../utils/textSelection"; // Import getSelectedText
@@ -9,19 +10,32 @@ import { AiFillDelete } from "react-icons/ai";
 import { TbMessageChatbot } from "react-icons/tb";
 import { MdCancelPresentation } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
+import { useAuth } from '../../contexts/AuthContext'; // Import AuthContext
 
 const Chatbot: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<
-    { text: string; sender: "user" | "bot" }[]
+    { text: string; sender: "user" }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
   const [showChatbot, setShowChatbot] = useState<boolean>(false); // State to control chatbot visibility
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState<boolean>(true); // State to control welcome screen visibility
   const chatHistoryRef = useRef<HTMLDivElement>(null);
+
+  const { isAuthenticated, userId } = useAuth();
+  const accessToken = localStorage.getItem('access_token');
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
+  };
+
+  const handleStartChatting = () => {
+    setShowWelcomeScreen(false);
+    setShowChatbot(true); // Ensure chatbot is visible after welcome screen
+    setMessages([
+      { text: "RoboX is ready. Ask questions about the Physical AI textbook. I’ll answer using only the textbook content.", sender: "bot" }
+    ]);
   };
 
   // Clear chat history
@@ -46,6 +60,12 @@ const Chatbot: React.FC = () => {
     }
 
     const initWebSocket = async () => {
+      // Check if we are already connected or connecting
+      if (wsClient.isConnected() || wsClient.isConnectingInProgress()) {
+        if (wsClient.isConnected()) setUseWebSocket(true);
+        return;
+      }
+
       try {
         await wsClient.connect();
         setUseWebSocket(true);
@@ -59,14 +79,7 @@ const Chatbot: React.FC = () => {
       }
     };
 
-    // Try to connect to WebSocket, but don't block the UI if it fails
-    setTimeout(() => {
-      initWebSocket().catch(() => {
-        // If WebSocket connection fails, we still want to use HTTP API
-        setUseWebSocket(false);
-        console.log("Continuing with HTTP API only");
-      });
-    }, 1000); // Small delay to allow page to load first
+    initWebSocket();
 
     // Cleanup WebSocket connection on unmount
     return () => {
@@ -113,11 +126,11 @@ const Chatbot: React.FC = () => {
         wsClient.send({
           query: userMessage,
           selected_text: selectedText,
-        });
+        }, isAuthenticated ? userId : null, accessToken); // Pass userId and accessToken
       } else {
         // Use HTTP API as fallback
         try {
-          const botResponse = await sendMessage(userMessage, selectedText); // Pass selected text
+          const botResponse = await sendMessage(userMessage, selectedText, isAuthenticated ? userId : null, accessToken); // Pass userId and accessToken
           setMessages((prevMessages) => [
             ...prevMessages,
             { text: botResponse, sender: "bot" },
@@ -142,82 +155,88 @@ const Chatbot: React.FC = () => {
 
   return (
     <>
-      {showChatbot && (
-        <motion.div
-          className="chatbot-container chatbot-wrapper"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="chat-header">
-            <h3 className="chat-title">Chatbot</h3>
-            <button
-              className="clear-history-btn"
-              onClick={clearChatHistory}
-              title="Clear chat history"
+      {showWelcomeScreen ? (
+        <WelcomeScreen onStartChatting={handleStartChatting} />
+      ) : (
+        <>
+          {showChatbot && (
+            <motion.div
+              className="chatbot-container chatbot-wrapper"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
             >
-              <AiFillDelete />
-            </button>
-          </div>
-
-          <div className="chat-history" ref={chatHistoryRef}>
-            <AnimatePresence>
-              {messages.map((msg, index) => (
-                <motion.div
-                  key={index}
-                  className={`message ${msg.sender}-message`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
+              <div className="chat-header">
+                <h3 className="chat-title">Chatbot</h3>
+                <button
+                  className="clear-history-btn"
+                  onClick={clearChatHistory}
+                  title="Clear chat history"
                 >
-                  {msg.text}
-                </motion.div>
-              ))}
+                  <AiFillDelete />
+                </button>
+              </div>
 
-              {loading && (
-                <motion.div
-                  className="typing-indicator"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+              <div className="chat-history" ref={chatHistoryRef}>
+                <AnimatePresence>
+                  {messages.map((msg, index) => (
+                    <motion.div
+                      key={index}
+                      className={`message ${msg.sender}-message`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      {msg.text}
+                    </motion.div>
+                  ))}
+
+                  {loading && (
+                    <motion.div
+                      className="typing-indicator"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span>Bot: </span>
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="chat-input-area">
+                <input
+                  type="text"
+                  id="chatbot-input"
+                  value={input}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
+                  className="chat-input"
+                  placeholder="Ask a question..."
+                  disabled={loading}
+                  autoFocus
+                />
+                <button
+                  id="chatbot-send-button"
+                  className="send-button"
+                  onClick={handleSendMessage}
+                  disabled={loading}
+                  title="Send message"
                 >
-                  <span>Bot: </span>
-                  <span className="dot"></span>
-                  <span className="dot"></span>
-                  <span className="dot"></span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div className="chat-input-area">
-            <input
-              type="text"
-              id="chatbot-input"
-              value={input}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              className="chat-input"
-              placeholder="Ask a question..."
-              disabled={loading}
-              autoFocus
-            />
-            <button
-              id="chatbot-send-button"
-              className="send-button"
-              onClick={handleSendMessage}
-              disabled={loading}
-              title="Send message"
-            >
-              <FiSend />
-            </button>
-          </div>
-        </motion.div>
+                  <FiSend />
+                </button>
+              </div>
+            </motion.div>
+          )}
+          <button className="chatbot-toggle-button" onClick={toggleChatbot}>
+            {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
+          </button>
+        </>
       )}
-      <button className="chatbot-toggle-button" onClick={toggleChatbot}>
-        {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
-      </button>
     </>
   );
 };

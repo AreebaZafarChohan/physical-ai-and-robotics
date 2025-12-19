@@ -65,8 +65,8 @@ const HighlightMenu = () => {
       className={styles.highlightMenu}
       style={{ top: `${menuPosition.top}px`, left: `${menuPosition.left}px`}}
     >
-      <button onClick={handleCopy}>Copy Text</button>
-      <button onClick={handleAskRoboX}>Ask from RoboX</button>
+      <button onClick={handleCopy} className=''>Copy Text</button>
+      <button onClick={handleAskRoboX} className=''>Ask from RoboX</button>
     </div>
   );
 };
