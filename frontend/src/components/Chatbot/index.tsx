@@ -194,6 +194,7 @@ const Chatbot: React.FC = () => {
           <div className="chat-input-area">
             <input
               type="text"
+              id="chatbot-input"
               value={input}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
@@ -203,6 +204,7 @@ const Chatbot: React.FC = () => {
               autoFocus
             />
             <button
+              id="chatbot-send-button"
               className="send-button"
               onClick={handleSendMessage}
               disabled={loading}
