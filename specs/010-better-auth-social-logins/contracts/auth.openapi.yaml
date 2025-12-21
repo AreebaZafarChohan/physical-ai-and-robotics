@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+paths:
+  /signup:
+    post:
+      summary: Create a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                software_experience:
+                  type: string
+                hardware_experience:
+                  type: string
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  session_token:
+                    type: string
+        '400':
+          description: Invalid input
+  /signin:
+    post:
+      summary: Log in a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  session_token:
+                    type: string
+        '401':
+          description: Unauthorized
+  /auth/google:
+    get:
+      summary: Initiate Google social login
+      responses:
+        '302':
+          description: Redirect to Google for authentication
+  /auth/github:
+    get:
+      summary: Initiate GitHub social login
+      responses:
+        '302':
+          description: Redirect to GitHub for authentication
+  /auth/callback:
+    get:
+      summary: Callback endpoint for social login
+      responses:
+        '200':
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  session_token:
+                    type: string
+        '401':
+          description: Authentication failed
