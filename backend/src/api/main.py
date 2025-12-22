@@ -12,6 +12,9 @@ from backend.src.models.chat_request import ChatRequest
 from backend.src.models.chat_response import ChatResponse
 from backend.src.services.agent_service import AgentService
 from backend.src.metrics import PrometheusMiddleware, metrics_endpoint
+from backend.src.database import create_db_and_tables # New import
+from backend.src.api.auth import router as auth_router # New import
+from backend.src.api.user import router as user_router # New import
 
 # Setup logging as early as possible
 setup_logging()
@@ -27,6 +30,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -38,6 +45,12 @@ app.add_middleware(
 
 # Add Prometheus middleware
 app.add_middleware(PrometheusMiddleware)
+
+# Include authentication router
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+
+# Include user router
+app.include_router(user_router, prefix="/user", tags=["user"])
 
 def get_agent_service() -> AgentService:
     """Dependency injector for AgentService."""
