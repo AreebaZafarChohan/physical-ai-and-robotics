@@ -43,7 +43,7 @@ This project implements a Retrieval-Augmented Generation (RAG) agent using the O
     ```
 
 4.  **Configure Environment Variables**:
-    Create a `.env` file in the `backend/` directory (or in the project root if preferred, ensuring it's loaded) and populate it with the following. You can use `backend/.env.example` as a template.
+    Create a `.env` file in the `backend/` directory (or in the project root if preferred, ensuring it's loaded) and populate it with the following. You can use `backend/.env.example` as a template. For local development, you can use `backend/.env.development`.
     ```
     GEMINI_API_KEY="your_gemini_api_key"
     GEMINI_API_BASE_URL="your_gemini_api_base_url"
@@ -51,6 +51,11 @@ This project implements a Retrieval-Augmented Generation (RAG) agent using the O
     QDRANT_API_KEY="your_qdrant_api_key"
     QDRANT_COLLECTION_NAME="your_qdrant_collection_name"
     COHERE_API_KEY="your_cohere_api_key"
+    
+    # Google OAuth Configuration (for social login)
+    GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
+    GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+    GOOGLE_REDIRECT_URI="http://localhost:9000/api/v1/auth/google/callback"
     ```
     *Replace placeholder values with your actual credentials and configurations.*
 

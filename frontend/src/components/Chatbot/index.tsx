@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./chatbot.css";
 
-import WelcomeScreen from '../WelcomeScreen'; // Import WelcomeScreen
 import { sendMessage } from "../../utils/chatbotApi"; // Import the API function
 import wsClient from "../../utils/websocketClient"; // Import WebSocket client
 import { getSelectedText } from "../../utils/textSelection"; // Import getSelectedText
@@ -10,12 +9,11 @@ import { AiFillDelete } from "react-icons/ai";
 import { TbMessageChatbot } from "react-icons/tb";
 import { MdCancelPresentation } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
-import { useAuth } from '../../contexts/AuthContext'; // Import AuthContext
 
 const Chatbot: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<
-    { text: string; sender: "user" }[]
+    { text: string; sender: "user" | "bot" }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
@@ -23,7 +21,6 @@ const Chatbot: React.FC = () => {
   const [showWelcomeScreen, setShowWelcomeScreen] = useState<boolean>(true); // State to control welcome screen visibility
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
-  const { isAuthenticated, userId } = useAuth();
   const accessToken = localStorage.getItem('access_token');
 
   const toggleChatbot = () => {
@@ -126,11 +123,11 @@ const Chatbot: React.FC = () => {
         wsClient.send({
           query: userMessage,
           selected_text: selectedText,
-        }, isAuthenticated ? userId : null, accessToken); // Pass userId and accessToken
+        }); 
       } else {
         // Use HTTP API as fallback
         try {
-          const botResponse = await sendMessage(userMessage, selectedText, isAuthenticated ? userId : null, accessToken); // Pass userId and accessToken
+          const botResponse = await sendMessage(userMessage, selectedText); // Pass userId and accessToken
           setMessages((prevMessages) => [
             ...prevMessages,
             { text: botResponse, sender: "bot" },
@@ -155,11 +152,7 @@ const Chatbot: React.FC = () => {
 
   return (
     <>
-      {showWelcomeScreen ? (
-        <WelcomeScreen onStartChatting={handleStartChatting} />
-      ) : (
-        <>
-          {showChatbot && (
+      {showChatbot && (
             <motion.div
               className="chatbot-container chatbot-wrapper"
               initial={{ opacity: 0, y: 20 }}
@@ -168,7 +161,7 @@ const Chatbot: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="chat-header">
-                <h3 className="chat-title">Chatbot</h3>
+                <h3 className="chat-title">RoboX</h3>
                 <button
                   className="clear-history-btn"
                   onClick={clearChatHistory}
@@ -199,7 +192,7 @@ const Chatbot: React.FC = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <span>Bot: </span>
+                      <span>RoboX: </span>
                       <span className="dot"></span>
                       <span className="dot"></span>
                       <span className="dot"></span>
@@ -232,11 +225,9 @@ const Chatbot: React.FC = () => {
               </div>
             </motion.div>
           )}
-          <button className="chatbot-toggle-button" onClick={toggleChatbot}>
-            {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
-          </button>
-        </>
-      )}
+      <button className="chatbot-toggle-button" onClick={toggleChatbot}>
+        {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
+      </button>
     </>
   );
 };

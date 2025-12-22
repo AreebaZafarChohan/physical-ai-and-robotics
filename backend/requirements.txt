@@ -9,3 +9,9 @@ prometheus-client>=0.20.0
 websockets
 wsproto
 asyncpg
+pydantic[email]
+python-jose[cryptography] # For JWT handling
+httpx # For making HTTP requests to Google's OAuth endpoints
+passlib[bcrypt]
+neo4j
+neomodel
