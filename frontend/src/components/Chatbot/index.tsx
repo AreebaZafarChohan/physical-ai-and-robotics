@@ -171,12 +171,20 @@ const Chatbot: React.FC = () => {
 
           <div className="chat-history" ref={chatHistoryRef}>
             {showWelcomeScreen && messages.length === 0 && (
-              <div className="welcome-screen text-center p-4 border-">
-                <h3>RoboX - You Book Assistant</h3>
-                <p>Ask me anything about Physical AI Miss/Sir</p>
+              <div className="welcome-screen">
+                <div className="welcome-badge">🤖 RoboX</div>
+                <h3>Textbook Assistant</h3>
+                <p>
+                  Ask me anything about <span>Physical AI & Robotics</span>
+                </p>
+
+                <div className="suggestions">
+                  <div>What is Physical AI?</div>
+                  <div>How do humanoid robots work?</div>
+                  <div>Explain reinforcement learning</div>
+                </div>
               </div>
             )}
-
             <AnimatePresence>
               {messages.map((msg, index) => (
                 <motion.div
@@ -236,6 +244,5 @@ const Chatbot: React.FC = () => {
     </>
   );
 };
-  
 
 export default Chatbot;

@@ -1,6 +1,6 @@
 // frontend/middleware.ts
 
-import { auth } from "@/auth";
+import { auth } from "./auth";
 
 export default auth((req) => {
   // Example: Redirect unauthenticated users from a protected route
