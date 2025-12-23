@@ -1,0 +1,22 @@
+.highlightMenu {
+  position: absolute;
+  background-color: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 5px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+  transform: translateX(-50%);
+}
+
+.highlightMenu button {
+  background: #2E2E71;
+  border: 2px solid linear-gradient(to right, #8A59DF, #C847AB);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}

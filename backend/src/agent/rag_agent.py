@@ -1,4 +1,5 @@
 import logging
+from typing import Optional, Dict
 from agents import Agent, Runner, OpenAIChatCompletionsModel, AsyncOpenAI
 from agents.run import RunConfig
 from backend.src.models.gemini_model import GeminiModel
@@ -23,18 +24,37 @@ class RAGAgent:
         )
         logger.info("RAG Agent initialized with Gemini model and retrieve_context tool.")
 
-    async def run(self, user_query: str) -> str:
+    async def run(self, user_query: str, user_id: Optional[int] = None, user_memory: Optional[Dict[str, str]] = None) -> str:
         """
-        Runs the RAG agent with a user query.
+        Runs the RAG agent with a user query, optionally personalizing the instructions based on user memory.
         """
-        logger.info(f"RAG Agent received query: {user_query}")
+        logger.info(f"RAG Agent received query: {user_query} for user_id: {user_id}")
+        
+        original_instructions = self.agent.instructions # Store original instructions
+        
+        if user_id and user_memory:
+            personalization_prefix = ""
+            if "name" in user_memory:
+                personalization_prefix += f"Welcome back, {user_memory['name']}! "
+            if "educational_background" in user_memory:
+                personalization_prefix += f"The user is a {user_memory['educational_background']}. Tailor explanations to this level."
+
+            if personalization_prefix:
+                self.agent.instructions = f"{personalization_prefix.strip()}\n\n{SYSTEM_PROMPT}"
+                logger.info(f"Agent instructions personalized for user {user_id}.")
+        else:
+            self.agent.instructions = SYSTEM_PROMPT # Ensure default for guest users or no memory
+
         try:
             run_result = await Runner.run(self.agent, user_query, run_config=self.run_config)
             response = run_result.final_output
         except Exception as e:
-            logger.error(f"An error occurred during agent execution: {e}", exc_info=True)
+            logger.error(f"An error occurred during agent execution for user {user_id}: {e}", exc_info=True)
             raise RuntimeError(f"Failed to run agent: {e}")
-        logger.info(f"RAG Agent response: {response}")
+        finally:
+            self.agent.instructions = original_instructions # Restore original instructions
+        
+        logger.info(f"RAG Agent response for user {user_id}: {response}")
         return response
 
 # Example usage

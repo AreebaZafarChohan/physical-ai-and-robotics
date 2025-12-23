@@ -6,7 +6,11 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "sourceMap": true
   },
   "exclude": [".docusaurus", "build"]
 }

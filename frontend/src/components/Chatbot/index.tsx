@@ -18,15 +18,24 @@ const Chatbot: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [useWebSocket, setUseWebSocket] = useState<boolean>(false); // Track if WebSocket is available
   const [showChatbot, setShowChatbot] = useState<boolean>(false); // State to control chatbot visibility
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState<boolean>(true); // State to control welcome screen visibility
   const chatHistoryRef = useRef<HTMLDivElement>(null);
+
+  const accessToken = localStorage.getItem("access_token");
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
   };
 
+  const handleStartChatting = () => {
+    setShowWelcomeScreen(false);
+    setShowChatbot(true); // Ensure chatbot is visible after welcome screen
+  };
+
   // Clear chat history
   const clearChatHistory = () => {
     setMessages([]);
+    setShowWelcomeScreen(true);
   };
 
   // Scroll to bottom of chat history
@@ -46,6 +55,12 @@ const Chatbot: React.FC = () => {
     }
 
     const initWebSocket = async () => {
+      // Check if we are already connected or connecting
+      if (wsClient.isConnected() || wsClient.isConnectingInProgress()) {
+        if (wsClient.isConnected()) setUseWebSocket(true);
+        return;
+      }
+
       try {
         await wsClient.connect();
         setUseWebSocket(true);
@@ -59,14 +74,7 @@ const Chatbot: React.FC = () => {
       }
     };
 
-    // Try to connect to WebSocket, but don't block the UI if it fails
-    setTimeout(() => {
-      initWebSocket().catch(() => {
-        // If WebSocket connection fails, we still want to use HTTP API
-        setUseWebSocket(false);
-        console.log("Continuing with HTTP API only");
-      });
-    }, 1000); // Small delay to allow page to load first
+    initWebSocket();
 
     // Cleanup WebSocket connection on unmount
     return () => {
@@ -117,7 +125,7 @@ const Chatbot: React.FC = () => {
       } else {
         // Use HTTP API as fallback
         try {
-          const botResponse = await sendMessage(userMessage, selectedText); // Pass selected text
+          const botResponse = await sendMessage(userMessage, selectedText); // Pass userId and accessToken
           setMessages((prevMessages) => [
             ...prevMessages,
             { text: botResponse, sender: "bot" },
@@ -151,7 +159,7 @@ const Chatbot: React.FC = () => {
           transition={{ duration: 0.3 }}
         >
           <div className="chat-header">
-            <h3 className="chat-title">Chatbot</h3>
+            <h3 className="chat-title">RoboX</h3>
             <button
               className="clear-history-btn"
               onClick={clearChatHistory}
@@ -162,6 +170,21 @@ const Chatbot: React.FC = () => {
           </div>
 
           <div className="chat-history" ref={chatHistoryRef}>
+            {showWelcomeScreen && messages.length === 0 && (
+              <div className="welcome-screen">
+                <div className="welcome-badge">🤖 RoboX</div>
+                <h3>Textbook Assistant</h3>
+                <p>
+                  Ask me anything about <span>Physical AI & Robotics</span>
+                </p>
+
+                <div className="suggestions">
+                  <div>What is Physical AI?</div>
+                  <div>How do humanoid robots work?</div>
+                  <div>Explain reinforcement learning</div>
+                </div>
+              </div>
+            )}
             <AnimatePresence>
               {messages.map((msg, index) => (
                 <motion.div
@@ -182,7 +205,7 @@ const Chatbot: React.FC = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <span>Bot: </span>
+                  <span>RoboX: </span>
                   <span className="dot"></span>
                   <span className="dot"></span>
                   <span className="dot"></span>
@@ -194,6 +217,7 @@ const Chatbot: React.FC = () => {
           <div className="chat-input-area">
             <input
               type="text"
+              id="chatbot-input"
               value={input}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
@@ -203,6 +227,7 @@ const Chatbot: React.FC = () => {
               autoFocus
             />
             <button
+              id="chatbot-send-button"
               className="send-button"
               onClick={handleSendMessage}
               disabled={loading}

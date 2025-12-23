@@ -27,7 +27,7 @@ async def test_chat_endpoint_success():
     Tests the /chat endpoint for a successful, grounded response.
     """
     mock_agent_service = AsyncMock(spec=AgentService)
-    mock_agent_service.chat_with_agent.return_value = "This is a grounded answer about the query."
+    mock_agent_service.get_response.return_value = "This is a grounded answer about the query."
 
     app.dependency_overrides[get_agent_service] = lambda: mock_agent_service
     try:
@@ -36,7 +36,7 @@ async def test_chat_endpoint_success():
 
         assert response.status_code == 200
         assert response.json() == {"response": "This is a grounded answer about the query."}
-        mock_agent_service.chat_with_agent.assert_called_once_with("What is x?")
+        mock_agent_service.get_response.assert_called_once_with("What is x?", None, None, {})
     finally:
         del app.dependency_overrides[get_agent_service]
 
@@ -46,7 +46,7 @@ async def test_chat_endpoint_no_context_fallback():
     Tests the /chat endpoint when the agent returns the fallback response.
     """
     mock_agent_service = AsyncMock(spec=AgentService)
-    mock_agent_service.chat_with_agent.return_value = FALLBACK_RESPONSE
+    mock_agent_service.get_response.return_value = FALLBACK_RESPONSE
 
     app.dependency_overrides[get_agent_service] = lambda: mock_agent_service
     try:
@@ -55,7 +55,7 @@ async def test_chat_endpoint_no_context_fallback():
 
         assert response.status_code == 200
         assert response.json() == {"response": FALLBACK_RESPONSE}
-        mock_agent_service.chat_with_agent.assert_called_once_with("Tell me about purple elephants.")
+        mock_agent_service.get_response.assert_called_once_with("Tell me about purple elephants.", None, None, {})
     finally:
         del app.dependency_overrides[get_agent_service]
 
@@ -65,7 +65,7 @@ async def test_chat_endpoint_internal_error():
     Tests the /chat endpoint when an internal error occurs in AgentService.
     """
     mock_agent_service = AsyncMock(spec=AgentService)
-    mock_agent_service.chat_with_agent.side_effect = Exception("Simulated internal error")
+    mock_agent_service.get_response.side_effect = Exception("Simulated internal error")
 
     app.dependency_overrides[get_agent_service] = lambda: mock_agent_service
     try:
@@ -75,7 +75,7 @@ async def test_chat_endpoint_internal_error():
         assert response.status_code == 500
         assert "detail" in response.json()
         assert "unexpected error occurred" in response.json()["detail"].lower()
-        mock_agent_service.chat_with_agent.assert_called_once_with("Query causing error")
+        mock_agent_service.get_response.assert_called_once_with("Query causing error", None, None, {})
     finally:
         del app.dependency_overrides[get_agent_service]
 

@@ -74,9 +74,21 @@ This system provides an interactive chatbot integrated into the Docusaurus front
 *   **User Profile Management**: Secure account creation, login, and personalization preferences.
 *   **Personalized Responses**: Chatbot tailors responses based on user's background and preferences.
 
-### 3.2. Setup and Deployment
+### 3.2. Authentication Setup
 
-For detailed setup instructions, including environment variables, and deployment guides for both the FastAPI backend (Railway) and the Docusaurus frontend (Vercel), please refer to:
+To enable the authentication features, you need to configure the following environment variables in a `.env` file in the `backend/` directory:
+
+```
+BETTER_AUTH_API_KEY="<YOUR_BETTER_AUTH_API_KEY>"
+BETTER_AUTH_API_SECRET="<YOUR_BETTER_AUTH_API_SECRET>"
+NEON_POSTGRES_URL="<YOUR_NEON_POSTGRES_URL>"
+```
+
+Replace `<YOUR_BETTER_AUTH_API_KEY>`, `<YOUR_BETTER_AUTH_API_SECRET>`, and `<YOUR_NEON_POSTGRES_URL>` with your actual credentials.
+
+### 3.3. Setup and Deployment
+
+For detailed setup instructions for running the FastAPI backend and the Docusaurus frontend, including development and production deployment guides, please refer to:
 
 [docs/deployment.md](docs/deployment.md)
 

@@ -1,13 +1,28 @@
 const CHAT_API_BASE_URL = 'http://localhost:9000'; // FastAPI backend URL
 
-export const sendMessage = async (user_query: string, selected_text?: string) => {
+export const sendMessage = async (user_query: string, selected_text?: string, userId: string | null = null, accessToken: string | null = null) => {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
+  const body: { query: string; selected_text?: string; user_id?: string | null } = {
+    query: user_query,
+    selected_text: selected_text,
+  };
+
+  if (userId) {
+    body.user_id = userId;
+  }
+
   try {
     const response = await fetch(`${CHAT_API_BASE_URL}/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: user_query, selected_text: selected_text }),
+      headers: headers,
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
@@ -16,7 +31,6 @@ export const sendMessage = async (user_query: string, selected_text?: string) =>
     }
 
     const data = await response.json();
-    // The backend returns 'response' field, but handle both 'response' and 'answer' for compatibility
     return data.response || data.answer;
   } catch (error) {
     console.error('Error sending message to chatbot API:', error);
