@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { loginUser } from '../services/auth';
 import { useHistory } from 'react-router-dom'; // Assuming react-router-dom is used for navigation
+import Layout from '@theme/Layout';
 
 const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,16 +24,21 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
+    <Layout
+      title="Login"
+      description="Login to your account."
+    >
+      <main className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold">
+              Sign in to your account
+            </h2>
+          </div>
+          <LoginForm onSubmit={handleLogin} isLoading={isLoading} error={error} />
         </div>
-        <LoginForm onSubmit={handleLogin} isLoading={isLoading} error={error} />
-      </div>
-    </div>
+      </main>
+    </Layout>
   );
 };
 

@@ -82,13 +82,8 @@ const config: Config = {
           position: 'right',
         },
         {
-          type: 'dropdown',
-          label: 'Account',
+          type: 'custom-AuthNavbarItem',
           position: 'right',
-          items: [
-            {label: 'Sign In', to: '/signin'},
-            {label: 'Sign Up', to: '/signup'},
-          ],
         },
         { // Locale dropdown
           type: 'localeDropdown',

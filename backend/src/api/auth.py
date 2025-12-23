@@ -48,6 +48,7 @@ def signup_user(
     user_service = UserService(session)
     try:
         user = user_service.create_user_with_password(
+            username=user_create.username,
             email=user_create.email,
             password=user_create.password,
             software_background=user_create.software_background,
@@ -58,10 +59,10 @@ def signup_user(
             data={"sub": str(user.id)}, expires_delta=access_token_expires
         )
         return {"access_token": access_token, "token_type": "bearer"}
-    except UserAlreadyExistsException:
+    except UserAlreadyExistsException as e:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Email already registered"
+            detail=e.detail
         )
 
 @router.post("/login", response_model=Token)
@@ -93,6 +94,7 @@ def signup_oauth(
     user_service = UserService(session)
     try:
         user = user_service.create_user_with_oauth(
+            username=user_create_oauth.username,
             email=user_create_oauth.email,
             oauth_provider_ids=user_create_oauth.oauth_provider_ids,
             software_background=user_create_oauth.software_background,
@@ -103,8 +105,8 @@ def signup_oauth(
             data={"sub": str(user.id)}, expires_delta=access_token_expires
         )
         return {"access_token": access_token, "token_type": "bearer"}
-    except UserAlreadyExistsException:
+    except UserAlreadyExistsException as e:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Email already registered"
+            detail=e.detail
         )

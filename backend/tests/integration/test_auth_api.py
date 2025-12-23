@@ -34,6 +34,7 @@ def test_signup_email_password_success(client: TestClient):
     response = client.post(
         "/auth/signup",
         json={
+            "username": "testuser",
             "email": "test@example.com",
             "password": "Password123",
             "software_background": ["Python", "FastAPI"],
@@ -48,6 +49,7 @@ def test_signup_email_password_already_exists(client: TestClient):
     client.post(
         "/auth/signup",
         json={
+            "username": "existinguser",
             "email": "existing@example.com",
             "password": "Password123",
         }
@@ -55,6 +57,7 @@ def test_signup_email_password_already_exists(client: TestClient):
     response = client.post(
         "/auth/signup",
         json={
+            "username": "anotheruser",
             "email": "existing@example.com",
             "password": "Password123",
         }
@@ -62,20 +65,41 @@ def test_signup_email_password_already_exists(client: TestClient):
     assert response.status_code == 409
     assert response.json()["detail"] == "Email already registered"
 
+    response = client.post(
+        "/auth/signup",
+        json={
+            "username": "existinguser",
+            "email": "another@example.com",
+            "password": "Password123",
+        }
+    )
+    assert response.status_code == 409
+    assert response.json()["detail"] == "Username already registered"
+
 def test_login_success(client: TestClient):
     client.post(
         "/auth/signup",
         json={
+            "username": "loginuser",
             "email": "login@example.com",
             "password": "Password123",
         }
     )
-    response = client.post(
+    # Test login with email
+    response_email = client.post(
         "/auth/login",
         data={"username": "login@example.com", "password": "Password123"}
     )
-    assert response.status_code == 200
-    assert "access_token" in response.json()
+    assert response_email.status_code == 200
+    assert "access_token" in response_email.json()
+
+    # Test login with username
+    response_username = client.post(
+        "/auth/login",
+        data={"username": "loginuser", "password": "Password123"}
+    )
+    assert response_username.status_code == 200
+    assert "access_token" in response_username.json()
 
 def test_login_invalid_credentials(client: TestClient):
     response = client.post(
@@ -89,6 +113,7 @@ def test_get_user_profile(client: TestClient):
     signup_response = client.post(
         "/auth/signup",
         json={
+            "username": "profileuser",
             "email": "profile@example.com",
             "password": "Password123",
         }
@@ -100,11 +125,13 @@ def test_get_user_profile(client: TestClient):
     )
     assert response.status_code == 200
     assert response.json()["email"] == "profile@example.com"
+    assert response.json()["username"] == "profileuser"
 
 def test_get_personalization_data(client: TestClient):
     signup_response = client.post(
         "/auth/signup",
         json={
+            "username": "personalizeuser",
             "email": "personalize@example.com",
             "password": "Password123",
             "software_background": ["Python"],
@@ -125,6 +152,7 @@ def test_logout(client: TestClient):
     signup_response = client.post(
         "/auth/signup",
         json={
+            "username": "logoutuser",
             "email": "logout@example.com",
             "password": "Password123",
         }

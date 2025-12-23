@@ -13,25 +13,33 @@ class UserService:
         statement = select(User).where(User.email == email)
         return self.session.exec(statement).first()
 
+    def get_user_by_username(self, username: str) -> Optional[User]:
+        statement = select(User).where(User.username == username)
+        return self.session.exec(statement).first()
+
     def get_user_by_id(self, user_id: int) -> Optional[User]:
         return self.session.get(User, user_id)
 
-    def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        user = self.get_user_by_email(email)
+    def authenticate_user(self, username_or_email: str, password: str) -> Optional[User]:
+        user = self.get_user_by_username(username_or_email)
+        if not user:
+            user = self.get_user_by_email(username_or_email)
         if not user:
             return None
         if not verify_password(password, user.password_hash):
             return None
         return user
 
-    def create_user_with_password(self, email: str, password: str,
+    def create_user_with_password(self, username: str, email: str, password: str,
                                   software_background: Optional[List[str]] = None,
                                   hardware_background: Optional[List[str]] = None) -> User:
         if self.get_user_by_email(email):
-            raise UserAlreadyExistsException()
+            raise UserAlreadyExistsException(detail="Email already registered")
+        if self.get_user_by_username(username):
+            raise UserAlreadyExistsException(detail="Username already registered")
 
         hashed_password = get_password_hash(password)
-        user = User(email=email, password_hash=hashed_password)
+        user = User(username=username, email=email, password_hash=hashed_password)
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)
@@ -49,13 +57,15 @@ class UserService:
 
         return user
 
-    def create_user_with_oauth(self, email: str, oauth_provider_ids: Dict[str, str],
+    def create_user_with_oauth(self, username: str, email: str, oauth_provider_ids: Dict[str, str],
                                software_background: Optional[List[str]] = None,
                                hardware_background: Optional[List[str]] = None) -> User:
         if self.get_user_by_email(email):
-            raise UserAlreadyExistsException()
+            raise UserAlreadyExistsException(detail="Email already registered")
+        if self.get_user_by_username(username):
+            raise UserAlreadyExistsException(detail="Username already registered")
 
-        user = User(email=email, oauth_provider_ids=oauth_provider_ids)
+        user = User(username=username, email=email, oauth_provider_ids=oauth_provider_ids)
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)

@@ -5,6 +5,7 @@ from .personalization import PersonalizationData # Import PersonalizationData
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(unique=True, index=True)
     email: str = Field(unique=True, index=True)
     password_hash: str
     oauth_provider_ids: Optional[dict] = Field(default=None, sa_column=Column(JSON))

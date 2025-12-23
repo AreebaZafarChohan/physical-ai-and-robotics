@@ -3,6 +3,7 @@ from sqlmodel import SQLModel
 from datetime import datetime
 
 class UserBase(SQLModel):
+    username: str
     email: str
     software_background: Optional[List[str]] = None
     hardware_background: Optional[List[str]] = None

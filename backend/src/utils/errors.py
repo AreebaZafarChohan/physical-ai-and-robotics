@@ -8,12 +8,10 @@ class CredentialException(HTTPException):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-class UserAlreadyExistsException(HTTPException):
+class UserAlreadyExistsException(Exception):
     def __init__(self, detail: str = "User with this email already exists"):
-        super().__init__(
-            status_code=status.HTTP_409_CONFLICT,
-            detail=detail,
-        )
+        self.detail = detail
+        super().__init__(self.detail)
 
 class InvalidCredentialsException(HTTPException):
     def __init__(self, detail: str = "Incorrect email or password"):

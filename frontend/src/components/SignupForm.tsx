@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 interface SignupFormProps {
   onSubmit: (formData: {
+    username: string;
     email: string;
     password: string;
     software_background: string;
@@ -12,6 +13,7 @@ interface SignupFormProps {
 }
 
 const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [softwareBackground, setSoftwareBackground] = useState('');
@@ -43,6 +45,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
     }
 
     onSubmit({
+      username,
       email,
       password,
       software_background: softwareBackground,
@@ -52,6 +55,19 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email

@@ -1,9 +1,18 @@
 // frontend/src/services/auth.ts
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/auth'; // Correct backend URL
+const API_BASE_URL = 'http://localhost:9000/auth'; // Correct backend URL
+const API_USER_URL = 'http://localhost:9000/user'; // New base URL for user endpoints
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  // Add other user fields as per backend UserRead schema if needed
+}
 
 interface RegistrationData {
+  username: string;
   email: string;
   password: string;
   software_background?: string;
@@ -115,4 +124,28 @@ export const getAuthHeaders = () => {
     };
   }
   return {};
+};
+
+export const getCurrentUser = async (): Promise<User | null> => {
+  const token = localStorage.getItem('access_token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const response = await axios.get<User>(`${API_USER_URL}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch current user:', error);
+    // If fetching user fails, assume token is invalid and log out
+    localStorage.removeItem('access_token');
+    return null;
+  }
+};
+
+export const isLoggedIn = (): boolean => {
+  return localStorage.getItem('access_token') !== null;
 };
