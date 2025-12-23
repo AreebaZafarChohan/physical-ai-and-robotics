@@ -19,7 +19,7 @@ def test_gemini_model_initialization_success():
         assert model.client.api_key == "test_key"
         assert str(model.client.base_url) == "http://test_url.com/v1/"
         assert isinstance(model.chat_model, OpenAIChatCompletionsModel)
-        assert model.chat_model.model == "gemini-2.0-flash"
+        assert model.chat_model.model == "gemini-2.5-flash"
 
 def test_gemini_model_initialization_missing_api_key():
     """
