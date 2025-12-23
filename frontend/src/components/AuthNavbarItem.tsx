@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from '@docusaurus/router';
 import { isLoggedIn, logoutUser, getCurrentUser, User } from '../services/auth';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-// This is a placeholder for a real dropdown component
+// Correct Dropdown component
 const Dropdown: React.FC<{
   children: React.ReactNode;
   label: React.ReactNode;
   className?: string;
 }> = ({ children, label, className }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default <a> behavior
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,12 +31,18 @@ const Dropdown: React.FC<{
   }, []);
 
   return (
-    <div className={`dropdown dropdown--hoverable ${className}`} ref={dropdownRef}>
-      <a className="navbar__item navbar__link" onClick={toggleDropdown}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
+      <a
+        className="navbar__item navbar__link cursor-pointer"
+        onClick={toggleDropdown}
+      >
         {label}
       </a>
       {isOpen && (
-        <ul className="dropdown__menu" style={{ display: 'block' }}>
+        <ul
+          className="absolute mt-2 py-2 w-48 bg-white border rounded shadow-lg z-50"
+          style={{ display: 'block' }}
+        >
           {children}
         </ul>
       )}
@@ -41,13 +50,10 @@ const Dropdown: React.FC<{
   );
 };
 
-
 const AuthNavbarItem: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const {
-    siteConfig: { baseUrl },
-  } = useDocusaurusContext();
+  const { siteConfig: { baseUrl } } = useDocusaurusContext();
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
@@ -64,7 +70,6 @@ const AuthNavbarItem: React.FC = () => {
     };
 
     checkAuthStatus();
-    // Re-check auth status when location changes (e.g., after login/logout redirect)
   }, [location]);
 
   const handleLogout = async () => {
@@ -85,18 +90,20 @@ const AuthNavbarItem: React.FC = () => {
             <span>{user?.username || 'Account'}</span>
           </div>
         }
-        className="navbar__item navbar__link--active"
       >
         <li>
           <a
-            className="dropdown__link"
+            className="dropdown__link block px-4 py-2 hover:bg-gray-100 cursor-pointer"
             onClick={() => history.push(`${baseUrl}dashboard`)}
           >
             Dashboard
           </a>
         </li>
         <li>
-          <a className="dropdown__link" onClick={handleLogout}>
+          <a
+            className="dropdown__link block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            onClick={handleLogout}
+          >
             Logout
           </a>
         </li>
@@ -107,13 +114,13 @@ const AuthNavbarItem: React.FC = () => {
   return (
     <>
       <a
-        className="navbar__item navbar__link"
+        className="navbar__item navbar__link cursor-pointer"
         onClick={() => history.push(`${baseUrl}login`)}
       >
         Login
       </a>
       <a
-        className="navbar__item navbar__link"
+        className="navbar__item navbar__link cursor-pointer"
         onClick={() => history.push(`${baseUrl}register`)}
       >
         Register
