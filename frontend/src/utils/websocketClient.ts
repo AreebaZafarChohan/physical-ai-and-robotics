@@ -74,9 +74,16 @@ class WebSocketClient {
     });
   }
 
-  send(data: any): void {
+  send(data: any, userId: string | null = null, accessToken: string | null = null): void {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-      this.socket.send(JSON.stringify(data));
+      const payload = { ...data };
+      if (userId) {
+        payload.user_id = userId;
+      }
+      if (accessToken) {
+        payload.access_token = accessToken;
+      }
+      this.socket.send(JSON.stringify(payload));
     } else {
       console.error('WebSocket is not connected');
     }
