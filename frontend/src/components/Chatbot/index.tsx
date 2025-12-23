@@ -21,7 +21,7 @@ const Chatbot: React.FC = () => {
   const [showWelcomeScreen, setShowWelcomeScreen] = useState<boolean>(true); // State to control welcome screen visibility
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem("access_token");
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
@@ -30,14 +30,12 @@ const Chatbot: React.FC = () => {
   const handleStartChatting = () => {
     setShowWelcomeScreen(false);
     setShowChatbot(true); // Ensure chatbot is visible after welcome screen
-    setMessages([
-      { text: "RoboX is ready. Ask questions about the Physical AI textbook. I’ll answer using only the textbook content.", sender: "bot" }
-    ]);
   };
 
   // Clear chat history
   const clearChatHistory = () => {
     setMessages([]);
+    setShowWelcomeScreen(true);
   };
 
   // Scroll to bottom of chat history
@@ -123,7 +121,7 @@ const Chatbot: React.FC = () => {
         wsClient.send({
           query: userMessage,
           selected_text: selectedText,
-        }); 
+        });
       } else {
         // Use HTTP API as fallback
         try {
@@ -153,83 +151,91 @@ const Chatbot: React.FC = () => {
   return (
     <>
       {showChatbot && (
-            <motion.div
-              className="chatbot-container chatbot-wrapper"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
+        <motion.div
+          className="chatbot-container chatbot-wrapper"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="chat-header">
+            <h3 className="chat-title">RoboX</h3>
+            <button
+              className="clear-history-btn"
+              onClick={clearChatHistory}
+              title="Clear chat history"
             >
-              <div className="chat-header">
-                <h3 className="chat-title">RoboX</h3>
-                <button
-                  className="clear-history-btn"
-                  onClick={clearChatHistory}
-                  title="Clear chat history"
+              <AiFillDelete />
+            </button>
+          </div>
+
+          <div className="chat-history" ref={chatHistoryRef}>
+            {showWelcomeScreen && messages.length === 0 && (
+              <div className="welcome-screen text-center p-4 border-">
+                <h3>RoboX - You Book Assistant</h3>
+                <p>Ask me anything about Physical AI Miss/Sir</p>
+              </div>
+            )}
+
+            <AnimatePresence>
+              {messages.map((msg, index) => (
+                <motion.div
+                  key={index}
+                  className={`message ${msg.sender}-message`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <AiFillDelete />
-                </button>
-              </div>
+                  {msg.text}
+                </motion.div>
+              ))}
 
-              <div className="chat-history" ref={chatHistoryRef}>
-                <AnimatePresence>
-                  {messages.map((msg, index) => (
-                    <motion.div
-                      key={index}
-                      className={`message ${msg.sender}-message`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                    >
-                      {msg.text}
-                    </motion.div>
-                  ))}
-
-                  {loading && (
-                    <motion.div
-                      className="typing-indicator"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span>RoboX: </span>
-                      <span className="dot"></span>
-                      <span className="dot"></span>
-                      <span className="dot"></span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <div className="chat-input-area">
-                <input
-                  type="text"
-                  id="chatbot-input"
-                  value={input}
-                  onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
-                  className="chat-input"
-                  placeholder="Ask a question..."
-                  disabled={loading}
-                  autoFocus
-                />
-                <button
-                  id="chatbot-send-button"
-                  className="send-button"
-                  onClick={handleSendMessage}
-                  disabled={loading}
-                  title="Send message"
+              {loading && (
+                <motion.div
+                  className="typing-indicator"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <FiSend />
-                </button>
-              </div>
-            </motion.div>
-          )}
+                  <span>RoboX: </span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="chat-input-area">
+            <input
+              type="text"
+              id="chatbot-input"
+              value={input}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+              className="chat-input"
+              placeholder="Ask a question..."
+              disabled={loading}
+              autoFocus
+            />
+            <button
+              id="chatbot-send-button"
+              className="send-button"
+              onClick={handleSendMessage}
+              disabled={loading}
+              title="Send message"
+            >
+              <FiSend />
+            </button>
+          </div>
+        </motion.div>
+      )}
       <button className="chatbot-toggle-button" onClick={toggleChatbot}>
         {showChatbot ? <MdCancelPresentation /> : <TbMessageChatbot />}
       </button>
     </>
   );
 };
+  
 
 export default Chatbot;
