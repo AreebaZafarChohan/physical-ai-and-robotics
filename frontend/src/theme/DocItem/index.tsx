@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import DocItem from '@theme-original/DocItem';
-import type {WrapperProps} from '@docusaurus/types';
-import type DocItemType from '@theme/DocItem';
 import PersonalizeContentButton from '../../components/PersonalizeContentButton';
 
-type Props = WrapperProps<typeof DocItemType>;
-
-export default function DocItemWrapper(props: Props) {
+export default function DocItemWrapper(props: any) {
   const [currentPath, setCurrentPath] = useState('');
 
   useEffect(() => {
@@ -27,7 +23,7 @@ export default function DocItemWrapper(props: Props) {
         </div>
       </div>
 
-      {/* ORIGINAL DOC ITEM — VERY IMPORTANT */}
+      {/* ORIGINAL DOC ITEM */}
       <DocItem {...props} />
     </>
   );
