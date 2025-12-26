@@ -25,6 +25,9 @@ body {
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
+  /* Ensure navbar height is defined (Infima default is 3.75rem / 60px) */
+  --ifm-navbar-height: 3.75rem;
+
   /* Custom AI/Robotics theme colors */
   --ai-dark-bg: #0B1020;
   --ai-darker-bg: #0E1330;
@@ -206,6 +209,13 @@ body {
 .main-wrapper {
   background: linear-gradient(135deg, var(--ai-dark-bg) 0%, var(--ai-darker-bg) 50%, var(--ai-deeper-bg) 100%);
   min-height: 100vh;
+  /* Add padding-top to account for fixed navbar */
+  padding-top: var(--ifm-navbar-height);
+}
+
+/* Override for pages that handle their own layout (like auth pages) */
+.main-wrapper--no-padding {
+  padding-top: 0;
 }
 
 .container {
@@ -565,6 +575,25 @@ body {
 }
 
 /* Chatbot Styles moved to separate file */
+
+/* Fix for full-screen pages (auth pages, dashboard, etc.) */
+/* Add padding-top to account for fixed navbar on all screen sizes */
+main.min-h-screen {
+  padding-top: var(--ifm-navbar-height);
+}
+
+/* Ensure proper spacing on mobile/tablet */
+@media (max-width: 996px) {
+  main.min-h-screen {
+    padding-top: calc(var(--ifm-navbar-height) + 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  main.min-h-screen {
+    padding-top: calc(var(--ifm-navbar-height) + 0.5rem);
+  }
+}
 
 /* Custom styles for auth forms */
 .input {
