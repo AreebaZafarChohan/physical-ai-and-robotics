@@ -31,3 +31,4 @@ def verify_access_token(token: str, credentials_exception):
         return user_id
     except JWTError:
         raise credentials_exception
+

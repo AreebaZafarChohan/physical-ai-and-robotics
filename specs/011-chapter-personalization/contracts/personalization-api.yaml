@@ -1,0 +1,196 @@
+# API Contracts: Chapter Content Personalization
+
+## Overview
+This document defines the OpenAPI contracts for the chapter content personalization feature API endpoints.
+
+## GET /api/personalize/{chapter_path}
+
+### Summary
+Get personalized chapter content based on user profile
+
+### Description
+Fetches chapter content personalized for the authenticated user based on their software and hardware background. The response includes content with personalization markers replaced according to the user's profile.
+
+### Parameters
+- **chapter_path** (path, required): The path to the chapter content (e.g., "/module-1/chapter-1")
+  - type: string
+  - example: "/module-1/chapter-1"
+- **Authorization** (header, required): Bearer JWT token
+  - type: string
+  - description: User's authentication token
+
+### Responses
+- **200**: Successful response with personalized content
+  ```json
+  {
+    "chapter_path": "/module-1/chapter-1",
+    "personalized_content": "<h1>Personalized Chapter 1 Content</h1><p>Content tailored for your background</p>",
+    "user_profile": {
+      "software_background": ["Python", "JavaScript"],
+      "hardware_background": ["Raspberry Pi"],
+      "experience_level": "intermediate"
+    },
+    "personalization_applied": true
+  }
+  ```
+- **401**: Unauthorized - User not authenticated
+- **403**: Forbidden - User doesn't have access to personalization
+- **404**: Chapter not found
+- **500**: Internal server error
+
+### Security
+- JWT Bearer token required
+
+---
+
+## POST /api/personalize/preview
+
+### Summary
+Preview personalized content with custom profile data
+
+### Description
+Allows moderators/admins to preview how content will appear with different user profile settings. This endpoint does not use the current user's profile but takes profile data in the request body.
+
+### Parameters
+- **Authorization** (header, required): Bearer JWT token
+  - type: string
+  - description: User's authentication token (requires admin/moderator privileges)
+
+### Request Body
+```json
+{
+  "chapter_path": "/module-1/chapter-1",
+  "profile_data": {
+    "software_background": ["Python"],
+    "hardware_background": ["Raspberry Pi"],
+    "experience_level": "beginner"
+  }
+}
+```
+
+### Responses
+- **200**: Successful response with personalized content preview
+  ```json
+  {
+    "chapter_path": "/module-1/chapter-1",
+    "personalized_content": "<h1>Personalized Chapter 1 Content</h1><p>Content tailored for your background</p>",
+    "applied_profile": {
+      "software_background": ["Python"],
+      "hardware_background": ["Raspberry Pi"],
+      "experience_level": "beginner"
+    },
+    "personalization_applied": true
+  }
+  ```
+- **401**: Unauthorized - User not authenticated
+- **403**: Forbidden - User doesn't have admin/moderator privileges
+- **404**: Chapter not found
+- **500**: Internal server error
+
+### Security
+- JWT Bearer token required (admin/moderator role required)
+
+---
+
+## GET /api/personalize/rules
+
+### Summary
+List all active personalization rules
+
+### Description
+Returns a list of all active personalization rules in the system. Useful for admin interfaces to manage personalization rules.
+
+### Parameters
+- **Authorization** (header, required): Bearer JWT token
+  - type: string
+  - description: User's authentication token (requires admin/moderator privileges)
+
+### Responses
+- **200**: Successful response with list of rules
+  ```json
+  {
+    "rules": [
+      {
+        "id": 1,
+        "content_path": "/module-1/chapter-1",
+        "description": "Python-specific content for Chapter 1",
+        "user_profile_criteria": {
+          "software_background": ["Python"]
+        },
+        "priority": 10,
+        "is_active": true,
+        "created_at": "2023-12-01T10:00:00Z",
+        "updated_at": "2023-12-01T10:00:00Z"
+      }
+    ]
+  }
+  ```
+- **401**: Unauthorized - User not authenticated
+- **403**: Forbidden - User doesn't have admin/moderator privileges
+- **500**: Internal server error
+
+### Security
+- JWT Bearer token required (admin/moderator role required)
+
+---
+
+## PUT /api/personalize/rules/{rule_id}
+
+### Summary
+Update an existing personalization rule
+
+### Description
+Updates an existing personalization rule with new criteria or content.
+
+### Parameters
+- **rule_id** (path, required): The ID of the rule to update
+  - type: integer
+  - example: 1
+- **Authorization** (header, required): Bearer JWT token
+  - type: string
+  - description: User's authentication token (requires admin/moderator privileges)
+
+### Request Body
+```json
+{
+  "content_path": "/module-1/chapter-1",
+  "user_profile_criteria": {
+    "software_background": ["Python"]
+  },
+  "content_variants": {
+    "python-focused": "Python-specific content here",
+    "beginner": "Beginner Python content"
+  },
+  "description": "Python-specific content for Chapter 1",
+  "priority": 10,
+  "is_active": true
+}
+```
+
+### Responses
+- **200**: Successful response with updated rule
+  ```json
+  {
+    "id": 1,
+    "content_path": "/module-1/chapter-1",
+    "description": "Python-specific content for Chapter 1",
+    "user_profile_criteria": {
+      "software_background": ["Python"]
+    },
+    "content_variants": {
+      "python-focused": "Python-specific content here",
+      "beginner": "Beginner Python content"
+    },
+    "priority": 10,
+    "is_active": true,
+    "created_at": "2023-12-01T10:00:00Z",
+    "updated_at": "2023-12-23T15:30:00Z"
+  }
+  ```
+- **401**: Unauthorized - User not authenticated
+- **403**: Forbidden - User doesn't have admin/moderator privileges
+- **404**: Rule not found
+- **500**: Internal server error
+
+### Security
+- JWT Bearer token required (admin/moderator role required)

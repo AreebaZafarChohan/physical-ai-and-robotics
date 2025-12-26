@@ -1,15 +1,16 @@
 from datetime import timedelta
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
+from jose import JWTError
 
 from backend.src.database import get_session
 from backend.src.models.user import User
 from backend.src.services.user_service import UserService
 from backend.src.utils.auth import create_access_token, verify_access_token
 from backend.src.utils.errors import CredentialException, UserAlreadyExistsException, InvalidCredentialsException
-from backend.src.schemas import Token, UserCreate, UserRead, UserCreateOAuth
+from backend.src.schemas import Token, UserCreate, UserRead, UserCreateOAuth, UserLogin
 
 router = APIRouter()
 
@@ -67,11 +68,11 @@ def signup_user(
 
 @router.post("/login", response_model=Token)
 async def login_for_access_token(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    user_login: UserLogin,
     session: Annotated[Session, Depends(get_session)]
 ):
     user_service = UserService(session)
-    user = user_service.authenticate_user(form_data.username, form_data.password)
+    user = user_service.authenticate_user(user_login.email, user_login.password)
     if not user:
         raise InvalidCredentialsException()
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

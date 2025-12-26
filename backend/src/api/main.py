@@ -6,6 +6,9 @@ from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request, HTTPException, Depends
 from fastapi import WebSocket
 from fastapi.websockets import WebSocketDisconnect
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from backend.src.utils.logging_config import setup_logging
 from backend.src.models.chat_request import ChatRequest
@@ -15,6 +18,12 @@ from backend.src.metrics import PrometheusMiddleware, metrics_endpoint
 from backend.src.database import create_db_and_tables # New import
 from backend.src.api.auth import router as auth_router # New import
 from backend.src.api.user import router as user_router # New import
+from backend.src.api.routes.personalization import router as personalization_router # Personalization routes
+from backend.src.api.routes.user_profile import router as user_profile_router # User profile routes
+from backend.src.api.routes.feedback import router as feedback_router # Feedback routes
+
+# Initialize rate limiter
+limiter = Limiter(key_func=get_remote_address)
 
 # Setup logging as early as possible
 setup_logging()
@@ -34,10 +43,22 @@ app = FastAPI(
 def on_startup():
     create_db_and_tables()
 
+# CORS allowed origins - localhost for dev + Vercel for production
+ALLOWED_ORIGINS = [
+    # Development - localhost
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+    # Vercel Production deployment
+    "https://physical-ai-and-robotics-305ugn2y7-areeba-zafars-projects.vercel.app",
+]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # Allow your Docusaurus frontend
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*areeba-zafars-projects\.vercel\.app",  # Allow all Vercel preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,11 +67,24 @@ app.add_middleware(
 # Add Prometheus middleware
 app.add_middleware(PrometheusMiddleware)
 
+# Add rate limiting
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 # Include authentication router
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 
 # Include user router
 app.include_router(user_router, prefix="/user", tags=["user"])
+
+# Include personalization router
+app.include_router(personalization_router, tags=["personalization"])
+
+# Include user profile router
+app.include_router(user_profile_router, tags=["user-profile"])
+
+# Include feedback router
+app.include_router(feedback_router, tags=["feedback"])
 
 def get_agent_service() -> AgentService:
     """Dependency injector for AgentService."""
