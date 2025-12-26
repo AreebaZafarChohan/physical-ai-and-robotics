@@ -194,8 +194,8 @@ async def get_personalized_content(
             "personalization_applied": False
         }
 
-    # ✅ Personalization service
-    service = PersonalizationService(session, DOCS_PATH)
+    # ✅ Personalization service (removed DOCS_PATH - not needed in constructor)
+    service = PersonalizationService(session)
 
     try:
         personalized_content = await service.get_personalized_content(
