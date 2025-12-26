@@ -28,3 +28,7 @@ class TokenData(SQLModel):
 class PersonalizationDataRead(SQLModel):
     software_background: Optional[List[str]] = None
     hardware_background: Optional[List[str]] = None
+
+class UserLogin(SQLModel):
+    email: str
+    password: str

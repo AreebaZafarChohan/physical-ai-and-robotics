@@ -1,14 +1,18 @@
 // frontend/src/services/auth.ts
 import axios from 'axios';
+import { API_URLS } from '../config/api.config';
 
-const API_BASE_URL = 'http://localhost:9000/auth'; // Correct backend URL
-const API_USER_URL = 'http://localhost:9000/user'; // New base URL for user endpoints
+// Dynamic API URLs based on environment
+const getAuthUrl = () => API_URLS.AUTH_URL;
+const getUserUrl = () => API_URLS.USER_URL;
 
 export interface User {
   id: number;
   username: string;
   email: string;
-  // Add other user fields as per backend UserRead schema if needed
+  software_background?: string[];
+  hardware_background?: string[];
+  experience_level?: string;
 }
 
 interface RegistrationData {
@@ -26,7 +30,7 @@ interface AuthResponse {
 
 export const registerUser = async (data: RegistrationData): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<AuthResponse>(`${API_BASE_URL}/signup`, {
+    const response = await axios.post<AuthResponse>(`${getAuthUrl()}/signup`, {
       ...data,
       software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
       hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
@@ -50,7 +54,7 @@ interface OAuthRegistrationData {
 
 export const registerOAuthUser = async (data: OAuthRegistrationData): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<AuthResponse>(`${API_BASE_URL}/signup/oauth`, {
+    const response = await axios.post<AuthResponse>(`${getAuthUrl()}/signup/oauth`, {
       ...data,
       software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
       hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
@@ -73,17 +77,8 @@ interface LoginData {
 export const loginUser = async (credentials: LoginData): Promise<AuthResponse> => {
   try {
     const response = await axios.post<AuthResponse>(
-      `${API_BASE_URL}/login`, // Correct endpoint for login
-      new URLSearchParams({
-        username: credentials.email,
-        password: credentials.password,
-        grant_type: 'password' // grant_type is not used by the backend, but it's harmless to keep it
-      }).toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
+      `${getAuthUrl()}/login`,
+      credentials,
     );
     localStorage.setItem('access_token', response.data.access_token);
     return response.data;
@@ -99,7 +94,7 @@ export const logoutUser = async (): Promise<void> => {
   const token = localStorage.getItem('access_token');
   if (token) {
     try {
-      await axios.post(`${API_BASE_URL}/logout`, {}, {
+      await axios.post(`${getAuthUrl()}/logout`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -132,7 +127,7 @@ export const getCurrentUser = async (): Promise<User | null> => {
     return null;
   }
   try {
-    const response = await axios.get<User>(`${API_USER_URL}/profile`, {
+    const response = await axios.get<User>(`${getUserUrl()}/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Python 3.11 (backend), TypeScript (frontend), Markdown (content) + FastAPI (backend), React (frontend), Neon Postgres (database), Docusaurus (content framework) (011-chapter-personalization)
+- Neon Serverless Postgres database with dedicated personalization rules table (011-chapter-personalization)
+
+## Recent Changes
+- 011-chapter-personalization: Added Python 3.11 (backend), TypeScript (frontend), Markdown (content) + FastAPI (backend), React (frontend), Neon Postgres (database), Docusaurus (content framework)
