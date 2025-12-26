@@ -50,8 +50,9 @@ ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:3001",
-    # Vercel Production deployment
-    "https://physical-ai-and-robotics-305ugn2y7-areeba-zafars-projects.vercel.app",
+    # Vercel Production deployment - UPDATED URL
+    "https://physical-ai-and-robotics-five.vercel.app",
+    "https://physical-ai-and-robotics-305ugn2y7-areeba-zafars-projects.vercel.app",  # Old URL (keep for compatibility)
 ]
 
 # Add CORS middleware

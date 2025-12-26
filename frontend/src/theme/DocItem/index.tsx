@@ -13,8 +13,8 @@ export default function DocItemWrapper(props: any) {
 
   return (
     <>
-      {/* Inject button BEFORE actual doc */}
-      <div className="container margin-top--md margin-bottom--md">
+      {/* Inject button BEFORE actual doc - NO top margin */}
+      <div className="container margin-bottom--md">
         <div className="flex justify-end">
           <PersonalizeContentButton
             chapterPath={currentPath}
