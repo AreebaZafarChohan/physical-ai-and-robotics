@@ -1,1 +1,8 @@
-{}
+{
+  "version.label": "التالي",
+  "sidebar.tutorialSidebar.category.Module 1: ROS 2": "الوحدة 1: ROS 2",
+  "sidebar.tutorialSidebar.category.Module 2: Digital Twin": "الوحدة 2: التوأم الرقمي",
+  "sidebar.tutorialSidebar.category.Module 3: NVIDIA Isaac": "الوحدة 3: NVIDIA Isaac",
+  "sidebar.tutorialSidebar.category.Module 4: VLA": "الوحدة 4: VLA",
+  "sidebar.tutorialSidebar.category.Module 5: Capstone Project": "الوحدة 5: المشروع النهائي"
+}

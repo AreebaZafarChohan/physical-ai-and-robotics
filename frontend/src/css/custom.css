@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -874,3 +875,880 @@ input:checked + .slider:before {
 
 
 
+=======
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply base text colors based on theme */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #6C6CFF;
+  --ifm-color-primary-dark: #5d5df9;
+  --ifm-color-primary-darker: #5454e0;
+  --ifm-color-primary-darkest: #4545b3;
+  --ifm-color-primary-light: #7b7bff;
+  --ifm-color-primary-lighter: #8585ff;
+  --ifm-color-primary-lightest: #a4a4ff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Ensure navbar height is defined (Infima default is 3.75rem / 60px) */
+  --ifm-navbar-height: 3.75rem;
+
+  /* Custom AI/Robotics theme colors */
+  --ai-dark-bg: #0B1020;
+  --ai-darker-bg: #0E1330;
+  --ai-deeper-bg: #151A3D;
+  --ai-accent: #6C6CFF;
+  --ai-accent-light: #8585ff;
+  --ai-text-dark: #1C1C3A;
+  --ai-text-light: #F0F0FF;
+  --ai-card-bg: rgba(255, 255, 255, 0.05);
+  --ai-card-border: rgba(255, 255, 255, 0.1);
+  --ai-hover-glow: rgba(108, 108, 255, 0.3);
+
+  /* Typography */
+  --ifm-h1-font-size: 3rem;
+  --ifm-h2-font-size: 2.2rem;
+  --ifm-h3-font-size: 1.7rem;
+  --ifm-h4-font-size: 1.4rem;
+  --ifm-font-size-base: 1.1rem;
+  --ifm-line-height-base: 1.7;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #8585ff;
+  --ifm-color-primary-dark: #7070ff;
+  --ifm-color-primary-darker: #6262ff;
+  --ifm-color-primary-darkest: #4040d4;
+  --ifm-color-primary-light: #9a9aff;
+  --ifm-color-primary-lighter: #a9a9ff;
+  --ifm-color-primary-lightest: #d2d2ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Custom Theme Styles ===== */
+
+/* Global background and text */
+body {
+  background: linear-gradient(135deg, var(--ai-dark-bg) 0%, var(--ai-darker-bg) 50%, var(--ai-deeper-bg) 100%);
+  color: var(--ai-text-light);
+  transition: background 0.3s ease;
+}
+
+/* Navbar styling */
+.navbar {
+  background: rgba(11, 16, 32, 0.85) !important;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(108, 108, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 0.875rem 0;
+  border-radius: 0 0 24px 24px;
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  background: rgba(11, 16, 32, 0.95) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.navbar__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__brand {
+  color: var(--ai-text-light) !important;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  background: rgba(108, 108, 255, 0.05);
+}
+
+.navbar__brand:hover {
+  color: var(--ai-accent) !important;
+  transform: translateY(-2px);
+  background: rgba(108, 108, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(108, 108, 255, 0.2);
+}
+
+.navbar__logo {
+  height: 2.25rem;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.navbar__brand:hover .navbar__logo {
+  transform: scale(1.1);
+}
+
+.navbar__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #6C6CFF, #8a8aff, #a9a9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.navbar__item {
+  font-weight: 500;
+  padding: 0.75rem 0.875rem;
+  margin: 0 0.25rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: transparent;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.navbar__item:hover::before {
+  background: rgba(108, 108, 255, 0.1);
+  box-shadow: 0 0 15px rgba(108, 108, 255, 0.15);
+}
+
+.navbar__link {
+  color: var(--ai-text-light) !important;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none !important;
+}
+
+.navbar__link:hover {
+  color: var(--ai-accent) !important;
+}
+
+/* Add bottom border effect on hover */
+.navbar__link:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--ai-accent);
+  border-radius: 999px;
+  opacity: 0.7;
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--ai-accent);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+/* Dropdown menu styling */
+.dropdown__menu {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(108, 108, 255, 0.3) !important;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  padding: 0.75rem 0;
+  margin-top: 0.75rem;
+  min-width: 260px;
+  z-index: 1000;
+  overflow: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.dropdown--hoverable:hover > .dropdown__menu,
+.dropdown--show > .dropdown__menu {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown__link {
+  color: var(--ai-text-light) !important;
+  padding: 0.875rem 1.5rem !important;
+  margin: 0.125rem 0.5rem;
+  border-radius: 10px !important;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dropdown__link:hover {
+  background: linear-gradient(90deg, rgba(108, 108, 255, 0.15), transparent) !important;
+  color: var(--ai-accent) !important;
+  transform: translateX(5px);
+  box-shadow: 0 0 15px rgba(108, 108, 255, 0.2);
+}
+
+/* Auth navbar items styling */
+.navbar__item.dropdown {
+  padding: 0;
+  margin: 0 0.25rem;
+}
+
+/* Locale dropdown styling */
+.navbar__item .navbar__link.dropdown__link {
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Add pulse animation for active elements */
+.navbar__link--active {
+  position: relative;
+}
+
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #6C6CFF, #8a8aff);
+  border-radius: 999px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Mobile menu styling */
+.navbar-sidebar {
+  background: linear-gradient(180deg, #0B1020 0%, #0E1330 50%, #151A3D 100%) !important;
+}
+
+.navbar-sidebar .menu__list .menu__list-item .navbar__link {
+  color: var(--ai-text-light) !important;
+}
+
+.navbar__toggle {
+  color: var(--ai-text-light) !important;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar__toggle:hover {
+  background: rgba(108, 108, 255, 0.1);
+  color: var(--ai-accent) !important;
+}
+
+
+/* Dark mode toggle button */
+.react-toggle {
+  --toggle-width: 40px;
+  --toggle-height: 20px;
+  --toggle-padding: 2px;
+  --toggle-handle-size: 16px;
+}
+
+/* Sidebar styling */
+.theme-doc-sidebar-container {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 16px 16px 0;
+}
+
+.menu {
+  background: transparent;
+}
+
+.menu__list-item a {
+  color: var(--ai-text-light);
+  border-radius: 12px;
+  margin: 0 8px;
+  transition: all 0.3s ease;
+}
+
+.menu__list-item a:hover {
+  background: rgba(108, 108, 255, 0.1);
+  color: var(--ai-accent);
+}
+
+.menu__list-item--active > a,
+.menu__list-item a:hover {
+  background: rgba(108, 108, 255, 0.15);
+  color: var(--ai-accent);
+  border-left: 3px solid var(--ai-accent);
+}
+
+/* Right TOC */
+.table-of-contents {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.table-of-contents__link {
+  color: var(--ai-text-light);
+  font-size: 0.9rem;
+}
+
+.table-of-contents__link--active {
+  color: var(--ai-accent);
+  font-weight: 600;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breadcrumbs__item {
+  color: var(--ai-text-light);
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ai-accent);
+  font-weight: 600;
+}
+
+/* Main content styling */
+.main-wrapper {
+  background: linear-gradient(135deg, var(--ai-dark-bg) 0%, var(--ai-darker-bg) 50%, var(--ai-deeper-bg) 100%);
+  min-height: 100vh;
+  /* Add padding-top to account for fixed navbar */
+  padding-top: var(--ifm-navbar-height);
+  /* Ensure main content doesn't create stacking context above navbar/sidebar */
+  position: relative;
+  z-index: 0;
+}
+
+/* Override for pages that handle their own layout (like auth pages) */
+.main-wrapper--no-padding {
+  padding-top: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Markdown content styling */
+.markdown {
+  color: var(--ai-text-light);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  padding: 2rem 1rem;
+}
+
+/* Headings */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  color: var(--ai-text-light);
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-top: 0;
+}
+
+.markdown h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.markdown h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.markdown h1::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--ai-accent), transparent);
+  margin-top: 12px;
+  border-radius: 999px;
+}
+
+/* Paragraphs */
+.markdown p {
+  color: var(--ai-text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+/* Links */
+.markdown a {
+  color: var(--ai-accent);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+}
+
+.markdown a:hover {
+  color: var(--ai-accent-light);
+  text-decoration: underline;
+}
+
+/* Lists */
+.markdown ul,
+.markdown ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.markdown li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+/* Blockquotes */
+.markdown blockquote {
+  border-left: 4px solid var(--ai-accent);
+  background: rgba(108, 108, 255, 0.05);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+/* Code blocks */
+.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Buttons */
+.button {
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.button--primary {
+  background: linear-gradient(90deg, var(--ai-accent), #8a8aff);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 108, 255, 0.3);
+}
+
+.button--primary:hover {
+  background: linear-gradient(90deg, var(--ai-accent-light), #9d9dff);
+  box-shadow: 0 6px 20px rgba(108, 108, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--ai-accent);
+  border: 2px solid var(--ai-accent);
+}
+
+.button--secondary:hover {
+  background: rgba(108, 108, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Cards and feature boxes */
+.card {
+  background: var(--ai-card-bg);
+  border: 1px solid var(--ai-card-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(108, 108, 255, 0.3);
+  border: 1px solid var(--ai-hover-glow);
+}
+
+/* Code blocks */
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Tables */
+.markdown table {
+  display: block;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown table thead tr,
+.markdown table tbody tr:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown th,
+.markdown td {
+  padding: 0.75rem 1rem;
+  border: none;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #090e1d 0%, #0c1125 50%, #121635 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem 0 2rem;
+}
+
+/* Homepage specific styles */
+.hero--primary {
+  background: linear-gradient(135deg, var(--ai-dark-bg) 0%, var(--ai-darker-bg) 50%, var(--ai-deeper-bg) 100%);
+  position: relative;
+  /* REMOVED overflow: hidden to prevent stacking context issues */
+  padding: 6rem 1rem;
+}
+
+.hero__title {
+  color: var(--ai-text-light);
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero__subtitle {
+  color: var(--ai-text-light);
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+/* Gradient text for highlights */
+.gradient-text {
+  background: linear-gradient(90deg, #6C6CFF, #8a8aff, #a9a9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Hover effects */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px var(--ai-hover-glow);
+}
+
+/* ============================================================================
+   MOBILE NAVBAR FIX - Ensure hamburger menu works properly
+   ============================================================================ */
+
+/* Ensure mobile sidebar appears above all content */
+@media (max-width: 996px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  /* Docusaurus navbar sidebar for mobile */
+  .navbar-sidebar {
+    z-index: 1000 !important;
+    height: 100vh !important;  /* Expand to full viewport height */
+    max-height: 100vh !important;  /* Ensure it doesn't exceed viewport */
+    width: 100% !important;  /* Full viewport width */
+    right: 0 !important;  /* Flush to the right edge */
+    background-color: var(--ifm-navbar-background-color) !important;  /* Match navbar bg */
+    background: linear-gradient(180deg, #0B1020 0%, #0E1330 50%, #151A3D 100%) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;  /* Smooth scrolling on iOS */
+  }
+
+  /* Backdrop behind the mobile menu */
+  .navbar-sidebar__backdrop {
+    z-index: 999 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;  /* Semi-transparent dark overlay */
+  }
+
+  /* Dark mode backdrop */
+  [data-theme='dark'] .navbar-sidebar__backdrop {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  /* When sidebar is open, hide main content */
+  .navbar--fixed-top.navbar-sidebar--show ~ .main-wrapper {
+    display: none !important;
+  }
+
+  /* Also hide footer when sidebar is open */
+  .navbar--fixed-top.navbar-sidebar--show ~ footer {
+    display: none !important;
+  }
+
+  /* Mobile Sidebar Item Styling */
+  .navbar-sidebar .navbar__item,
+  .navbar-sidebar .navbar__link {
+    color: var(--ai-text-light) !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .navbar-sidebar .navbar__link:hover {
+    background: rgba(108, 108, 255, 0.15) !important;
+    color: var(--ai-accent) !important;
+  }
+
+  .navbar-sidebar .dropdown__menu {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(108, 108, 255, 0.2) !important;
+  }
+
+  .navbar-sidebar .dropdown__link {
+    color: var(--ai-text-light) !important;
+  }
+
+  .navbar-sidebar .dropdown__link:hover {
+    background: rgba(108, 108, 255, 0.15) !important;
+    color: var(--ai-accent) !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero--primary {
+    padding: 3rem 1rem;
+  }
+
+  .markdown h1 {
+    font-size: 2rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--ai-dark-bg), var(--ai-accent));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ai-accent);
+}
+
+/* Chatbot Styles moved to separate file */
+
+/* Fix for full-screen pages (auth pages, dashboard, etc.) */
+/* Add padding-top to account for fixed navbar on all screen sizes */
+main.min-h-screen {
+  padding-top: var(--ifm-navbar-height);
+}
+
+/* Ensure proper spacing on mobile/tablet */
+@media (max-width: 996px) {
+  main.min-h-screen {
+    padding-top: calc(var(--ifm-navbar-height) + 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  main.min-h-screen {
+    padding-top: calc(var(--ifm-navbar-height) + 0.5rem);
+  }
+}
+
+/* Custom styles for auth forms */
+.input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: white;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--ai-accent);
+    box-shadow: 0 0 15px var(--ai-hover-glow);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--ai-accent), #8a8aff);
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 108, 255, 0.3);
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, var(--ai-accent-light), #9d9dff);
+    box-shadow: 0 6px 20px rgba(108, 108, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--ai-accent);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--ai-accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+
+
+
+
+
+
+>>>>>>> 012-docusaurus-i18n-urdu
