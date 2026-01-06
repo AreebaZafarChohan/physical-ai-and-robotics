@@ -33,6 +33,20 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ur', 'ar'], // Added 'ur' and 'ar'
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+      },
+      ur: {
+        label: 'اردو',
+        direction: 'rtl',
+      },
+      ar: {
+        label: 'العربية',
+        direction: 'rtl',
+      },
+    },
   },
 
   presets: [

@@ -1,1 +1,6 @@
-{}
+{
+  "title": "RoboX",
+  "item.label.Book": "كتاب",
+  "item.label.About": "حول",
+  "item.label.GitHub": "جيت هاب"
+}

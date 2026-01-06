@@ -1,0 +1,8 @@
+{
+  "label": "Try with AI",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Experiment with AI implementations related to NVIDIA Isaac concepts."
+  }
+}

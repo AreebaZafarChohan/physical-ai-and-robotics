@@ -6,11 +6,11 @@ import os
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY") or os.getenv("JWT_SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM", "HS256") # Default to HS256 if not specified
 
 if not SECRET_KEY:
-    raise ValueError("SECRET_KEY environment variable is not set.")
+    raise ValueError("Either SECRET_KEY or JWT_SECRET_KEY environment variable must be set.")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()

@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- TypeScript, JavaScript + Docusaurus v2+, React, Tailwind CSS, Node.js (012-docusaurus-i18n-urdu)
+- File-based (Markdown/MDX files), potentially Neon Serverless Postgres for future chatbot features (012-docusaurus-i18n-urdu)
+
+## Recent Changes
+- 012-docusaurus-i18n-urdu: Added TypeScript, JavaScript + Docusaurus v2+, React, Tailwind CSS, Node.js
