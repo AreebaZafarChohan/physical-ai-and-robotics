@@ -147,28 +147,31 @@ const DashboardPage: React.FC = () => {
               </div>
 
               {/* Navigation Tabs */}
-              <div className="mt-8 flex gap-2 border-b border-[rgba(255,255,255,0.1)]">
-                {[
-                  { id: 'overview', label: 'Overview', icon: FaChartLine },
-                  { id: 'profile', label: 'Profile', icon: FaUsers },
-                  { id: 'progress', label: 'Progress', icon: FaTrophy },
-                ].map((tab) => {
-                  const Icon = tab.icon;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as any)}
-                      className={`flex items-center gap-2 px-5 py-3 font-medium transition-all border-b-2 -mb-[2px] ${
-                        activeTab === tab.id
-                          ? 'text-[#6C6CFF] border-[#6C6CFF]'
-                          : 'text-gray-400 border-transparent hover:text-white'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      {tab.label}
-                    </button>
-                  );
-                })}
+              <div className="mt-8">
+                <div className="inline-flex gap-1 p-1 rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)]">
+                  {[
+                    { id: 'overview', label: 'Overview', icon: FaChartLine },
+                    { id: 'profile', label: 'Profile', icon: FaUsers },
+                    { id: 'progress', label: 'Progress', icon: FaTrophy },
+                  ].map((tab) => {
+                    const Icon = tab.icon;
+                    const active = activeTab === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as any)}
+                        className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${
+                          active
+                            ? 'bg-gradient-to-r from-[#6C6CFF]/25 to-[#8a8aff]/20 text-white shadow-sm'
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        }`}
+                      >
+                        <Icon className={`w-4 h-4 ${active ? 'text-[#8a8aff]' : ''}`} />
+                        {tab.label}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -190,7 +193,7 @@ const DashboardPage: React.FC = () => {
                   return (
                     <div
                       key={index}
-                      className="group relative overflow-hidden bg-[#0E1330] rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] hover:border-[rgba(108,108,255,0.3)] transition-all hover:shadow-lg hover:shadow-[rgba(108,108,255,0.1)]"
+                      className="group relative overflow-hidden bg-[#0E1330]/80 backdrop-blur-sm rounded-2xl p-6 border border-[rgba(255,255,255,0.1)] hover:border-[rgba(108,108,255,0.35)] transition-all hover:shadow-xl hover:shadow-[rgba(108,108,255,0.12)]"
                     >
                       <div className="flex items-start justify-between">
                         <div>

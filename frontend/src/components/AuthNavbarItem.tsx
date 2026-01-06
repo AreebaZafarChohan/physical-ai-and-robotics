@@ -31,21 +31,20 @@ const Dropdown: React.FC<{
   }, []);
 
   return (
-    <div className={`relative ${className}`} ref={dropdownRef}>
+    <div
+      className={`dropdown dropdown--right ${isOpen ? 'dropdown--show' : ''} ${className || ''}`}
+      ref={dropdownRef}
+    >
       <a
-        className="navbar__item navbar__link cursor-pointer"
+        className="navbar__item navbar__link navbar__link--dropdown dropdown__link cursor-pointer"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
         onClick={toggleDropdown}
       >
         {label}
       </a>
-      {isOpen && (
-        <ul
-          className="absolute mt-2 py-2 w-48 bg-white border rounded shadow-lg z-50"
-          style={{ display: 'block' }}
-        >
-          {children}
-        </ul>
-      )}
+      <ul className="dropdown__menu">{children}</ul>
     </div>
   );
 };
@@ -92,18 +91,12 @@ const AuthNavbarItem: React.FC = () => {
         }
       >
         <li>
-          <a
-            className="dropdown__link block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-            onClick={() => history.push(`${baseUrl}dashboard`)}
-          >
+          <a className="dropdown__link cursor-pointer" onClick={() => history.push(`${baseUrl}dashboard`)}>
             Dashboard
           </a>
         </li>
         <li>
-          <a
-            className="dropdown__link block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-            onClick={handleLogout}
-          >
+          <a className="dropdown__link cursor-pointer" onClick={handleLogout}>
             Logout
           </a>
         </li>

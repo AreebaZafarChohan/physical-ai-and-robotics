@@ -18,7 +18,7 @@ from backend.src.metrics import PrometheusMiddleware, metrics_endpoint
 from backend.src.database import create_db_and_tables # New import
 from backend.src.api.auth import router as auth_router # New import
 from backend.src.api.user import router as user_router # New import
-# from backend.src.api.routes.personalization import router as personalization_router # Personalization routes
+from backend.src.api.personalization_router import router as personalization_router # Personalization routes
 # from backend.src.api.routes.user_profile import router as user_profile_router # User profile routes
 # from backend.src.api.routes.feedback import router as feedback_router # Feedback routes
 # # import router as translation_router # New import for translation API
@@ -79,8 +79,8 @@ app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(user_router, prefix="/user", tags=["user"])
                                                                                                                                     # Include translation router
 # app.include_router(translation_router, prefix="", tags=["translation"])
-# # Include personalization router
-# app.include_router(personalization_router, tags=["personalization"])
+# Include personalization router
+app.include_router(personalization_router, tags=["personalization"])
 
 # # Include user profile router
 # app.include_router(user_profile_router, tags=["user-profile"])

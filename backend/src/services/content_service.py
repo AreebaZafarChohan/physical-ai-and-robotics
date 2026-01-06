@@ -26,51 +26,76 @@ class ContentService:
         # Sanitize the path to prevent directory traversal attacks
         # Remove leading slash and normalize the path
         normalized_path = os.path.normpath(content_path.lstrip('/'))
-        
-        # Construct the full file path
-        full_path = self.content_base_path / normalized_path
-        
-        # Add debug logging
-        print(f"Debug: Attempting to access full_path: {full_path.resolve()}")
-        print(f"Debug: Does full_path exist and is it a file? {full_path.is_file()}")
 
-        
-        # Verify that the path is within the content directory (security check)
-        try:
-            full_path.resolve().relative_to(self.content_base_path.resolve())
-        except ValueError:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid content path"
-            )
-            
-        if full_path.suffix == "":
-            full_path = full_path.with_suffix(".md")    
-        
-        # Ensure the file has an appropriate extension
-        if full_path.suffix.lower() not in ['.md', '.mdx', '.txt', '.html']:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid file type"
-            )
-        
-        # Check if the file exists
-        if not full_path.is_file():
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Content not found: {content_path}"
-            )
-        
-        # Read and return the content
-        try:
-            with open(full_path, 'r', encoding='utf-8') as file:
-                return file.read()
-        except Exception as e:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error reading content: {str(e)}"
-            )
-    
+        # Candidate paths to support Docusaurus ordering prefixes (e.g. 01-*) and
+        # content stored as either <slug>.md(x) or <dir>/index.md(x).
+        candidates: list[Path] = []
+
+        base = self.content_base_path
+        rel = Path(normalized_path)
+
+        def _add_candidates(p: Path) -> None:
+            if p.suffix:
+                candidates.append(p)
+            else:
+                candidates.extend([
+                    p.with_suffix('.md'),
+                    p.with_suffix('.mdx'),
+                    p / 'index.md',
+                    p / 'index.mdx',
+                ])
+
+        _add_candidates(base / rel)
+
+        # If the path looks like Docusaurus docId (numeric prefixes stripped), try to
+        # match on disk by ignoring leading NN- ordering prefixes.
+        if len(rel.parts) >= 2:
+            module_slug = rel.parts[0]
+            file_slug = rel.parts[-1]
+            # Keep intermediate parts (e.g. quizzes/<file>, try-with-ai/<file>)
+            sub_path = Path(*rel.parts[1:])
+            parent_subdir = Path(*rel.parts[1:-1]) if len(rel.parts) > 2 else Path()
+
+            for module_dir in base.glob(f"*-{module_slug}"):
+                if not module_dir.is_dir():
+                    continue
+
+                # Candidates preserving subdirectories (e.g. 01-module-ros/quizzes/quiz-foo.md)
+                _add_candidates(module_dir / sub_path)
+
+                # Also try numeric-prefixed filenames within the expected parent subdir
+                target_dir = (module_dir / parent_subdir) if str(parent_subdir) else module_dir
+                if target_dir.is_dir():
+                    for ext in ('.md', '.mdx'):
+                        for prefixed_file in target_dir.glob(f"*-{file_slug}{ext}"):
+                            candidates.append(prefixed_file)
+
+        # Verify and return first readable match
+        for full_path in candidates:
+            # Verify that the path is within the content directory (security check)
+            try:
+                full_path.resolve().relative_to(self.content_base_path.resolve())
+            except ValueError:
+                continue
+
+            if full_path.suffix.lower() and full_path.suffix.lower() not in ['.md', '.mdx', '.txt', '.html']:
+                continue
+
+            if full_path.is_file():
+                try:
+                    with open(full_path, 'r', encoding='utf-8') as file:
+                        return file.read()
+                except Exception as e:
+                    raise HTTPException(
+                        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        detail=f"Error reading content: {str(e)}"
+                    )
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Content not found: {content_path}"
+        )
+
     async def get_content_markers(self, content: str) -> list:
         """
         Extract personalization markers from content

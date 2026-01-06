@@ -1,18 +1,110 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { User, logoutUser } from '../services/auth';
 import { useHistory } from '@docusaurus/router';
-import { FaUser, FaEnvelope, FaSignOutAlt, FaCode, FaMicrochip, FaCog } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaSignOutAlt, FaCode, FaMicrochip, FaCog, FaTimes } from 'react-icons/fa';
+import { getUserProfileDetails, updateUserProfile } from '../services/api';
 
 interface UserProfileProps {
   user: User;
+  onProfileUpdate?: (updatedUser: Partial<User>) => void;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
+type ExperienceLevel = 'beginner' | 'intermediate' | 'advanced';
+
+const normalizeArrayField = (v: unknown): string[] => {
+  if (!v) return [];
+  if (Array.isArray(v)) return v.filter(Boolean).map(String);
+  return String(v)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+};
+
+const UserProfile: React.FC<UserProfileProps> = ({ user, onProfileUpdate }) => {
   const history = useHistory();
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  const [softwareBackground, setSoftwareBackground] = useState<string[]>([]);
+  const [hardwareBackground, setHardwareBackground] = useState<string[]>([]);
+  const [experienceLevel, setExperienceLevel] = useState<ExperienceLevel>('beginner');
+
+  const softwareInput = useMemo(() => softwareBackground.join(', '), [softwareBackground]);
+  const hardwareInput = useMemo(() => hardwareBackground.join(', '), [hardwareBackground]);
 
   const handleLogout = async () => {
     await logoutUser();
     history.push('/login'); // Redirect to login page after logout
+  };
+
+  const openEdit = async () => {
+    setSaveError(null);
+    setIsEditOpen(true);
+
+    // Prefill from current user; then try to fetch more detailed profile.
+    setSoftwareBackground(normalizeArrayField(user.software_background));
+    setHardwareBackground(normalizeArrayField(user.hardware_background));
+    setExperienceLevel((user.experience_level as ExperienceLevel) || 'beginner');
+
+    try {
+      const details = await getUserProfileDetails();
+      const profile = details?.profile;
+      if (profile) {
+        setSoftwareBackground(normalizeArrayField(profile.software_background));
+        setHardwareBackground(normalizeArrayField(profile.hardware_background));
+        setExperienceLevel((profile.experience_level as ExperienceLevel) || 'beginner');
+      }
+    } catch (e: any) {
+      // Non-blocking: user can still edit with prefills.
+      console.warn('Failed to fetch profile details for edit:', e);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setSaveError(null);
+    try {
+      await updateUserProfile({
+        software_background: softwareBackground,
+        hardware_background: hardwareBackground,
+        experience_level: experienceLevel,
+      });
+
+      onProfileUpdate?.({
+        software_background: softwareBackground,
+        hardware_background: hardwareBackground,
+        experience_level: experienceLevel,
+      });
+
+      setIsEditOpen(false);
+    } catch (e: any) {
+      setSaveError(e?.message || 'Failed to update profile');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  useEffect(() => {
+    // Keep local edit state in sync if user prop changes.
+    if (!isEditOpen) {
+      setSoftwareBackground(normalizeArrayField(user.software_background));
+      setHardwareBackground(normalizeArrayField(user.hardware_background));
+      setExperienceLevel((user.experience_level as ExperienceLevel) || 'beginner');
+    }
+  }, [isEditOpen, user.experience_level, user.hardware_background, user.software_background]);
+
+  const closeEdit = () => {
+    if (!saving) setIsEditOpen(false);
+  };
+
+  const onModalKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') closeEdit();
+  };
+
+  const onBackdropMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) closeEdit();
   };
 
   return (
@@ -75,7 +167,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
       <div className="mt-8 flex justify-center space-x-4">
         <button
-          onClick={() => {}}
+          onClick={openEdit}
           className="flex items-center px-4 py-2 bg-[rgba(255,255,255,0.05)] text-white rounded-lg border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.1)] transition-colors"
         >
           <FaCog className="h-5 w-5 mr-2" />
@@ -89,6 +181,104 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           Logout
         </button>
       </div>
+
+      {isEditOpen && (
+        <div
+          className="fixed inset-0 z-[2000] flex items-center justify-center px-4"
+          onMouseDown={onBackdropMouseDown}
+          onKeyDown={onModalKeyDown}
+          role="dialog"
+          aria-modal="true"
+          tabIndex={-1}
+        >
+          <div className="absolute inset-0 bg-black/60" />
+
+          <div className="relative w-full max-w-xl rounded-2xl border border-[rgba(108,108,255,0.25)] bg-[#0B1020]/95 backdrop-blur-xl shadow-2xl">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[rgba(255,255,255,0.08)]">
+              <div>
+                <h3 className="text-xl font-bold text-white">Edit Profile</h3>
+                <p className="text-sm text-gray-400 mt-1">Update your background and experience level.</p>
+              </div>
+              <button
+                type="button"
+                className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                onClick={closeEdit}
+                aria-label="Close"
+                disabled={saving}
+              >
+                <FaTimes className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="px-6 py-5 space-y-5">
+              {saveError && (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                  {saveError}
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Software background</label>
+                <input
+                  type="text"
+                  value={softwareInput}
+                  onChange={(e) => setSoftwareBackground(normalizeArrayField(e.target.value))}
+                  className="w-full px-4 py-3 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF]/50"
+                  placeholder="e.g. Python, ROS2, C++"
+                  disabled={saving}
+                />
+                <p className="text-xs text-gray-500 mt-2">Comma-separated values.</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Hardware background</label>
+                <input
+                  type="text"
+                  value={hardwareInput}
+                  onChange={(e) => setHardwareBackground(normalizeArrayField(e.target.value))}
+                  className="w-full px-4 py-3 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF]/50"
+                  placeholder="e.g. Arduino, Sensors, Embedded"
+                  disabled={saving}
+                />
+                <p className="text-xs text-gray-500 mt-2">Comma-separated values.</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Experience level</label>
+                <select
+                  value={experienceLevel}
+                  onChange={(e) => setExperienceLevel(e.target.value as ExperienceLevel)}
+                  className="w-full px-4 py-3 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] text-white focus:outline-none focus:ring-2 focus:ring-[#6C6CFF]/50"
+                  disabled={saving}
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="px-6 py-5 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-end gap-3">
+              <button
+                type="button"
+                className="px-5 py-2.5 rounded-xl bg-white/5 text-white border border-[rgba(255,255,255,0.12)] hover:bg-white/10 transition-colors"
+                onClick={closeEdit}
+                disabled={saving}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#6C6CFF] to-[#8a8aff] text-white font-semibold hover:shadow-lg hover:shadow-[rgba(108,108,255,0.25)] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                onClick={handleSave}
+                disabled={saving}
+              >
+                {saving ? 'Saving…' : 'Save changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
