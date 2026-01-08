@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 uvicorn
 sqlmodel
 psycopg2-binary # For PostgreSQL connection
@@ -18,25 +17,4 @@ openai-agents
 prometheus-client>=0.20.0
 websockets
 wsproto
-=======
-uvicorn
-sqlmodel
-psycopg2-binary # For PostgreSQL connection
-alembic # For database migrations
-passlib[bcrypt] # For password hashing
-python-jose[cryptography] # For JWT tokens
-python-multipart # For form data parsing
-loguru
-argon2-cffi
-qdrant-client
-cohere
-python-dotenv
-fastapi
-uvicorn[standard]
-async-openai
-openai-agents
-prometheus-client>=0.20.0
-websockets
-wsproto
->>>>>>> 012-docusaurus-i18n-urdu
 slowapi
