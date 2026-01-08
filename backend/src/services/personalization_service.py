@@ -281,7 +281,8 @@ class PersonalizationService:
         
         cached_item = self.session.exec(statement).first()
         
-        if cached_.personalized_content
+        if cached_item:
+            return cached_item.personalized_content
         
         return None
     
