@@ -55,7 +55,7 @@ async def update_user_profile(
     try:
         # Find existing profile or create new one
         statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-        existing_profile = (await session.exec(statement)).first()
+        existing_profile = (await session.execute(statement)).first()
 
         if existing_profile:
             # Update existing profile
@@ -123,7 +123,7 @@ async def get_user_profile_details(
     Get detailed user profile including software/hardware background.
     """
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    profile = (await session.exec(statement)).first()
+    profile = (await session.execute(statement)).first()
 
     return {
         "user": {

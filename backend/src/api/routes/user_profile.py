@@ -1,6 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
+from sqlmodel import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import get_session
 from backend.src.models.user_profile import UserProfile, UserProfileCreate, UserProfileRead
@@ -13,13 +14,14 @@ router = APIRouter(prefix="/user-profile", tags=["user-profile"])
 @router.get("/", response_model=UserProfileRead)
 async def get_user_profile(
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Get the current user's profile information
     """
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    user_profile = session.exec(statement).first()
+    result = await session.execute(statement)
+    user_profile = result.first()
     
     if not user_profile:
         raise HTTPException(
@@ -34,14 +36,15 @@ async def get_user_profile(
 async def create_user_profile(
     profile_data: UserProfileCreate,
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Create a new user profile
     """
     # Check if user already has a profile
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    existing_profile = session.exec(statement).first()
+    result = await session.execute(statement)
+    existing_profile = result.first()
     
     if existing_profile:
         raise HTTPException(
@@ -56,10 +59,10 @@ async def create_user_profile(
         hardware_background=profile_data.hardware_background,
         experience_level=profile_data.experience_level
     )
-    
+
     session.add(user_profile)
-    session.commit()
-    session.refresh(user_profile)
+    await session.commit()
+    await session.refresh(user_profile)
     
     return user_profile
 
@@ -68,13 +71,14 @@ async def create_user_profile(
 async def update_user_profile(
     profile_data: UserProfileCreate,  # Using Create model since it has all necessary fields
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Update the current user's profile information
     """
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    user_profile = session.exec(statement).first()
+    result = await session.execute(statement)
+    user_profile = result.first()
     
     if not user_profile:
         raise HTTPException(
@@ -88,7 +92,7 @@ async def update_user_profile(
     user_profile.experience_level = profile_data.experience_level
     
     session.add(user_profile)
-    session.commit()
-    session.refresh(user_profile)
+    await session.commit()
+    await session.refresh(user_profile)
     
     return user_profile

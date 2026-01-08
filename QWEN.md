@@ -210,16 +210,8 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
 
 ## Active Technologies
-<<<<<<< HEAD
-- Python 3.11 (backend), TypeScript (frontend), Markdown (content) + FastAPI (backend), React (frontend), Neon Postgres (database), Docusaurus (content framework) (011-chapter-personalization)
-- Neon Serverless Postgres database with dedicated personalization rules table (011-chapter-personalization)
-
-## Recent Changes
-- 011-chapter-personalization: Added Python 3.11 (backend), TypeScript (frontend), Markdown (content) + FastAPI (backend), React (frontend), Neon Postgres (database), Docusaurus (content framework)
-=======
 - TypeScript, JavaScript + Docusaurus v2+, React, Tailwind CSS, Node.js (012-docusaurus-i18n-urdu)
 - File-based (Markdown/MDX files), potentially Neon Serverless Postgres for future chatbot features (012-docusaurus-i18n-urdu)
 
 ## Recent Changes
 - 012-docusaurus-i18n-urdu: Added TypeScript, JavaScript + Docusaurus v2+, React, Tailwind CSS, Node.js
->>>>>>> 012-docusaurus-i18n-urdu

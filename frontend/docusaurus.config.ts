@@ -33,8 +33,6 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ur', 'ar'], // Added 'ur' and 'ar'
-<<<<<<< HEAD
-=======
     localeConfigs: {
       en: {
         label: 'English',
@@ -49,7 +47,6 @@ const config: Config = {
         direction: 'rtl',
       },
     },
->>>>>>> 012-docusaurus-i18n-urdu
   },
 
   presets: [
@@ -153,11 +150,7 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-<<<<<<< HEAD
-    } satisfies Preset.ThemeConfig,
-=======
   } satisfies Preset.ThemeConfig,
->>>>>>> 012-docusaurus-i18n-urdu
 };
 
 export default config;

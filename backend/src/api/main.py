@@ -161,4 +161,4 @@ if __name__ == "__main__":
     os.environ["COHERE_API_KEY"] = "dummy_cohere_key"
 
     logger.info("Running FastAPI application directly with Uvicorn.")
-    uvicorn.run(app, host="0.0.0.0", port=7860)
+    uvicorn.run(app, host="0.0.0.0", port=9000)

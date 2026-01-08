@@ -1,6 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session
+from sqlmodel import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import get_session
 from backend.src.models.user import User
@@ -17,7 +18,7 @@ async def submit_personalization_feedback(
     feedback_score: int,  # 1-5 rating
     feedback_comment: Optional[str] = None,
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Submit feedback about personalization relevance
@@ -29,9 +30,9 @@ async def submit_personalization_feedback(
         )
     
     feedback_service = FeedbackService(session)
-    
+
     try:
-        feedback = feedback_service.submit_feedback(
+        feedback = await feedback_service.submit_feedback(
             user_id=current_user.id,
             chapter_path=chapter_path,
             feedback_score=feedback_score,
@@ -53,16 +54,16 @@ async def submit_personalization_feedback(
 async def get_personalization_feedback(
     chapter_path: str,
     current_user: User = Depends(get_current_user),  # Could make this public depending on requirements
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Get feedback statistics for a specific chapter
     """
     feedback_service = FeedbackService(session)
-    
+
     try:
-        avg_score = feedback_service.get_average_feedback_score(chapter_path)
-        feedback_list = feedback_service.get_feedback_for_chapter(chapter_path)
+        avg_score = await feedback_service.get_average_feedback_score(chapter_path)
+        feedback_list = await feedback_service.get_feedback_for_chapter(chapter_path)
         
         return {
             "chapter_path": chapter_path,

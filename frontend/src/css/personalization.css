@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Personalization Content Styling */
 
 /* Fade-in animation */
@@ -275,10 +274,8 @@
   animation: pulse 1.5s ease-in-out 3;
 }
 
-/* ============================================
    HIGHLIGHTER EFFECT STYLES
    Like a physical highlighter marker effect
-   ============================================ */
 
 /* Main wrapper for personalized/highlighted content */
 .personalized-highlight-wrapper {
@@ -402,10 +399,8 @@
   box-decoration-break: clone;
 }
 
-/* ============================================
    PERSONALIZED CONTENT BLOCK STYLES
    Highlighting entire content sections
-   ============================================ */
 
 /* Personalized content wrapper - main container */
 .personalized-content-block {
@@ -595,9 +590,7 @@
   font-weight: 700;
 }
 
-/* ============================================
    DARK MODE SUPPORT
-   ============================================ */
 
 [data-theme='dark'] .highlight-yellow {
   background: linear-gradient(
@@ -668,9 +661,7 @@
   color: #fcd34d;
 }
 
-/* ============================================
    ANIMATION ON SCROLL REVEAL
-   ============================================ */
 
 .personalized-reveal {
   opacity: 0;
@@ -706,9 +697,7 @@
   }
 }
 
-/* ============================================
    FOOTER HINT STYLES
-   ============================================ */
 
 .personalized-footer-hint {
   display: flex;
@@ -738,9 +727,7 @@
   border-color: rgba(108, 108, 255, 0.3);
 }
 
-/* ============================================
    CODE WRAPPER STYLES
-   ============================================ */
 
 .personalized-code-wrapper {
   position: relative;
@@ -769,9 +756,7 @@
   border-top-right-radius: 0 !important;
 }
 
-/* ============================================
    TABLE WRAPPER STYLES
-   ============================================ */
 
 .personalized-table-wrapper {
   margin: 1.5rem 0;
@@ -796,9 +781,7 @@
   background: rgba(108, 108, 255, 0.05);
 }
 
-/* ============================================
    VISIBILITY STATE FOR BLOCK
-   ============================================ */
 
 .personalized-content-block:not(.visible) {
   opacity: 0;
@@ -810,7 +793,6 @@
   transform: translateY(0);
   transition: all 0.6s ease-out;
 }
-=======
 /* Personalization Content Styling */
 
 /* Fade-in animation */
@@ -1087,10 +1069,8 @@
   animation: pulse 1.5s ease-in-out 3;
 }
 
-/* ============================================
    HIGHLIGHTER EFFECT STYLES
    Like a physical highlighter marker effect
-   ============================================ */
 
 /* Main wrapper for personalized/highlighted content */
 .personalized-highlight-wrapper {
@@ -1214,10 +1194,8 @@
   box-decoration-break: clone;
 }
 
-/* ============================================
    PERSONALIZED CONTENT BLOCK STYLES
    Highlighting entire content sections
-   ============================================ */
 
 /* Personalized content wrapper - main container */
 .personalized-content-block {
@@ -1407,9 +1385,7 @@
   font-weight: 700;
 }
 
-/* ============================================
    DARK MODE SUPPORT
-   ============================================ */
 
 [data-theme='dark'] .highlight-yellow {
   background: linear-gradient(
@@ -1480,9 +1456,7 @@
   color: #fcd34d;
 }
 
-/* ============================================
    ANIMATION ON SCROLL REVEAL
-   ============================================ */
 
 .personalized-reveal {
   opacity: 0;
@@ -1518,9 +1492,7 @@
   }
 }
 
-/* ============================================
    FOOTER HINT STYLES
-   ============================================ */
 
 .personalized-footer-hint {
   display: flex;
@@ -1550,9 +1522,7 @@
   border-color: rgba(108, 108, 255, 0.3);
 }
 
-/* ============================================
    CODE WRAPPER STYLES
-   ============================================ */
 
 .personalized-code-wrapper {
   position: relative;
@@ -1581,9 +1551,7 @@
   border-top-right-radius: 0 !important;
 }
 
-/* ============================================
    TABLE WRAPPER STYLES
-   ============================================ */
 
 .personalized-table-wrapper {
   margin: 1.5rem 0;
@@ -1608,9 +1576,7 @@
   background: rgba(108, 108, 255, 0.05);
 }
 
-/* ============================================
    VISIBILITY STATE FOR BLOCK
-   ============================================ */
 
 .personalized-content-block:not(.visible) {
   opacity: 0;
@@ -1622,4 +1588,4 @@
   transform: translateY(0);
   transition: all 0.6s ease-out;
 }
->>>>>>> 012-docusaurus-i18n-urdu
+   
