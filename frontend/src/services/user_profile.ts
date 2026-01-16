@@ -3,7 +3,8 @@
 import axios from 'axios';
 import { getToken } from '../utils/session';
 
-const API_BASE_URL = 'http://localhost:9000/user'; // Replace with your actual backend URL
+import { API_URLS } from '../config/api.config';
+const API_BASE_URL = API_URLS.USER_URL;
 
 interface UserProfile {
   id: number;
@@ -55,7 +56,8 @@ export const fetchPersonalizationData = async (): Promise<PersonalizationData> =
 import axios from 'axios';
 import { getToken } from '../utils/session';
 
-const API_BASE_URL = 'http://localhost:9000/user'; // Replace with your actual backend URL
+import { API_URLS } from '../config/api.config';
+const API_BASE_URL = API_URLS.USER_URL;
 
 interface UserProfile {
   id: number;

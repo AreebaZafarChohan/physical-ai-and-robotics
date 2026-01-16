@@ -23,11 +23,11 @@ const getEnvironment = (): 'development' | 'production' => {
 };
 
 // Development API URL (local backend)
-const DEV_API_URL = 'http://localhost:9000';
+const DEV_API_URL = 'https://areeba715-hackathon-1.hf.space';
 
 // Production API URL - Your deployed backend URL
 // TODO: Update this when you deploy your backend to a cloud service
-const PROD_API_URL = 'https://areeba715-hackathon_1.hf.space';
+const PROD_API_URL = 'https://areeba715-hackathon-1.hf.space';
 
 /**
  * Get the base API URL based on the current environment
