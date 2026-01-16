@@ -1,4 +1,5 @@
-const CHAT_API_BASE_URL = 'http://localhost:9000'; // FastAPI backend URL
+import { getApiBaseUrl } from '../config/api.config';
+const CHAT_API_BASE_URL = getApiBaseUrl();
 
 export const sendMessage = async (user_query: string, selected_text?: string, userId: string | null = null, accessToken: string | null = null) => {
   const headers: HeadersInit = {

@@ -27,7 +27,7 @@ const DEV_API_URL = 'http://localhost:9000';
 
 // Production API URL - Your deployed backend URL
 // TODO: Update this when you deploy your backend to a cloud service
-const PROD_API_URL = 'http://localhost:9000'; // Change to your deployed backend URL
+const PROD_API_URL = 'https://areeba715-hackathon_1.hf.space';
 
 /**
  * Get the base API URL based on the current environment
