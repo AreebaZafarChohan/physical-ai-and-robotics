@@ -1,9 +1,27 @@
 {
-  "link.title.Docs": "الوثائق",
-  "link.title.Community": "المجتمع",
-  "link.title.More": "المزيد",
-  "link.item.label.Textbook": "الكتاب الدراسي",
-  "link.item.label.About": "حول",
-  "link.item.label.GitHub": "جيت هاب",
-  "copyright": "حقوق النشر © 2025 Areeba Zafar Chohan. تم البناء باستخدام Docusaurus."
+  "footer": {
+    "link": {
+      "title": {
+        "Docs": "الوثائق",
+        "Community": "المجتمع",
+        "More": "المزيد"
+      },
+      "item": {
+        "label": {
+          "Docs": {
+            "Textbook": "الكتاب الدراسي"
+          },
+          "Community": {
+            "Stack Overflow": "Stack Overflow",
+            "Discord": "Discord"
+          },
+          "More": {
+            "About": "حول",
+            "GitHub": "GitHub"
+          }
+        }
+      }
+    },
+    "copyright": "حقوق النشر © 2025 Areeba Zafar Chohan. تم البناء باستخدام Docusaurus."
+  }
 }

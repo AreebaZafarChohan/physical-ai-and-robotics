@@ -1,6 +1,12 @@
 {
-  "title": "RoboX",
-  "item.label.Book": "کتاب",
-  "item.label.About": "تعارف",
-  "item.label.GitHub": "GitHub"
+  "navbar": {
+    "title": "RoboX",
+    "item": {
+      "label": {
+        "Book": "کتاب",
+        "About": "تعارف",
+        "GitHub": "GitHub"
+      }
+    }
+  }
 }

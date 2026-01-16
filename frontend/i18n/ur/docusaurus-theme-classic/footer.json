@@ -1,9 +1,27 @@
 {
-  "link.title.Docs": "دستاویزات",
-  "link.title.Community": "کمیونٹی",
-  "link.title.More": "مزید",
-  "link.item.label.Textbook": "نصابی کتاب",
-  "link.item.label.About": "تعارف",
-  "link.item.label.GitHub": "GitHub",
-  "copyright": "کاپی رائٹ © 2025 Areeba Zafar Chohan۔ Docusaurus کے ساتھ بنایا گیا۔"
+  "footer": {
+    "link": {
+      "title": {
+        "Docs": "دستاویزات",
+        "Community": "کمیونٹی",
+        "More": "مزید"
+      },
+      "item": {
+        "label": {
+          "Docs": {
+            "Textbook": "نصابی کتاب"
+          },
+          "Community": {
+            "Stack Overflow": "Stack Overflow",
+            "Discord": "Discord"
+          },
+          "More": {
+            "About": "تعارف",
+            "GitHub": "GitHub"
+          }
+        }
+      }
+    },
+    "copyright": "کاپی رائٹ © 2025 Areeba Zafar Chohan۔ Docusaurus کے ساتھ بنایا گیا۔"
+  }
 }
