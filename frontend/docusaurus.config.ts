@@ -32,7 +32,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', "ur", "ar"], // Disabled ur/ar i18n to fix Vercel build. Re-enable after proper i18n structure
+    locales: ['en'], // ur/ar i18n schema invalid - disable for Vercel build success
     localeConfigs: {
       en: {
         label: 'English',
