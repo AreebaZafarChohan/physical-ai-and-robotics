@@ -17,6 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ /app/backend/
 
+# Copy frontend docs for personalization endpoint
+COPY frontend/docs/ /app/frontend/docs/
+
 # HF ko 7860 chahiye
 EXPOSE 7860
 
