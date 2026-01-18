@@ -57,53 +57,53 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
   };
 
   return (
-    <div className="auth-form-container">
-      <div>
-        <h2 className="auth-title">
+    <div className="w-full max-w-md p-8 space-y-8 rounded-2xl bg-gradient-to-br from-[#0B1020] to-[#151A3D] border border-[rgba(255,255,255,0.1)] backdrop-blur-sm shadow-2xl">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-2">
           Create Your Account
         </h2>
-        <p className="auth-subtitle">
+        <p className="text-gray-400">
           Join our community today
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="input-group">
-          <label htmlFor="username" className="input-label">
+      <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <div>
+          <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
             Username
           </label>
           <input
             type="text"
             id="username"
-            className="input"
+            className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
             required
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="email" className="input-label">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
             Email Address
           </label>
           <input
             type="email"
             id="email"
-            className="input"
+            className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
             required
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="password" className="input-label">
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
             Password
           </label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className="input"
+              className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all pr-12"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
@@ -118,18 +118,18 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
             </button>
           </div>
           {passwordError && (
-            <p className="input-error">{passwordError}</p>
+            <p className="mt-2 text-sm text-red-400">{passwordError}</p>
           )}
         </div>
-        <div className="input-group">
-          <label htmlFor="confirmPassword" className="input-label">
+        <div>
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
             Confirm Password
           </label>
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
-              className="input"
+              className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all pr-12"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
@@ -144,40 +144,40 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
             </button>
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="softwareBackground" className="input-label">
+        <div>
+          <label htmlFor="softwareBackground" className="block text-sm font-medium text-gray-300 mb-2">
             Software Background
           </label>
           <input
             type="text"
             id="softwareBackground"
-            className="input"
+            className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all"
             value={softwareBackground}
             onChange={(e) => setSoftwareBackground(e.target.value)}
             placeholder="Python, JavaScript, etc. (comma-separated)"
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="hardwareBackground" className="input-label">
+        <div>
+          <label htmlFor="hardwareBackground" className="block text-sm font-medium text-gray-300 mb-2">
             Hardware Background
           </label>
           <input
             type="text"
             id="hardwareBackground"
-            className="input"
+            className="w-full px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6C6CFF] focus:border-transparent transition-all"
             value={hardwareBackground}
             onChange={(e) => setHardwareBackground(e.target.value)}
             placeholder="Arduino, Raspberry Pi, etc. (comma-separated)"
           />
         </div>
         {error && (
-          <div className="input-error">
+          <div className="py-2 px-4 rounded-lg bg-red-900/30 border border-red-700/50 text-red-300">
             {error}
           </div>
         )}
         <button
           type="submit"
-          className="btn-primary"
+          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-[#6C6CFF] to-[#8585ff] hover:from-[#8585ff] hover:to-[#9d9dff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6C6CFF] transition-all duration-300"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -193,9 +193,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, isLoading, error }) =
           )}
         </button>
       </form>
-      <div className="auth-footer">
+      <div className="text-center text-sm text-gray-400">
         Already have an account?{' '}
-        <a href="/login" className="auth-link">
+        <a href="/login" className="text-[#6C6CFF] hover:text-[#8585ff] transition-colors font-medium">
           Sign in
         </a>
       </div>

@@ -756,25 +756,57 @@ body {
   background: var(--ai-accent);
 }
 
+/* Sidebar scrollbar styling */
+.menu {
+  overflow-y: auto;
+}
+
+.menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.2);
+  border-radius: 4px;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--ai-dark-bg), var(--ai-accent));
+  border-radius: 4px;
+}
+
+.menu::-webkit-scrollbar-thumb:hover {
+  background: var(--ai-accent);
+}
+
 /* Chatbot Styles moved to separate file */
 
-/* Fix for full-screen pages (auth pages, dashboard, etc.) */
+/* Fix for full-screen pages (dashboard, etc.) but NOT auth pages */
 /* Add padding-top to account for fixed navbar on all screen sizes */
-main.min-h-screen {
+main.min-h-screen:not(.auth-page) {
   padding-top: var(--ifm-navbar-height);
 }
 
-/* Ensure proper spacing on mobile/tablet */
+/* Ensure proper spacing on mobile/tablet for non-auth pages */
 @media (max-width: 996px) {
-  main.min-h-screen {
+  main.min-h-screen:not(.auth-page) {
     padding-top: calc(var(--ifm-navbar-height) + 1rem);
   }
 }
 
 @media (max-width: 768px) {
-  main.min-h-screen {
+  main.min-h-screen:not(.auth-page) {
     padding-top: calc(var(--ifm-navbar-height) + 0.5rem);
   }
+}
+
+/* Auth pages should have full-screen content without navbar padding */
+main.auth-page {
+  padding-top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Custom styles for auth forms */
