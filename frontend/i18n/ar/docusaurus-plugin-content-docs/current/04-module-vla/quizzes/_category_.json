@@ -1,0 +1,8 @@
+{
+  "label": "Quizzes",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Test your knowledge with quizzes on VLA concepts."
+  }
+}

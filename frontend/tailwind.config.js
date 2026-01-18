@@ -211,4 +211,8 @@ module.exports = {
       });
     }
   ],
+  // RTL support for Urdu language
+  prefix: '',
+  important: false,
+  separator: ':',
 }

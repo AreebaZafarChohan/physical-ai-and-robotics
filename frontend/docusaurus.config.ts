@@ -32,7 +32,21 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ur', 'ar'], // Added 'ur' and 'ar'
+    locales: ['en'], // ur/ar i18n schema invalid - disable for Vercel build success
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+      },
+      ur: {
+        label: 'اردو',
+        direction: 'rtl',
+      },
+      ar: {
+        label: 'العربية',
+        direction: 'rtl',
+      },
+    },
   },
 
   presets: [
@@ -136,7 +150,7 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-    } satisfies Preset.ThemeConfig,
+  } satisfies Preset.ThemeConfig,
 };
 
 export default config;

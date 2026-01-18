@@ -1,0 +1,149 @@
+# API Contracts: Docusaurus Urdu Translation Implementation
+
+## 1. Translation API
+
+### 1.1. Trigger Translation Endpoint
+- **Endpoint**: `POST /api/translate`
+- **Description**: Initiates the translation process for English to Urdu
+- **Request Body**:
+  ```json
+  {
+    "sourceFiles": ["string"], // Array of file paths to translate
+    "targetLanguage": "ur",
+    "sourceLanguage": "en",
+    "forceUpdate": "boolean" // Whether to overwrite existing translations
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "jobId": "string", // Unique identifier for the translation job
+    "status": "string", // 'initiated', 'queued', etc.
+    "filesProcessed": "number",
+    "message": "string"
+  }
+  ```
+- **Authentication**: Required (for API key management)
+
+### 1.2. Get Translation Status Endpoint
+- **Endpoint**: `GET /api/translate/{jobId}`
+- **Description**: Gets the status of a specific translation job
+- **Path Parameters**:
+  - `jobId`: Unique identifier for the translation job
+- **Response**:
+  ```json
+  {
+    "jobId": "string",
+    "status": "string", // 'pending', 'in_progress', 'completed', 'failed', 'review_required'
+    "progress": "number", // Percentage complete
+    "files": [
+      {
+        "sourcePath": "string",
+        "targetPath": "string",
+        "status": "string"
+      }
+    ],
+    "completionTime": "timestamp",
+    "message": "string"
+  }
+  ```
+
+### 1.3. Bulk Translation Status Endpoint
+- **Endpoint**: `GET /api/translate/status`
+- **Description**: Gets the status of all recent translation jobs
+- **Query Parameters**:
+  - `limit`: Number of jobs to return (default: 10)
+  - `status`: Filter by status (optional)
+- **Response**:
+  ```json
+  {
+    "jobs": [
+      {
+        "jobId": "string",
+        "status": "string",
+        "sourceLanguage": "string",
+        "targetLanguage": "string",
+        "timestamp": "timestamp",
+        "completionTime": "timestamp"
+      }
+    ]
+  }
+  ```
+
+## 2. Content Management API
+
+### 2.1. Get Available Translations
+- **Endpoint**: `GET /api/content/translations`
+- **Description**: Lists all available translations for content
+- **Query Parameters**:
+  - `filePath`: Specific file path to check translations for (optional)
+- **Response**:
+  ```json
+  {
+    "translations": [
+      {
+        "filePath": "string",
+        "availableLocales": ["string"], // e.g., ["en", "ur"]
+        "lastUpdated": "timestamp"
+      }
+    ]
+  }
+  ```
+
+### 2.2. Update Translation
+- **Endpoint**: `PUT /api/content/translation`
+- **Description**: Updates a specific translation file
+- **Request Body**:
+  ```json
+  {
+    "filePath": "string", // Path to Urdu translation file
+    "content": "string", // Updated MDX content
+    "reviewStatus": "string" // 'approved', 'needs_review'
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "status": "string", // 'success', 'error'
+    "message": "string",
+    "filePath": "string"
+  }
+  ```
+
+## 3. Language Switching API
+
+### 3.1. Get Available Locales
+- **Endpoint**: `GET /api/locales`
+- **Description**: Gets all supported locales for the site
+- **Response**:
+  ```json
+  {
+    "locales": [
+      {
+        "code": "string", // e.g., "en", "ur"
+        "name": "string", // e.g., "English", "اردو"
+        "dir": "string", // "ltr", "rtl"
+        "path": "string" // URL prefix like "/en/", "/ur/"
+      }
+    ]
+  }
+  ```
+
+### 3.2. Set User Language Preference
+- **Endpoint**: `POST /api/user/preference`
+- **Description**: Sets the user's language preference
+- **Request Body**:
+  ```json
+  {
+    "locale": "string", // e.g., "ur"
+    "persist": "boolean" // Whether to store in localStorage
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "status": "string", // 'success', 'error'
+    "message": "string",
+    "redirectUrl": "string" // URL to redirect to for new locale
+  }
+  ```

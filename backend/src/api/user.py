@@ -1,7 +1,8 @@
 from typing import Annotated, Optional, List
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from sqlmodel import Session, select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlmodel import select
 from pydantic import BaseModel
 
 from backend.src.database import get_session
@@ -24,11 +25,11 @@ class ProfileUpdateRequest(BaseModel):
 # Dependency to get current user
 async def get_current_user(
     token: Annotated[str, Depends(OAuth2PasswordBearer(tokenUrl="auth/login"))],
-    session: Annotated[Session, Depends(get_session)]
+    session: Annotated[AsyncSession, Depends(get_session)]
 ) -> User:
     credentials_exception = CredentialException()
     user_id = verify_access_token(token, credentials_exception)
-    user = session.get(User, int(user_id))
+    user = await session.get(User, int(user_id))
     if user is None:
         raise credentials_exception
     return user
@@ -45,7 +46,7 @@ async def read_users_me(
 async def update_user_profile(
     profile_data: ProfileUpdateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    session: Annotated[Session, Depends(get_session)]
+    session: Annotated[AsyncSession, Depends(get_session)]
 ):
     """
     Update user profile with software/hardware background and experience level.
@@ -54,7 +55,7 @@ async def update_user_profile(
     try:
         # Find existing profile or create new one
         statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-        existing_profile = session.exec(statement).first()
+        existing_profile = (await session.execute(statement)).first()
 
         if existing_profile:
             # Update existing profile
@@ -69,8 +70,8 @@ async def update_user_profile(
             existing_profile.updated_at = datetime.utcnow()
 
             session.add(existing_profile)
-            session.commit()
-            session.refresh(existing_profile)
+            await session.commit()
+            await session.refresh(existing_profile)
 
             return {
                 "message": "Profile updated successfully",
@@ -91,8 +92,8 @@ async def update_user_profile(
                 experience_level=profile_data.experience_level or "beginner"
             )
             session.add(new_profile)
-            session.commit()
-            session.refresh(new_profile)
+            await session.commit()
+            await session.refresh(new_profile)
 
             return {
                 "message": "Profile created successfully",
@@ -106,7 +107,7 @@ async def update_user_profile(
             }
 
     except Exception as e:
-        session.rollback()
+        await session.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to update profile: {str(e)}"
@@ -116,13 +117,13 @@ async def update_user_profile(
 @router.get("/profile/details")
 async def get_user_profile_details(
     current_user: Annotated[User, Depends(get_current_user)],
-    session: Annotated[Session, Depends(get_session)]
+    session: Annotated[AsyncSession, Depends(get_session)]
 ):
     """
     Get detailed user profile including software/hardware background.
     """
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    profile = session.exec(statement).first()
+    profile = (await session.execute(statement)).first()
 
     return {
         "user": {
@@ -148,4 +149,3 @@ async def read_personalization_data(
             detail="Personalization data not found for this user."
         )
     return current_user.personalization_data
-

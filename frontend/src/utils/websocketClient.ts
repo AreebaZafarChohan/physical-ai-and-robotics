@@ -123,7 +123,12 @@ class WebSocketClient {
 }
 
 // Create a singleton instance
-const wsClient = new WebSocketClient('ws://localhost:9000/ws');
+import { getApiBaseUrl } from '../config/api.config';
+const apiUrl = getApiBaseUrl();
+const wsProtocol = apiUrl.startsWith('https') ? 'wss://' : 'ws://';
+const wsHost = new URL(apiUrl).host;
+const wsUrl = `${wsProtocol}${wsHost}/ws`;
+const wsClient = new WebSocketClient(wsUrl);
 
 export default wsClient;
 // TEMPORARILY DISABLED – backend WS unstable

@@ -1,9 +1,12 @@
+import logging
+import os
 from typing import List, Optional
 from pathlib import Path
 import glob
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer
-from sqlmodel import Session, select
+from sqlmodel import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import get_session
 from backend.src.models.personalization_rules import PersonalizationRule, PersonalizationRuleCreate, PersonalizationRuleUpdate
@@ -12,6 +15,8 @@ from backend.src.services.user_service import get_current_user, get_current_user
 from backend.src.models.user import User
 from backend.src.models.user_profile import UserProfile
 from backend.src.services.content_service import ContentService
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/personalize", tags=["personalization"])
 
@@ -25,6 +30,9 @@ def find_chapter_file(docs_path: Path, chapter_path: str) -> Optional[Path]:
     - Various file extensions (.md, .mdx)
     """
     chapter_path_clean = chapter_path.strip("/")
+    logger = logging.getLogger(__name__)
+
+    logger.debug(f"find_chapter_file called with docs_path: {docs_path}, chapter_path: {chapter_path_clean}")
 
     # Parse path components
     parts = chapter_path_clean.split("/")
@@ -84,6 +92,7 @@ def find_chapter_file(docs_path: Path, chapter_path: str) -> Optional[Path]:
     else:
         # Simple path like "intro"
         file_part = chapter_path_clean
+        logger.debug(f"Simple path search for: {file_part}")
 
         # Search in root docs folder
         search_patterns = [
@@ -93,11 +102,16 @@ def find_chapter_file(docs_path: Path, chapter_path: str) -> Optional[Path]:
             f"{file_part}.mdx",
         ]
 
+        logger.debug(f"Root folder search patterns: {search_patterns}")
         for pattern in search_patterns:
             full_pattern = str(docs_path / pattern)
+            logger.debug(f"Trying pattern: {full_pattern}")
             matches = glob.glob(full_pattern)
             if matches:
+                logger.debug(f"Found match: {matches[0]}")
                 return Path(matches[0])
+            else:
+                logger.debug(f"No matches for pattern: {full_pattern}")
 
         # Also search in all module directories
         search_patterns = [
@@ -107,12 +121,18 @@ def find_chapter_file(docs_path: Path, chapter_path: str) -> Optional[Path]:
             f"[0-9][0-9]-*/{file_part}.mdx",
         ]
 
+        logger.debug(f"Module directory search patterns: {search_patterns}")
         for pattern in search_patterns:
             full_pattern = str(docs_path / pattern)
+            logger.debug(f"Trying pattern: {full_pattern}")
             matches = glob.glob(full_pattern)
             if matches:
+                logger.debug(f"Found match: {matches[0]}")
                 return Path(matches[0])
+            else:
+                logger.debug(f"No matches for pattern: {full_pattern}")
 
+    logger.debug(f"No file found for chapter_path: {chapter_path_clean}")
     return None
 
 
@@ -120,43 +140,95 @@ def find_chapter_file(docs_path: Path, chapter_path: str) -> Optional[Path]:
 async def get_personalized_content(
     chapter_path: str,
     current_user: Optional[User] = Depends(get_current_user_optional),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Get personalized chapter content based on user profile
     """
     try:
-        print(f"=== Personalization Request Start ===")
-        print(f"chapter_path received: {chapter_path}")
-        print(f"current_user: {current_user.id if current_user else 'None'}")
+        logger.info("=== Personalization Request Start ===")
+        logger.info(f"chapter_path received: {chapter_path}")
+        logger.info(f"current_user: {current_user.id if current_user else 'None'}")
 
         # ✅ Normalize chapter path safely
         chapter_path_clean = chapter_path.strip("/")
         chapter_key = chapter_path_clean.split("/")[-1] if "/" in chapter_path_clean else chapter_path_clean
 
         # ✅ Resolve docs path once
-        BASE_DIR = Path(__file__).resolve().parents[4]
-        DOCS_PATH = BASE_DIR / "frontend/docs"
-        print(f"DOCS_PATH: {DOCS_PATH}")
+        # Try multiple possible locations for docs
+        possible_docs_paths = []
+
+        # 1. Check environment variable first
+        env_docs_path = os.getenv("DOCS_PATH")
+        if env_docs_path:
+            possible_docs_paths.append(Path(env_docs_path))
+
+        # 2. Check relative path from backend code (local development)
+        # Going up 4 levels from personalization.py: backend/src/api/routes/personalization.py
+        # parents[4] = backend directory, then frontend/docs
+        try:
+            BASE_DIR = Path(__file__).resolve().parents[4]
+            possible_docs_paths.append(BASE_DIR / "frontend/docs")
+        except Exception as e:
+            logger.debug(f"Could not compute BASE_DIR path: {e}")
+
+        # 3. Check absolute paths for deployment environments
+        possible_docs_paths.append(Path("/app/frontend/docs"))  # Docker/HF Spaces
+        possible_docs_paths.append(Path("/opt/render/project/src/frontend/docs"))  # Render
+        possible_docs_paths.append(Path("/var/task/frontend/docs"))  # AWS Lambda
+
+        # 4. Check relative paths from current file location
+        possible_docs_paths.append(Path(__file__).resolve().parent.parent.parent.parent / "frontend/docs")  # Same as above but explicit
+        possible_docs_paths.append(Path(__file__).resolve().parent.parent.parent.parent.parent / "frontend/docs")  # One more level up
+
+        # 5. Check common relative paths
+        possible_docs_paths.append(Path("./frontend/docs"))  # Relative to current working directory
+        possible_docs_paths.append(Path("../frontend/docs"))  # One level up from backend
+        possible_docs_paths.append(Path("../../frontend/docs"))  # Two levels up
+
+        # Find the first valid docs path
+        DOCS_PATH = None
+        for path in possible_docs_paths:
+            if path.exists():
+                DOCS_PATH = path
+                logger.info(f"Found valid DOCS_PATH: {DOCS_PATH}")
+                break
+
+        if DOCS_PATH is None:
+            logger.error("No valid DOCS_PATH found. Tried:")
+            for path in possible_docs_paths:
+                logger.error(f"  - {path} (exists: {path.exists()})")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Documentation path not configured"
+            )
+
+        logger.info(f"DOCS_PATH: {DOCS_PATH}")
 
         # ✅ Use dynamic file finder
+        logger.info(f"Looking for chapter: '{chapter_path_clean}' in DOCS_PATH: {DOCS_PATH}")
+        logger.info(f"DOCS_PATH exists: {DOCS_PATH.exists()}")
+        logger.info(f"DOCS_PATH is directory: {DOCS_PATH.is_dir()}")
+        if DOCS_PATH.exists():
+            logger.info(f"Files in DOCS_PATH: {list(DOCS_PATH.glob('*'))[:10]}")
+
         found_file = find_chapter_file(DOCS_PATH, chapter_path_clean)
 
         if found_file is None:
-            print(f"❌ Content load failed - no matching file found for: {chapter_path_clean}")
+            logger.error(f"Content load failed - no matching file found for: {chapter_path_clean}")
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Chapter content not found for path: {chapter_path}"
             )
 
-        print(f"✅ Found file: {found_file}")
+        logger.info(f"Found file: {found_file}")
 
         # ✅ Load original content from found file
         try:
             original_content = found_file.read_text(encoding='utf-8')
-            print(f"✅ Content loaded, length: {len(original_content)}")
+            logger.info(f"Content loaded, length: {len(original_content)}")
         except Exception as e:
-            print(f"❌ Failed to read file {found_file}: {e}")
+            logger.error(f"Failed to read file {found_file}: {e}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Failed to read chapter content: {str(e)}"
@@ -165,7 +237,7 @@ async def get_personalized_content(
     except HTTPException:
         raise
     except Exception as e:
-        print(f"ERROR in get_personalized_content: {e}")
+        logger.error(f"ERROR in get_personalized_content: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(
@@ -184,9 +256,33 @@ async def get_personalized_content(
 
     # ✅ Fetch user profile
     statement = select(UserProfile).where(UserProfile.user_id == current_user.id)
-    user_profile = session.exec(statement).first()
+    result = await session.execute(statement)
+    user_profile = result.first()
+
+    # Debug logging for user_profile
+    if user_profile:
+        logger.info(f"User profile fetched successfully for user {current_user.id}")
+        logger.debug(f"User profile type: {type(user_profile)}")
+        logger.debug(f"User profile attributes: {dir(user_profile)}")
+        if hasattr(user_profile, 'user_id'):
+            logger.debug(f"User profile user_id: {user_profile.user_id}")
+        else:
+            logger.error(f"User profile missing user_id attribute for user {current_user.id}")
+    else:
+        logger.warning(f"No user profile found for user {current_user.id}")
 
     if not user_profile:
+        return {
+            "chapter_path": chapter_key,
+            "personalized_content": original_content,
+            "user_profile": None,
+            "personalization_applied": False
+        }
+
+    # Additional safety check for user_profile attributes
+    if not hasattr(user_profile, 'user_id'):
+        # This shouldn't happen, but handle it gracefully
+        logger.error(f"User profile missing user_id attribute for user {current_user.id}")
         return {
             "chapter_path": chapter_key,
             "personalized_content": original_content,
@@ -215,7 +311,7 @@ async def get_personalized_content(
         }
 
     except Exception as e:
-        print(f"Personalization error: {e}")
+        logger.error(f"Personalization error: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error personalizing content"
@@ -234,7 +330,7 @@ class PreviewPersonalizationRequest(BaseModel):
 async def preview_personalized_content(
     request_data: PreviewPersonalizationRequest,
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Preview personalized content with custom profile data (admin/moderator only)
@@ -288,7 +384,7 @@ async def preview_personalized_content(
 @router.get("/rules")
 async def get_personalization_rules(
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     List all active personalization rules (admin/moderator only)
@@ -301,7 +397,8 @@ async def get_personalization_rules(
         )
 
     statement = select(PersonalizationRule).where(PersonalizationRule.is_active == True)
-    rules = session.exec(statement).all()
+    result = await session.execute(statement)
+    rules = result.all()
 
     return {"rules": rules}
 
@@ -311,7 +408,7 @@ async def update_personalization_rule(
     rule_id: int,
     rule_update: PersonalizationRuleCreate,  # Using Create model since it has all necessary fields
     current_user: User = Depends(get_current_user),
-    session: Session = Depends(get_session)
+    session: AsyncSession = Depends(get_session)
 ):
     """
     Update an existing personalization rule (admin/moderator only)
@@ -324,7 +421,7 @@ async def update_personalization_rule(
         )
 
     # Fetch the existing rule
-    rule = session.get(PersonalizationRule, rule_id)
+    rule = await session.get(PersonalizationRule, rule_id)
     if not rule:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -340,10 +437,10 @@ async def update_personalization_rule(
     rule.is_active = rule_update.is_active
 
     session.add(rule)
-    session.commit()
-    session.refresh(rule)
+    await session.commit()
+    await session.refresh(rule)
 
-    # Log the change for audit purposes (placeholder)
-    print(f"Personalization rule {rule_id} updated by user {current_user.id}")
+    # Log the change for audit purposes
+    logger.info(f"Personalization rule {rule_id} updated by user {current_user.id}")
 
     return rule

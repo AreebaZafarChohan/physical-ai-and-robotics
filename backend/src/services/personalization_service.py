@@ -2,7 +2,8 @@ import asyncio
 import json
 import logging
 from typing import Dict, List, Optional
-from sqlmodel import Session, select
+from sqlmodel import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from backend.src.models.personalization_rules import PersonalizationRule
 from backend.src.models.user_profile import UserProfile
 from backend.src.models.personalization_cache import PersonalizationCache
@@ -19,7 +20,7 @@ class PersonalizationService:
     Service class for personalization-related operations
     """
     
-    def __init__(self, session: Session):
+    def __init__(self, session: AsyncSession):
         self.session = session
         self.cache_ttl = timedelta(hours=24)  # 24-hour cache TTL
     
@@ -32,7 +33,15 @@ class PersonalizationService:
         Get personalized content for a chapter based on user profile
         """
         start_time = datetime.utcnow()
-        logger.info(f"Starting personalization request for chapter: {chapter_path}, user_id: {user_profile.user_id}")
+
+        # Get user_id safely with error handling
+        try:
+            user_id = getattr(user_profile, 'user_id', 'unknown')
+        except Exception as e:
+            logger.error(f"Error getting user_id from profile: {str(e)}")
+            user_id = 'unknown'
+
+        logger.info(f"Starting personalization request for chapter: {chapter_path}, user_id: {user_id}")
 
         try:
             # Validate user profile for personalization
@@ -46,23 +55,48 @@ class PersonalizationService:
 
             if not is_valid:
                 # If profile is not valid for personalization, return original content
-                logger.warning(f"User profile not valid for personalization: {validation_message}, user_id: {user_profile.user_id}")
+                try:
+                    user_id = getattr(user_profile, 'user_id', 'unknown')
+                except Exception as e:
+                    logger.error(f"Error getting user_id from profile in validation: {str(e)}")
+                    user_id = 'unknown'
+
+                logger.warning(f"User profile not valid for personalization: {validation_message}, user_id: {user_id}")
                 original_content = await self.get_original_content(chapter_path)
                 logger.info(f"Returning original content for chapter {chapter_path} due to invalid profile")
                 return original_content
 
             # Create a hash of user profile for caching
             profile_hash = self._hash_user_profile(user_profile)
-            logger.debug(f"Profile hash generated for user_id: {user_profile.user_id}, hash: {profile_hash}")
+
+            try:
+                user_id = getattr(user_profile, 'user_id', 'unknown')
+            except Exception as e:
+                logger.error(f"Error getting user_id from profile for hashing: {str(e)}")
+                user_id = 'unknown'
+
+            logger.debug(f"Profile hash generated for user_id: {user_id}, hash: {profile_hash}")
 
             # Try to get content from cache first
             cached_content = await self._get_cached_personalized_content(profile_hash, chapter_path)
 
             if cached_content:
-                logger.info(f"Cache hit for chapter {chapter_path}, user_id: {user_profile.user_id}")
+                try:
+                    user_id = getattr(user_profile, 'user_id', 'unknown')
+                except Exception as e:
+                    logger.error(f"Error getting user_id from profile for cache hit: {str(e)}")
+                    user_id = 'unknown'
+
+                logger.info(f"Cache hit for chapter {chapter_path}, user_id: {user_id}")
                 return cached_content
             else:
-                logger.info(f"Cache miss for chapter {chapter_path}, user_id: {user_profile.user_id}")
+                try:
+                    user_id = getattr(user_profile, 'user_id', 'unknown')
+                except Exception as e:
+                    logger.error(f"Error getting user_id from profile for cache miss: {str(e)}")
+                    user_id = 'unknown'
+
+                logger.info(f"Cache miss for chapter {chapter_path}, user_id: {user_id}")
 
             # Fetch original content (this would come from the Docusaurus content system)
             original_content = await self.get_original_content(chapter_path)
@@ -77,9 +111,21 @@ class PersonalizationService:
 
             # If no personalization was applied (content is the same as original), return original
             if personalized_content == original_content:
-                logger.info(f"No personalization rules applied for chapter {chapter_path}, user_id: {user_profile.user_id}")
+                try:
+                    user_id = getattr(user_profile, 'user_id', 'unknown')
+                except Exception as e:
+                    logger.error(f"Error getting user_id from profile for no personalization: {str(e)}")
+                    user_id = 'unknown'
+
+                logger.info(f"No personalization rules applied for chapter {chapter_path}, user_id: {user_id}")
             else:
-                logger.info(f"Personalization applied for chapter {chapter_path}, user_id: {user_profile.user_id}")
+                try:
+                    user_id = getattr(user_profile, 'user_id', 'unknown')
+                except Exception as e:
+                    logger.error(f"Error getting user_id from profile for personalization applied: {str(e)}")
+                    user_id = 'unknown'
+
+                logger.info(f"Personalization applied for chapter {chapter_path}, user_id: {user_id}")
 
             # Cache the result
             await self._cache_personalized_content(
@@ -87,16 +133,37 @@ class PersonalizationService:
                 chapter_path,
                 personalized_content
             )
-            logger.debug(f"Content cached for chapter {chapter_path}, user_id: {user_profile.user_id}")
+
+            try:
+                user_id = getattr(user_profile, 'user_id', 'unknown')
+            except Exception as e:
+                logger.error(f"Error getting user_id from profile for caching: {str(e)}")
+                user_id = 'unknown'
+
+            logger.debug(f"Content cached for chapter {chapter_path}, user_id: {user_id}")
 
             processing_time = (datetime.utcnow() - start_time).total_seconds()
-            logger.info(f"Personalization completed for chapter {chapter_path}, processing_time: {processing_time}s, user_id: {user_profile.user_id}")
+
+            try:
+                user_id = getattr(user_profile, 'user_id', 'unknown')
+            except Exception as e:
+                logger.error(f"Error getting user_id from profile for completion: {str(e)}")
+                user_id = 'unknown'
+
+            logger.info(f"Personalization completed for chapter {chapter_path}, processing_time: {processing_time}s, user_id: {user_id}")
 
             return personalized_content
         except Exception as e:
             # Log the error with details
             processing_time = (datetime.utcnow() - start_time).total_seconds()
-            logger.error(f"Error in get_personalized_content for chapter {chapter_path}, user_id: {user_profile.user_id}, processing_time: {processing_time}s, error: {str(e)}")
+
+            try:
+                user_id = getattr(user_profile, 'user_id', 'unknown')
+            except Exception as e:
+                logger.error(f"Error getting user_id from profile for error logging: {str(e)}")
+                user_id = 'unknown'
+
+            logger.error(f"Error in get_personalized_content for chapter {chapter_path}, user_id: {user_id}, processing_time: {processing_time}s, error: {str(e)}")
 
             # For graceful degradation, return original content if personalization fails
             try:
@@ -164,8 +231,9 @@ class PersonalizationService:
             (PersonalizationRule.content_path == chapter_path) &
             (PersonalizationRule.is_active == True)
         )
-        
-        rules = self.session.exec(statement).all()
+
+        result = await self.session.execute(statement)
+        rules = result.all()
         
         # Filter rules that are applicable to the user's profile
         applicable_rules = []
@@ -278,8 +346,9 @@ class PersonalizationService:
             (PersonalizationCache.content_path == content_path) &
             (PersonalizationCache.cache_expires_at > datetime.utcnow())
         )
-        
-        cached_item = self.session.exec(statement).first()
+
+        result = await self.session.execute(statement)
+        cached_item = result.first()
         
         if cached_item:
             return cached_item.personalized_content
@@ -300,8 +369,9 @@ class PersonalizationService:
             (PersonalizationCache.user_profile_hash == profile_hash) &
             (PersonalizationCache.content_path == content_path)
         )
-        
-        existing_cache = self.session.exec(statement).first()
+
+        result = await self.session.execute(statement)
+        existing_cache = result.first()
         
         if existing_cache:
             # Update the existing cache entry
@@ -319,8 +389,8 @@ class PersonalizationService:
                 cache_expires_at=datetime.utcnow() + self.cache_ttl
             )
             self.session.add(cache_entry)
-        
-        self.session.commit()
+
+        await self.session.commit()
     
     def _hash_user_profile(self, user_profile: UserProfile) -> str:
         """

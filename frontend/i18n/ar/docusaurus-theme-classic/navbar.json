@@ -1,1 +1,12 @@
-{}
+{
+  "navbar": {
+    "title": "RoboX",
+    "item": {
+      "label": {
+        "Book": "كتاب",
+        "About": "حول",
+        "GitHub": "جيت هاب"
+      }
+    }
+  }
+}

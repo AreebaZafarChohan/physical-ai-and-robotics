@@ -1,20 +1,18 @@
 from typing import Optional
 from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlmodel import Session, select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 from backend.src.database import get_session
 from backend.src.models.user import User
-from backend.src.utils.auth import verify_access_token
 from backend.src.utils.security import verify_password, get_password_hash
+from backend.src.utils.auth import verify_access_token
 from backend.src.utils.errors import UserAlreadyExistsException
-from typing import Optional
-from fastapi import Depends
-from backend.src.models.user import User
 
 security = HTTPBearer(auto_error=False)
 
 async def get_current_user_optional(
-    session: Session = Depends(get_session),
+    session: AsyncSession = Depends(get_session),
     token: Optional[HTTPAuthorizationCredentials] = Depends(security)
 ) -> Optional[User]:
     """
@@ -42,14 +40,15 @@ async def get_current_user_optional(
             return None
 
         statement = select(User).where(User.id == user_id)
-        user = session.exec(statement).first()
+        result = await session.execute(statement)
+        user = result.scalar_one_or_none()
 
         return user
     except Exception:
         return None
 
 async def get_current_user(
-    session: Session = Depends(get_session),
+    session: AsyncSession = Depends(get_session),
     token: HTTPAuthorizationCredentials = Depends(HTTPBearer())
 ) -> User:
     """
@@ -73,7 +72,8 @@ async def get_current_user(
         raise credentials_exception
 
     statement = select(User).where(User.id == user_id)
-    user = session.exec(statement).first()
+    result = await session.execute(statement)
+    user = result.scalar_one_or_none()
 
     if user is None:
         raise credentials_exception
@@ -86,39 +86,41 @@ class UserService:
     Service class for user-related operations
     """
     
-    def __init__(self, session: Session):
+    def __init__(self, session: AsyncSession):
         self.session = session
     
-    def get_user_by_id(self, user_id: int) -> Optional[User]:
+    async def get_user_by_id(self, user_id: int) -> Optional[User]:
         """
         Get a user by their ID
         """
         statement = select(User).where(User.id == user_id)
-        return self.session.exec(statement).first()
+        result = await self.session.execute(statement)
+        return result.scalar_one_or_none()
 
-    def get_user_by_email(self, email: str) -> Optional[User]:
+    async def get_user_by_email(self, email: str) -> Optional[User]:
         """
         Get a user by their email address
         """
         statement = select(User).where(User.email == email)
-        return self.session.exec(statement).first()
+        result = await self.session.execute(statement)
+        return result.scalar_one_or_none()
 
-    def authenticate_user(self, email: str, password: str) -> Optional[User]:
+    async def authenticate_user(self, email: str, password: str) -> Optional[User]:
         """
         Authenticate a user by email and password
         """
-        user = self.get_user_by_email(email)
+        user = await self.get_user_by_email(email)
         if not user or not user.password_hash:
             return None
         if not verify_password(password, user.password_hash):
             return None
         return user
 
-    def create_user_with_password(self, username: str, email: str, password: str, software_background: Optional[list[str]] = None, hardware_background: Optional[list[str]] = None) -> User:
+    async def create_user_with_password(self, username: str, email: str, password: str, software_background: Optional[list[str]] = None, hardware_background: Optional[list[str]] = None) -> User:
         """
         Create a new user with a password
         """
-        if self.get_user_by_email(email):
+        if await self.get_user_by_email(email):
             raise UserAlreadyExistsException()
         
         hashed_password = get_password_hash(password)
@@ -128,15 +130,15 @@ class UserService:
             password_hash=hashed_password,
         )
         self.session.add(user)
-        self.session.commit()
-        self.session.refresh(user)
+        await self.session.commit()
+        await self.session.refresh(user)
         return user
 
-    def create_user_with_oauth(self, username: str, email: str, oauth_provider_ids: dict, software_background: Optional[list[str]] = None, hardware_background: Optional[list[str]] = None) -> User:
+    async def create_user_with_oauth(self, username: str, email: str, oauth_provider_ids: dict, software_background: Optional[list[str]] = None, hardware_background: Optional[list[str]] = None) -> User:
         """
         Create a new user with OAuth
         """
-        if self.get_user_by_email(email):
+        if await self.get_user_by_email(email):
             raise UserAlreadyExistsException()
 
         user = User(
@@ -145,8 +147,8 @@ class UserService:
             oauth_provider_ids=oauth_provider_ids,
         )
         self.session.add(user)
-        self.session.commit()
-        self.session.refresh(user)
+        await self.session.commit()
+        await self.session.refresh(user)
         return user
 
     async def get_user_profile(self, user_id: int) -> Optional[dict]:
@@ -163,7 +165,8 @@ class UserService:
         from backend.src.models.user_profile import UserProfile
 
         statement = select(UserProfile).where(UserProfile.user_id == user_id)
-        user_profile = self.session.exec(statement).first()
+        result = await self.session.execute(statement)
+        user_profile = result.scalar_one_or_none()
 
         if user_profile:
             profile_data = {
@@ -205,14 +208,15 @@ class UserService:
 
         return True, "Profile is valid for personalization"
     
-    def update_user_profile(self, user_id: int, profile_data: dict) -> Optional[dict]:
+    async def update_user_profile(self, user_id: int, profile_data: dict) -> Optional[dict]:
         """
         Update user profile information
         """
         from backend.src.models.user_profile import UserProfile
-        
+
         statement = select(UserProfile).where(UserProfile.user_id == user_id)
-        user_profile = self.session.exec(statement).first()
+        result = await self.session.execute(statement)
+        user_profile = result.scalar_one_or_none()
         
         if not user_profile:
             # Create new profile if it doesn't exist
@@ -230,7 +234,7 @@ class UserService:
             user_profile.experience_level = profile_data.get("experience_level", user_profile.experience_level)
             self.session.add(user_profile)
         
-        self.session.commit()
+        await self.session.commit()
         
         return {
             "software_background": user_profile.software_background,

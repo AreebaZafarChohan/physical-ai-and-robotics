@@ -1,0 +1,27 @@
+{
+  "footer": {
+    "link": {
+      "title": {
+        "Docs": "الوثائق",
+        "Community": "المجتمع",
+        "More": "المزيد"
+      },
+      "item": {
+        "label": {
+          "Docs": {
+            "Textbook": "الكتاب الدراسي"
+          },
+          "Community": {
+            "Stack Overflow": "Stack Overflow",
+            "Discord": "Discord"
+          },
+          "More": {
+            "About": "حول",
+            "GitHub": "GitHub"
+          }
+        }
+      }
+    },
+    "copyright": "حقوق النشر © 2025 Areeba Zafar Chohan. تم البناء باستخدام Docusaurus."
+  }
+}

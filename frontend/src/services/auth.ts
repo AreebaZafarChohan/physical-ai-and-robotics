@@ -30,11 +30,19 @@ interface AuthResponse {
 
 export const registerUser = async (data: RegistrationData): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<AuthResponse>(`${getAuthUrl()}/signup`, {
-      ...data,
-      software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
-      hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
-    });
+    const response = await axios.post<AuthResponse>(
+      `${getAuthUrl()}/signup`,
+      {
+        ...data,
+        software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
+        hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
     localStorage.setItem('access_token', response.data.access_token);
     return response.data;
   } catch (error: any) {
@@ -54,11 +62,19 @@ interface OAuthRegistrationData {
 
 export const registerOAuthUser = async (data: OAuthRegistrationData): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<AuthResponse>(`${getAuthUrl()}/signup/oauth`, {
-      ...data,
-      software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
-      hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
-    });
+    const response = await axios.post<AuthResponse>(
+      `${getAuthUrl()}/signup/oauth`,
+      {
+        ...data,
+        software_background: data.software_background?.split(',').map(s => s.trim()).filter(Boolean),
+        hardware_background: data.hardware_background?.split(',').map(s => s.trim()).filter(Boolean),
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
     localStorage.setItem('access_token', response.data.access_token);
     return response.data;
   } catch (error: any) {
@@ -79,6 +95,11 @@ export const loginUser = async (credentials: LoginData): Promise<AuthResponse> =
     const response = await axios.post<AuthResponse>(
       `${getAuthUrl()}/login`,
       credentials,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
     );
     localStorage.setItem('access_token', response.data.access_token);
     return response.data;

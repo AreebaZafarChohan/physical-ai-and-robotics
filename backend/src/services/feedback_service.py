@@ -1,5 +1,6 @@
 from typing import Optional
-from sqlmodel import SQLModel, Field, Session, select
+from sqlmodel import SQLModel, Field, select
+from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
 from backend.src.models.user import User
 
@@ -23,10 +24,10 @@ class FeedbackService:
     Service for handling personalization feedback
     """
     
-    def __init__(self, session: Session):
+    def __init__(self, session: AsyncSession):
         self.session = session
     
-    def submit_feedback(
+    async def submit_feedback(
         self, 
         user_id: int, 
         chapter_path: str, 
@@ -44,25 +45,26 @@ class FeedbackService:
         )
         
         self.session.add(feedback)
-        self.session.commit()
-        self.session.refresh(feedback)
+        await self.session.commit()
+        await self.session.refresh(feedback)
         
         return feedback
     
-    def get_feedback_for_chapter(self, chapter_path: str) -> list[PersonalizationFeedback]:
+    async def get_feedback_for_chapter(self, chapter_path: str) -> list[PersonalizationFeedback]:
         """
         Get all feedback for a specific chapter
         """
         statement = select(PersonalizationFeedback).where(
             PersonalizationFeedback.chapter_path == chapter_path
         )
-        return self.session.exec(statement).all()
+        result = await self.session.exec(statement)
+        return result.all()
     
-    def get_average_feedback_score(self, chapter_path: str) -> Optional[float]:
+    async def get_average_feedback_score(self, chapter_path: str) -> Optional[float]:
         """
         Get the average feedback score for a chapter
         """
-        feedback_list = self.get_feedback_for_chapter(chapter_path)
+        feedback_list = await self.get_feedback_for_chapter(chapter_path)
         if not feedback_list:
             return None
         

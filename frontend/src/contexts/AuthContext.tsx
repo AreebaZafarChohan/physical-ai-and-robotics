@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { API_URLS } from '../config/api.config';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -34,7 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:9000/login', {
+      const response = await fetch(`${API_URLS.BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signup = async (username: string, email: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:9000/signup', {
+      const response = await fetch(`${API_URLS.BASE_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,1 +1,8 @@
-{}
+{
+  "version.label": "اگلا",
+  "sidebar.tutorialSidebar.category.Module 1: ROS 2": "ماڈیول 1: ROS 2",
+  "sidebar.tutorialSidebar.category.Module 2: Digital Twin": "ماڈیول 2: ڈیجیٹل ٹوئن",
+  "sidebar.tutorialSidebar.category.Module 3: NVIDIA Isaac": "ماڈیول 3: NVIDIA Isaac",
+  "sidebar.tutorialSidebar.category.Module 4: VLA": "ماڈیول 4: VLA",
+  "sidebar.tutorialSidebar.category.Module 5: Capstone Project": "ماڈیول 5: کیپ اسٹون پروجیکٹ"
+}
