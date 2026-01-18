@@ -55,6 +55,7 @@ ALLOWED_ORIGINS = [
     "http://127.0.0.1:3001",
     "https://physical-ai-and-robotics-five.vercel.app",
     "https://physical-ai-and-robotics-305ugn2y7-areeba-zafars-projects.vercel.app",  # Old URL (keep for compatibility)
+    "https://areeba715-hackathon-1.hf.space",
 ]
 
 app.add_middleware(
